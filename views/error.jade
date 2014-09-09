@@ -1,0 +1,14 @@
+extends ./layouts/errors.jade
+
+block title
+    title= message
+
+block content
+    h1
+        if error.status
+            strong!= error.status
+            |&nbsp-&nbsp;
+
+        != message
+    
+    pre!= error.stack

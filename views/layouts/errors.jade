@@ -1,0 +1,17 @@
+doctype html
+
+html(lang='es')
+
+head
+    block title
+        title Something went wrong...
+
+    block styles
+        link(rel='stylesheet', href='/assets/styles/bootstrap.min.css')
+        link(rel='stylesheet', href='/assets/styles/font-awesome.min.css')
+        link(rel='stylesheet', href='/assets/styles/main.css')
+        link(rel='icon', href='/favicon.png')
+
+body.container-fluid
+    block content
+        div An error has ocurred

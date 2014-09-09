@@ -1,0 +1,47 @@
+doctype html
+
+html(ng-app="yourApp", lang="es")
+
+head
+    base(href="/")
+    
+    block title
+        title= title
+        
+        
+    meta(charset="utf-8")
+    meta(name="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+
+    block meta
+        //- All additional meta tags goes here
+        
+        
+    link(rel="stylesheet", href="/assets/styles/bootstrap.min.css")
+    link(rel="stylesheet", href="/assets/styles/font-awesome.min.css")
+    
+    block styles
+        //- All additional styles goes here
+        
+
+body
+    block content
+        //- The content goes here
+
+
+    //- Include the SocketIO client library
+    script(src="/socket.io/socket.io.js")
+
+    //- Include jQuery and Bootstrap
+    script(src="/libs/jquery.min.js")
+    script(src="/libs/bootstrap.min.js")
+
+    //- Include the Angular library and dependencies
+    script(src="/libs/angular/angular.min.js")
+    script(src="/libs/angular/angular-route.min.js")
+    
+    //- Angular application main script
+    script(src="/main.js")
+    
+    block scripts
+        //- All addtitional scripts goes here

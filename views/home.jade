@@ -1,0 +1,24 @@
+extends ./layouts/public.jade
+
+block title
+    title= title
+    
+block styles
+    link(rel="stylesheet", href="/assets/styles/main.css")
+    
+block content
+    main
+        include ./elements/navbar.jade
+
+        div.container-fluid(ng-view)
+
+        include ./elements/footer.jade
+    
+block scripts
+    //- Include the application"s scripts
+    script(src="/controllers/sockets.js")
+    script(src="/controllers/home.js")
+    script(src="/controllers/users/signup.js")
+
+    //- Include asset scripts
+    script(src="/assets/scripts/scripts.js")

@@ -1,0 +1,8 @@
+# NodeJS dependency directory
+node_modules
+
+# Bower components directory
+bower_components
+
+# Adobe Brackets configuration
+.brackets.json
