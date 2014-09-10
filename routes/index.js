@@ -9,8 +9,8 @@ var router = express.Router();
  */
 router.get('/', function (req, res) {
 
-    res.render('home', {
-        title: "fi-mean-skel"
+    res.render('index', {
+        title: "fi-mean"
     });
 
 });
@@ -22,8 +22,8 @@ router.get('/', function (req, res) {
  */
 router.get(/^\/(?:(?!api|templates)[^\/])+\/?.*/gi, function (req, res) {
 
-    res.render('home', {
-        title: "fi-mean-skel"
+    res.render('index', {
+        title: "fi-mean"
     });
 
 });
