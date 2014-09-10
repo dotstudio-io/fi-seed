@@ -1,4 +1,4 @@
-/*jslint node: true */
+/*jslint node: true, nomen: true */
 'use strict';
 
 
@@ -16,8 +16,7 @@ var security = require('lusca');
 var io = require('socket.io')(http);
 var sockets = require('./sockets')(io);
 var session = require('express-session');
-var debug = require('debug')('fi-mean-skel');
-
+var debug = require('debug')(require('./package.json').name);
 
 /** Configuration scripts */
 var config = {
@@ -56,14 +55,14 @@ if (app.get('env') === 'production') {
 app.use(session(config.session));
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(security(config.security));
 
 app.use(logger('dev'));
 app.use(compression());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express['static'](path.join(__dirname, 'public')));
 
 
 /** Compile routes */
@@ -84,10 +83,15 @@ app.use(function catchNotFound(req, res, next) {
 /* Error handler */
 app.use(function errorHandler(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: (app.get('env') === 'development' ? err : {})
-    });
+
+    if (req.xhr) { /* Check if the request was made via AJAX */
+        res.send(err.message);
+    } else {
+        res.render('error', {
+            message: err.message,
+            error: (app.get('env') === 'development' ? err : {})
+        });
+    }
 });
 
 

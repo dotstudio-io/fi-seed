@@ -11,10 +11,10 @@ module.exports = function (session) {
             port: 6379,
             db: 1
         }),
-        name: 'asdf', // Your cookie name
-        secret: 'abcdefghijklmnopqrstuvwxyz0123456789', // MUST be changed!
+        name: 'cookie.monster',
+        secret: 'abcdefghijklmnopqrstuvwxyz0123456789', /* MUST be changed! */
         cookie: {
-            secure: false // This should be true in production mode but requires HTTPS
+            secure: false /* This should be true in production mode but requires HTTPS */
         },
         saveUninitialized: true,
         resave: true

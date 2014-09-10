@@ -1,27 +1,39 @@
 {
-  "name": "fi-mean",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node app",
-    "debug": "DEBUG=fi-mean node app"
-  },
-  "dependencies": {
-    "bcrypt": "^0.8.0",
-    "body-parser": "^1.6.7",
-    "compression": "^1.1.0",
-    "connect-redis": "^2.1.0",
-    "cookie-parser": "~1.3.2",
-    "debug": "^1.0.4",
-    "express": "~4.8.6",
-    "express-session": "^1.7.6",
-    "jade": "^1.6.0",
-    "less-middleware": "1.0.x",
-    "lusca": "^1.0.1",
-    "mongoose": "~3.8.15",
-    "morgan": "^1.2.3",
-    "serve-favicon": "^2.1.3",
-    "socket.io": "^1.1.0",
-    "validator": "^3.18.0"
-  }
+    "name": "fi-mean",
+    "title": "Final Development Studio's MEAN Boilerplate",
+    "description": "A boilerplate for MEAN applications",
+    "version": "1.0.0",
+    "private": true,
+    "license" : "MIT",
+    "author" : "Final Development Studio <sorcery@finaldevstudio.com> (http://finaldevstudio.com)",
+    "contributors": [
+        "Santiago G. Marín <santiago@finaldevstudio.com>",
+        "José Tomás Guzmán <jtguzman@finaldevstudio.com>"
+    ],
+    "scripts": {
+        "start": "node app",
+        "debug": "DEBUG=fi-mean node app"
+    },
+    "repository" : {
+        "type" : "git",
+        "url" : "https://github.com/FinalDevStudio/fi-mean.git"
+    },
+    "dependencies": {
+        "bcrypt": "^0.8.0",
+        "body-parser": "^1.6.7",
+        "compression": "^1.1.0",
+        "connect-redis": "^2.1.0",
+        "cookie-parser": "~1.3.2",
+        "debug": "^1.0.4",
+        "express": "~4.8.6",
+        "express-session": "^1.7.6",
+        "jade": "^1.6.0",
+        "less-middleware": "1.0.x",
+        "lusca": "^1.0.1",
+        "mongoose": "~3.8.15",
+        "morgan": "^1.2.3",
+        "serve-favicon": "^2.1.3",
+        "socket.io": "^1.1.0",
+        "validator": "^3.18.0"
+    }
 }

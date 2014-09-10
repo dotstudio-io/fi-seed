@@ -1,4 +1,4 @@
-/*jslint node: true */
+/*jslint node: true, regexp: true */
 'use strict';
 
 var express = require('express');
@@ -20,7 +20,7 @@ router.get('/', function (req, res) {
  * 
  * You must configure the rest of the public routes in Angular.
  */
-router.get(/^\/(?:(?!api|templates)[^/])+\/?.*/gi, function (req, res) {
+router.get(/^\/(?:(?!api|templates)[^\/])+\/?.*/gi, function (req, res) {
 
     res.render('home', {
         title: "fi-mean-skel"
