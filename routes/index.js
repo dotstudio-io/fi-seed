@@ -15,7 +15,7 @@ router.get([
 ], function (req, res) {
 
     res.render('index', {
-        title: "Telemedicina"
+        title: "fi-mean"
     });
 
 });
