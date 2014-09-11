@@ -1,4 +1,5 @@
-/*global angular */
+/*jslint nomen: true */
+/*global angular, console */
 
 (function () {
     'use strict';
