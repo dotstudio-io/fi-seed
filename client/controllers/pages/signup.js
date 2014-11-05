@@ -8,7 +8,6 @@
 
         $scope.pageClass = 'pages-signup';
         $scope.submitting = false;
-        $scope.specialties = statics.specialties;
 
         $scope.submit = function () {
             $scope.submitting = true;
@@ -17,7 +16,6 @@
                 name: $scope.form.name,
                 email: $scope.form.email,
                 password: $scope.form.password,
-                specialty: $scope.form.specialist ? $scope.form.speciality : null
             }).success(function (user) {
                 $session.login(user);
                 $location.path('/welcome');

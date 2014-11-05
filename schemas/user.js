@@ -27,11 +27,6 @@ var User = new mongoose.Schema({
         required: true
     },
 
-    specialty: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Statics.specialties'
-    },
-
     updated: {
         type: Date,
         default: Date.now

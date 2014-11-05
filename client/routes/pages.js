@@ -5,11 +5,15 @@
 
         $routeProvider.when('/', {
             controller: 'Pages:Home',
-            templateUrl: '/templates/pages/home.html',
+            templateUrl: '/templates/pages/home.html'
 
         }).when('/help', {
             controller: 'Pages:Help',
             templateUrl: '/templates/pages/help.html'
+            
+        }).when('/login', {
+            controller: 'Pages:Login',
+            templateUrl: '/templates/pages/login.html'
 
         }).when('/recover', {
             controller: 'Pages:Recover',
@@ -17,12 +21,7 @@
 
         }).when('/signup', {
             controller: 'Pages:Signup',
-            templateUrl: '/templates/pages/signup.html',
-            resolve: {
-                statics: function ($statics) {
-                    return $statics.get('specialties');
-                }
-            }
+            templateUrl: '/templates/pages/signup.html'
 
         }).when('/profile', {
             controller: 'Pages:Profile',

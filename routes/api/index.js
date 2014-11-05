@@ -16,8 +16,7 @@ router.get('/session', function (req, res, next) {
         var data = {
             user: {
                 _id: req.session.user._id,
-                name: req.session.user.name,
-                specialist: req.session.user.specialist
+                name: req.session.user.name
             },
             
             workplace: {
@@ -58,8 +57,7 @@ router.post('/login', function (req, res, next) {
 
                     res.send({
                         _id: req.session.user._id,
-                        name: req.session.user.name,
-                        specialist: req.session.user.specialist
+                        name: req.session.user.name
                     });
                 } else {
                     setTimeout(res.status(401).end, 1000);

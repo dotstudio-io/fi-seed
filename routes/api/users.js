@@ -15,7 +15,6 @@ router.post('/', function (req, res, next) {
         name: req.param('name'),
         email: req.param('email'),
         password: req.param('password'),
-        specialist: req.param('specialist')
     });
 
     user.save(function (err, user) {

@@ -14,30 +14,20 @@ nav.navbar.navbar-default.navbar-fixed-top(
                 span.icon-bar
                 span.icon-bar
 
-            a.navbar-brand(ng-href='/worktable/ongoing')
+            a.navbar-brand(ng-href='/')
                 img(src='/images/navbar_logo.png')
 
         div.collapse.navbar-collapse#navbar-main
             ul.nav.navbar-nav.navbar-right
-                li(ng-show='(session.user && !session.user.specialist) && session.workplace')
-                    a(ng-href='/sics/create')
-                        i.fa.fa-sr.fa-plus
-                        |Crear caso
-
-                li(ng-show='session.user && session.workplace')
-                    a(ng-href='/worktable/ongoing')
-                        i.fa.fa-sr.fa-home
-                        |Mesa de trabajo
+                li(ng-show='!session.user')
+                    a(ng-href='/login')
+                        i.fa.fa-sr.fa-key
+                        |Log in
 
                 li(ng-show='session.user && session.workplace')
                     a(ng-href='/profile')
                         i.fa.fa-sr.fa-user
                         |{{ session.user.name }}
-
-                 li(ng-show='session.workplace')
-                    a(ng-href='/welcome')
-                        i.fa.fa-sr.fa-hospital-o
-                        |{{ session.workplace.name }}
 
                 li(ng-show='session.user')
                     button.btn.navbar-btn(ng-click='logout()')
