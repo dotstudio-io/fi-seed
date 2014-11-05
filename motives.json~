@@ -1,0 +1,25 @@
+[
+	{
+	    "_id" : ObjectId("5457936037b2b5d5e2e3e95e"),
+	    "name" : "Dudas en el diagnóstico",
+	    "value" : 1
+	},
+
+	{
+	    "_id" : ObjectId("5457936037b2b5d5e2e3e95f"),
+	    "name" : "Dudas en el resultado de los exámenes",
+	    "value" : 2
+	},
+
+	{
+	    "_id" : ObjectId("5457936037b2b5d5e2e3e960"),
+	    "name" : "Dudas en el resultado de los exámenes",
+	    "value" : 3
+	},
+
+	{
+	    "_id" : ObjectId("5457936037b2b5d5e2e3e961"),
+	    "name" : "El paciente no evoluciona según lo esperado",
+	    "value" : 4
+	}
+]

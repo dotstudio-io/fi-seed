@@ -1,0 +1,47 @@
+div.form-group
+    div.input-group
+        span.input-group-addon
+            i.fa.fa-fw.fa-pencil
+
+        textarea.form-control(
+            ng-model='createForm.body.diagnosis.hypothesis',
+            type='textarea',
+            placeholder="Hipótesis del diagnóstico",
+            rows='4')
+
+div.form-group
+    div.input-group
+        span.input-group-addon
+            i.fa.fa-fw(class='fa-{{ cie.loading && "circle-o-notch fa-spin" || "book" }}')
+
+        input(
+            type='text',
+            ng-model='form.diagnosis',
+            placeholder='Agregue diagnostico CIE10 por descripción o código',
+            typeahead='cie.value as cie.name for cie in cie.fetch($viewValue) | filter: { name: $viewValue }',
+            typeahead-loading='cie.loading',
+            typeahead-editable='false',
+            typeahead-min-length='3',
+            typeahead-template-url='typeahead-template',
+            typeahead-on-select='diagnoses.add($item, $model, $label)'
+            class='form-control')
+
+        script(type='text/ng-template', id='typeahead-template')
+            a.text-overflow {{ match.model.name }} &mdash; {{ match.model.value }}
+
+div.row(ng-repeat='diagnosis in diagnoses')
+    div.col-sm-9
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-stethoscope.fa-fw
+
+                div.form-control {{ diagnosis.name }} &mdash; {{ diagnosis.value }}
+
+    div.col-sm-3
+        button.btn.btn-default.btn-block(
+            type='button',
+            ng-click='diagnoses.remove($index)')
+
+            i.fa.fa-sr.fa-trash
+            |Eliminar

@@ -1,0 +1,46 @@
+div.row
+    div.col-sm-9
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-stethoscope.fa-fw
+
+                input.form-control(
+                    ng-model='createForm.exam.name',
+                    placeholder="Tipo de exámen")
+    
+    div.col-sm-3
+        button.btn.btn-default.btn-block(
+            type='button',
+            ng-click='exams.add()')
+
+            i.fa.fa-sr.fa-plus
+            |Adjuntar
+
+div.form-group
+    div.input-group
+        span.input-group-addon
+            i.fa.fa-user.fa-pencil
+
+        textarea.form-control(
+            ng-model='createForm.exam.result',
+            type='textarea',
+            placeholder="Resultados del exámen",
+            rows='4')
+
+div.row(ng-repeat='exam in exams')
+    div.col-sm-9
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-stethoscope.fa-fw
+
+                div.form-control {{ exam.name }}
+
+    div.col-sm-3
+        button.btn.btn-default.btn-block(
+            type='button',
+            ng-click="exams.remove($index)")
+
+            i.fa.fa-sr.fa-trash
+            |Eliminar

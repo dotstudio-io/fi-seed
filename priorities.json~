@@ -1,0 +1,15 @@
+[
+	{
+	    "_id" : ObjectId("545792b037b2b5d5e2e3e95b"),
+	    "name" : "Baja prioridad",
+	    "value" : 1
+	},{
+	    "_id" : ObjectId("545792b037b2b5d5e2e3e95c"),
+	    "name" : "Importante",
+	    "value" : 2
+	},{
+	    "_id" : ObjectId("545792b037b2b5d5e2e3e95d"),
+	    "name" : "Urgente",
+	    "value" : 3
+	}
+]

@@ -1,0 +1,28 @@
+div.panel-body(ng-hide='attachments.open')
+    //- Streaming
+    div.aspect.aspect-wide
+        video#remote-video(autoplay)
+
+    //- Messaging
+    div.aspect.aspect-wide-narrow.margin-lg-bottom
+        div.aspect-item(ng-iscroll='messages')
+            ul#messages.list-unstyled
+
+    div.row
+        div.col-lg-8
+            div.form-group
+                div.input-group
+                    span.input-group-addon
+                        i.fa.fa-fw.fa-comment
+
+                    input#message-input.form-control(
+                        type='text',
+                        placeholder='Escriba su mensaje...')
+
+        div.col-lg-2
+            button#message-send.btn.btn-default.btn-block
+                i.fa.fa-send
+
+        div.col-lg-2
+            button.btn.btn-default.btn-block(ng-click='attachments.open = true')
+                i.fa.fa-paperclip

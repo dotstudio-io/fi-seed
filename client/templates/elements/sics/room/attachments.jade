@@ -1,0 +1,57 @@
+div.panel-body(ng-show='attachments.open')
+    form(
+        name='attachments.form',
+        role='form',
+        novalidate)
+
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-fw.fa-pencil
+
+                textarea.form-control(
+                    placeholder="Escriba una respuesta para esta solicitud"
+                    rows=5,
+                    ng-model='attachments.form.body')
+
+        div.row
+            div.col-xs-12(ng-hide='attachments.files.length')
+                p.text-center
+                    i.fa.fa-sr.fa-info-circle
+                    |No has agregado archivos a este contenido
+
+            div.col-sm-4(ng-repeat='file in attachments.files', ng-show='attachments.files.length')
+                div.form-group
+                    div.input-group
+                        span.input-group-addon
+                            i.fa.fa-fw(class='fa-file-{{ file.mimeicon }}')
+
+                        input.form-control(
+                            value='{{ file.name }}',
+                            disabled)
+
+                        span.input-group-btn
+                            button.btn.btn-default(ng-click='attachments.discard($index)')
+                                i.fa.fa-fw.fa-times
+
+        hr
+
+        div.text-center
+            label.btn.btn-default(for='attachment-files')
+                i.fa.fa-sr.fa-upload
+                |Agregar archivos
+
+            input.hidden(
+                id='attachment-files',
+                type='file',
+                ng-file-select='attachments.onfile($files)',
+                multiple)
+
+div.panel-footer(ng-show='attachments.open')
+    button.btn.btn-default(ng-click='attachments.cancel()')
+        i.fa.fa-sr.fa-chevron-left
+        |Cancelar
+
+    button.btn.btn-default.pull-right(ng-click='attachments.submit()')
+        |Agregar
+        i.fa.fa-sl.fa-send

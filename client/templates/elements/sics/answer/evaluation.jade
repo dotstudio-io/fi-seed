@@ -1,0 +1,66 @@
+div.row
+    div.col-sm-12
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-user.fa-pencil
+
+                textarea.form-control(
+                    ng-model='form.evaluation',
+                    type='textarea',
+                    placeholder="Ingresa la evaluación clínica de la interconsulta",
+                    rows='3')
+
+div.row
+    div.col-sm-9
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-user.fa-file-o
+
+                textarea.form-control
+                    |Hipótesis del médico anterior.
+
+    div.col-sm-3
+        div.form-group
+            div.input-group
+                div.checkbox
+                    label
+                        input(type="checkbox", checked)
+                        |Confirmar hypótesis diagnóstica
+        
+div.row
+    div.col-sm-9
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-fw.fa-book
+
+                input.form-control(
+                    ng-model='diagnos',
+                    placeholder="Escriba el diagnóstico o código CIE-10")
+
+    div.col-sm-3
+        button.btn.btn-default.btn-block(
+            type='button',
+            ng-click='diagnoses.add()')
+
+            i.fa.fa-sr.fa-plus
+            |Adjuntar
+
+div.row(ng-repeat='diagnosis in diagnoses')
+    div.col-sm-9
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-stethoscope.fa-fw
+
+                input.form-control(ng-model='diagnosis')
+
+    div.col-sm-3
+        button.btn.btn-default.btn-block(
+            type='button',
+            ng-click='diagnoses.remove($index)')
+
+            i.fa.fa-sr.fa-trash
+            |Eliminar

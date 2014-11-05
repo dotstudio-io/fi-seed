@@ -1,0 +1,12 @@
+[
+	{
+	    "_id" : ObjectId("54578d9a37b2b5d5e2e3e952"),
+	    "name" : "Hombre",
+	    "value" : 2
+	},
+	{
+	    "_id" : ObjectId("54578d9a37b2b5d5e2e3e953"),
+	    "name" : "Mujer",
+	    "value" : 3
+	}
+]

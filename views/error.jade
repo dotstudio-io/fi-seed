@@ -1,14 +1,20 @@
-extends ./layouts/errors.jade
+- var err = {};
+- err.status = (error && error.status ? error.status : 500);
+- err.message = (error && error.message ? error.message : "Something bad happened...");
+- err.stack = (error && error.stack ? error.stack : "No aditional information is available.");
 
-block title
-    title= message
+doctype html
 
-block content
-    h1
-        if error.status
-            strong!= error.status
-            |&nbsp-&nbsp;
+html(lang='es')
 
-        != message
-    
-    pre!= error.stack
+    head
+        title #{err.message}
+
+        link(rel='stylesheet', href='/styles/styles.min.css')
+
+    body.container-fluid
+        h1
+            strong #{err.status}
+            |  - #{err.message}
+
+        pre #{err.stack}

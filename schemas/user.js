@@ -1,4 +1,4 @@
-/*jslint node: true */
+/*jshint node: true */
 'use strict';
 
 var mongoose = require('mongoose');
@@ -27,11 +27,21 @@ var User = new mongoose.Schema({
         required: true
     },
 
+    specialty: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Statics.specialties'
+    },
+
     updated: {
         type: Date,
-        'default': Date.now
+        default: Date.now
     }
 
+});
+
+/** User's sign up date */
+User.virtual('created').get(function () {
+    return this._id.getTimestamp();
 });
 
 /** Hash user password before saving */

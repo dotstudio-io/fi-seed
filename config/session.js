@@ -11,8 +11,8 @@ module.exports = function (session) {
             port: 6379,
             db: 1
         }),
-        name: 'cookie.monster',
-        secret: 'abcdefghijklmnopqrstuvwxyz0123456789', /* MUST be changed! */
+        name: 'fi-mean.cl',
+        secret: 'G4jaSLr_-Dj64SaZLPTTpvE0l0uW9fLwo*Is1il9ij_iyoWnP644fihN637~',
         cookie: {
             secure: false /* This should be true in production mode but requires HTTPS */
         },

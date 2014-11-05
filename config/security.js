@@ -2,8 +2,10 @@
 'use strict';
 
 module.exports = {
-    p3p: true,
-    csrf: true,
+    p3p: 'ABCDEF',
+    csrf: {
+        header: 'x-xsrf-token'
+    },
     xframe: 'SAMEORIGIN',
     xssProtection: true,
     csp: {

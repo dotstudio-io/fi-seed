@@ -1,0 +1,39 @@
+div.row
+    div.col-md-8.col-md-offset-2
+        div.page-header
+            h1
+                i.fa.fa-sr.fa-map-marker
+                |¿Desde donde estas trabajando?
+
+        div.panel.panel-default
+            div.panel-body
+                form(
+                    role='form',
+                    name='form',
+                    ng-submit='form.$valid && addWorkplace()')
+
+                    div.input-group
+                        span.input-group-addon
+                            i.fa.fa-fw.fa-hospital-o
+
+                        input.form-control(
+                            type='text',
+                            ng-model='form.name',
+                            ng-disable='adding || setting',
+                            placeholder='Agrega un nuevo lugar de trabajo',
+                            required)
+
+                        span.input-group-btn
+                            button.btn.btn-default(type='submit', ng-disable='adding || setting')
+                                i.fa.fa-fw(class='{{ adding && "fa-circle-o-notch fa-spin" || "fa-plus" }}')
+
+        div(ng-show='!workplaces.length')
+            alert(type='info') Aún no has agregado lugares de trabajo en tu perfíl. Por favor agrega uno o más para continuar.
+
+        div.row
+            div.col-md-3(ng-repeat='workplace in workplaces')
+                button.btn.btn-default.btn-block.btn-lg.text-overflow(ng-click='setWorkplace(workplace)', ng-disable='setting')
+                    i.fa.fa-fw.fa-5x.fa-hospital-o
+                    br
+                    br
+                    span {{ workplace.name }}

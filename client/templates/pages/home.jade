@@ -1,0 +1,57 @@
+div.row
+    div.col-md-6.col-md-offset-3.col-lg-4.col-lg-offset-4
+        div.page-header
+            h1
+                i.fa.fa-sr.fa-home
+                |Bienvenido
+
+        div.panel.panel-default
+
+            div.panel-heading
+                h3.panel-title
+                    i.fa.fa-sr.fa-user
+                    |Ingresar
+
+            form(
+                name='form',
+                role='form',
+                ng-submit='!submitting && form.$valid && login()',
+                novalidate)
+
+                div.panel-body
+                    div.form-group
+                        div.input-group
+                            span.input-group-addon
+                                i.fa.fa-at.fa-fw
+
+                            input.form-control(
+                                ng-model='form.email',
+                                type='email',
+                                placeholder="Ingrese su email",
+                                required)
+
+                    div.input-group
+                        span.input-group-addon
+                            i.fa.fa-asterisk.fa-fw
+
+                        input.form-control(
+                            ng-minlength='4',
+                            ng-model='form.password',
+                            type='password',
+                            placeholder="Ingrese su clave",
+                            required)
+
+                div.panel-footer.text-right
+                    a.btn.btn-link.pull-left(ng-href='/signup') Crear una cuenta
+
+                    a.btn.btn-link(ng-href='/recover') Olvidé mi clave
+
+                    button.btn.btn-default(
+                        type='submit'
+                        ng-disabled='form.$invalid || submitting')
+
+                        i(class='fa fa-sr {{ submitting && "fa-circle-o-notch fa-spin" || "fa-sign-in" }}')
+                        |Ingresar
+
+        div(class='flash {{ error && "flash-shown" || "flash-hidden" }}')
+            alert(type='danger') ¡Email o clave inválidos!

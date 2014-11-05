@@ -1,21 +1,22 @@
-/*jslint node: true, regexp: true */
+/*jshint node: true */
 'use strict';
 
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
+var path = require('path');
 
 /**
- * Provide any route that doesn't match /api/... or /templates/... with the default view.
+ * Provide any route that doesn't matches /api/* or /templates/* with the default view.
  * 
- * You must configure the rest of the public routes in Angular using /api/ and /templates/.
+ * You must configure the rest of the public routes in Angular. User /api/* for CRUD operations and /templates/* for the views.
  */
-router.get([
-    '/',
-    /^\/(?:(?!api|templates)[^\/])+\/?.*/gi
-], function (req, res) {
+router.get(['/', /^\/(?!api)+\/?.*/gi], function (req, res) {
 
+    /* Set the XSRF token cookie on first request */
+    res.cookie('XSRF-TOKEN', res.locals._csrf);
+
+    /* Render the default public layout */
     res.render('index', {
-        title: "fi-mean"
+        title: "Final MEAN structure"
     });
 
 });

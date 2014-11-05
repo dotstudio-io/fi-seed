@@ -1,0 +1,52 @@
+div.row
+    div.col-sm-8
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-plus-square.fa-fw
+
+                select.form-control(
+                    ng-model='answerForm.checkup',
+                    ng-init='answerForm.checkup = checkups[0].value',
+                    ng-options='checkup.value as checkup.name for checkup in checkups')
+
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-user.fa-pencil
+
+                textarea.form-control(
+                    ng-model='answerForm.checkupComments',
+                    type='textarea',
+                    placeholder="Comentarios sobre el control",
+                    rows=5)
+
+    div.col-sm-4
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-user.fa-calendar
+
+                datetimepicker.form-control(
+                    ng-model='answerForm.date')
+
+div.row
+    div.col-sm-6
+        div.form-group
+            div.input-group
+                div.checkbox
+                    label
+                        input(
+                            type="checkbox",
+                            checked)
+                        |Venir con los exámenes realizados.
+    
+    div.col-sm-6
+        div.form-group
+            div.input-group
+                div.checkbox
+                    label
+                        input(
+                            type="checkbox",
+                            checked)
+                        |Con el mismo médico

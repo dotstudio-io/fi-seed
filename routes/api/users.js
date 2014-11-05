@@ -2,26 +2,41 @@
 /*global schema */
 'use strict';
 
-var express = require('express');
-var router = express.Router();
-
+var router = require('express').Router();
 var User = schema('user');
+var bcrypt = require('bcrypt');
 
-/* Create a new user */
-router.post('/signup', function (req, res) {
+/**
+ * Create a user up.
+ */
+router.post('/', function (req, res, next) {
 
-    var user = new User({
+    var user = new (schema('user'))({
         name: req.param('name'),
         email: req.param('email'),
-        password: req.param('password')
+        password: req.param('password'),
+        specialist: req.param('specialist')
     });
 
     user.save(function (err, user) {
         if (err) {
-            res.send(err);
-            console.error(err);
+            next(err);
         } else {
-            res.send(user);
+            User.findOne({
+                email: req.param('email')
+            }, function (err, data) {
+                if (err) {
+                    next(err);
+                } else if (data) {
+                    req.session.user = data;
+                    res.send({
+                        name: data.name,
+                        email: data.email
+                    });
+                } else {
+                    setTimeout(res.status(400).end, 1000);
+                }
+            });
         }
     });
 

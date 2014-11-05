@@ -1,0 +1,36 @@
+div.col-md-8.col-md-offset-2
+    h3 Hola {{ session.user.name }}!
+
+    div.row
+        div.col-md-4
+            div.panel.panel-default
+                div.panel-heading
+                    h3.panel-title
+                        i.fa.fa-sr.fa-hospital-o
+                        |Lugares de trabajo
+
+                div.list-group
+                    div.list-group-item
+                        form(
+                            name='addWorkplaceForm'
+                            ng-submit='addWorkplaceForm.$valid && addWorkplace()')
+
+                            div.input-group
+                                input.form-control(
+                                    type='text',
+                                    ng-model='addWorkplaceForm.name',
+                                    placeholder='Agrega un lugar de trabajo',
+                                    required)
+
+                                span.input-group-btn
+                                    button.btn.btn-default(type='submit')
+                                        i.fa.fa-fw.fa-plus
+
+                    a.list-group-item(ng-repeat='workplace in workplaces', ng-click='setWorkplace(workplace)')
+                        i.fa.fa-sr(class='{{ workplace._id == session.workplace._id && "fa-check-square" || "fa-square-o" }}')
+                        |{{ workplace.name }}
+
+                div.panel-body(ng-show='!workplaces.length')
+                    p Para agregar un lugar de trabajo escribe su nombre y presiona el botón 
+                        button.btn.btn-default.btn-xs
+                            i.fa.fa-plus

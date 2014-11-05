@@ -1,0 +1,36 @@
+div.row
+    div.col-sm-9
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-stethoscope.fa-fw
+
+                input.form-control(
+                    ng-model='exam',
+                    placeholder="Tipo de exámen a solicitar")
+    
+    div.col-sm-3
+        button.btn.btn-default.btn-block(
+            type='button',
+            ng-click="addExam()")
+
+            i.fa.fa-sr.fa-plus
+            |Adjuntar
+  
+div.row(ng-repeat="exam in exams")
+    div.col-sm-9
+        div.form-group
+            div.input-group
+                span.input-group-addon
+                    i.fa.fa-stethoscope.fa-fw
+
+                input.form-control(
+                    ng-model='exam')
+
+    div.col-sm-3
+        button.btn.btn-default.btn-block(
+            type='button',
+            ng-click="removeExam($index)")
+
+            i.fa.fa-sr.fa-trash
+            |Eliminar

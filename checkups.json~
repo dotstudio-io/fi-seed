@@ -1,0 +1,17 @@
+[
+	{
+	    "_id" : ObjectId("54578de537b2b5d5e2e3e954"),
+	    "name" : "En línea - Diferido",
+	    "value" : 1
+	},
+	{
+	    "_id" : ObjectId("54578de537b2b5d5e2e3e955"),
+	    "name" : "En línea - Simultáneo",
+	    "value" : 2
+	},
+	{
+	    "_id" : ObjectId("54578de537b2b5d5e2e3e956"),
+	    "name" : "Presencial",
+	    "value" : 3
+	}
+]
