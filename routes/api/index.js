@@ -4,7 +4,8 @@
 
 var router = require('express').Router();
 var mongoose = require('mongoose');
-var User = schema('user');
+
+var User = mongoose.model('user');
 
 /**
  * Get current session's public data.
@@ -16,15 +17,16 @@ router.get('/session', function (req, res, next) {
         var data = {
             user: {
                 _id: req.session.user._id,
-                name: req.session.user.name
+                name: req.session.user.name,
+                specialty: req.session.user.specialty
             },
-            
+
             workplace: {
                 _id: req.session.workplace._id,
                 name: req.session.workplace.name
             }
         };
-        
+
         res.send(data);
     } else {
         res.status(401).end();
@@ -42,9 +44,10 @@ router.post('/login', function (req, res, next) {
         bcrypt = require('bcrypt');
 
     /* Find the user by its email address */
-    User.findOne({
-        email: email
-    }, function (err, user) {
+    User.findOne()
+    .where('email').equals(email)
+    .populate('specialty')
+    .exec(function (err, user) {
         if (err) {
             next(err);
         } else if (user) {
@@ -57,7 +60,8 @@ router.post('/login', function (req, res, next) {
 
                     res.send({
                         _id: req.session.user._id,
-                        name: req.session.user.name
+                        name: req.session.user.name,
+                        specialty: req.session.user.specialty
                     });
                 } else {
                     setTimeout(res.status(401).end, 1000);
@@ -76,7 +80,7 @@ router.get('/logout', function (req, res, next) {
 
     delete req.session.user;
     delete req.session.workplace;
-    
+
     res.end();
 
 });
