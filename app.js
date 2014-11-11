@@ -15,7 +15,6 @@ var multiParser = require('./components/multiparse');
 var security = require('lusca');
 var sockets = require('./sockets')(io);
 var session = require('express-session');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var path = require('path');
 
@@ -28,6 +27,7 @@ var config = {
     globals: require('./config/globals')(global),
     session: require('./config/session')(session),
     routes: require('./config/routes'), /* Routes must be compiled after */
+    schemas: require('./config/schemas'),
     views: require('./config/views')(app),
     tasks: require('./config/tasks'),
     errors: require('./config/errors'),
@@ -69,11 +69,11 @@ app.use(security.xframe(config.security.xframe));
 app.use(security.p3p(config.security.p3p));
 app.use(security.hsts(config.security.hsts));
 app.use(security.xssProtection(config.security.xssProtection));
-//app.use(favicon(path.join(config.static, 'favicon.png')));
 app.use(express.static(config.static));
 app.use(logger('dev'));
 
 /**** Routes ****/
+config.schemas(); /* Compile schemas */
 config.routes(app); /* Compile routes */
 config.errors(app); /* Error handlers */
 
