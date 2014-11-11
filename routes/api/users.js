@@ -3,39 +3,31 @@
 'use strict';
 
 var router = require('express').Router();
-var User = schema('user');
 var bcrypt = require('bcrypt');
+var mongoose = require('mongoose');
+
+var User = mongoose.model('user');
 
 /**
  * Create a user up.
  */
 router.post('/', function (req, res, next) {
 
-    var user = new (schema('user'))({
+    new User({
         name: req.param('name'),
         email: req.param('email'),
         password: req.param('password'),
-    });
-
-    user.save(function (err, user) {
+        specialty: req.param('specialty')
+    }).save(function (err, user) {
         if (err) {
-            next(err);
+            /* Check for duplicated entry */
+            if (err.code && err.code === 11000) {
+                res.status(409).end();
+            } else {
+                next(err);
+            }
         } else {
-            User.findOne({
-                email: req.param('email')
-            }, function (err, data) {
-                if (err) {
-                    next(err);
-                } else if (data) {
-                    req.session.user = data;
-                    res.send({
-                        name: data.name,
-                        email: data.email
-                    });
-                } else {
-                    setTimeout(res.status(400).end, 1000);
-                }
-            });
+            res.status(204).end();
         }
     });
 

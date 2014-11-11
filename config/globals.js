@@ -20,13 +20,6 @@ module.exports = function (global) {
     }
 
     /**
-     * Use this method to include Schemas from anywhere
-     */
-    global.schema = function schema(name) {
-        return include('schemas', name);
-    };
-
-    /**
      * Use this method to include Components from anywhere
      */
     global.component = function component(name) {
