@@ -39,22 +39,27 @@ html(ng-app='App', lang='es')
     body
         //- Viewport
         include ./elements/navbar
+    
+        main
+            include ./elements/sidebar
 
-        main.container-fluid(ng-view)
+            section
+                include ./elements/flash
+
+                div.view(ng-view)
 
         //- Include the Socket.IO's client library
         script(src='/socket.io/socket.io.js')
 
-        //- Include libraries
-        // script(src='/components/iscroll/build/iscroll.min.js')
+        //- Include other libraries
         script(src='/components/moment/min/moment-with-locales.min.js')
         
         //- Include Angular and it's dependencies
-        script(src='/components/angular/angular.min.js')
+        script(src='/components/angular/angular.js')
         script(src='/components/angular-route/angular-route.min.js')
-        script(src='/components/angular-animate/angular-animate.min.js')
-        script(src='/components/angular-bootstrap/ui-bootstrap-tpls.min.js')
         script(src='/components/ng-file-upload/angular-file-upload.min.js')
+        script(src='/components/angularjs-scroll-glue/src/scrollglue.js')
+
 
         //- Angular application main script
         script(src='/scripts/client.min.js')

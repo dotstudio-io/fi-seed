@@ -1,17 +1,18 @@
+/*global angular */
+
 (function () {
     'use strict';
 
     var app = angular.module('App', [
         /** Angular dependencies **/
         'ngRoute',
-        //'ngAnimate',
-        'ui.bootstrap',
         'angularFileUpload',
+        'luegg.directives',
 
         /** Modules */
-        //        'IScroll',
-        'Moment',
         'Adapter',
+        'Session',
+        'Moment',
         'Auth'
     ]);
 

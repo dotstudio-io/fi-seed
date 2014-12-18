@@ -28,15 +28,114 @@ html {
 }
 
 body {
-    padding-top: @navbar-height;
-    font-family: @font-family-base;
+    font-family: 'Roboto', sans-serif;
     font-size: @font-size-base;
     font-weight: @font-weigth-base;
     line-height: @line-height-base;
     color: @text-color;
     background-color: @body-bg;
+    -webkit-font-smoothing: antialiased;
     #gradient.vertical(@white; @gray; 60%; 100%);
+
+    .flexbox();
+    .flex-direction(column);
+    .justify-content(flex-start);
+    .align-items(stretch);
+    .align-content(stretch);
+
+    > header { .flex(0, 0, auto) }
+
+    > main {
+        .flexbox();
+        .flex(1, 1, auto);
+        .align-items(flex-start);
+        .flex-direction(row);
+
+        > nav {
+            background: @navbar-default-bg;
+
+            .flex(0, 0, 0);
+            padding-top: 20px;
+            
+            &.open {
+                .flex(0, 0, 100px);
+
+                a, i, span {
+                    display: block;
+                    text-align: center;
+                }
+            }
+
+
+            a {
+                padding: 0;
+                text-align: center;
+                display: none;
+                position: relative;
+                color: @gray-lighter;
+                
+                &:hover {
+                    color: @gray-light;
+                    background-color: rgba(255, 255, 255, 0.15);
+                    text-decoration: none;
+                    
+                    .text {
+                        color: @gray-lighter;
+                    }
+                }
+
+                .caret {
+                    position: absolute;
+                    width: 0; 
+                    height: 0;
+                    margin-top: 50%;
+                    top: -16px;
+                    right: -12px;
+
+                    border-top: 8px solid transparent;
+                    border-bottom: 8px solid transparent;
+                    border-left: 8px solid @navbar-default-bg;
+                }
+
+                .text {
+                    color: @navbar-default-bg;
+                    padding: 0 @padding-base-horizontal @padding-large-vertical @padding-base-horizontal;
+                    &:active {
+                        color: @link-color;
+                    }
+                }
+
+                i {
+                    padding: @padding-large-vertical @padding-large-horizontal;
+                }
+            }
+        }
+
+        > section {
+            .flexbox();
+            .flex-direction(column);
+            .flex(1, 1, 100%);
+            .align-items(flex-start);
+            .align-content(flex-start);
+            .justify-content(flex-start);
+
+            > .flash {
+                .flex(0, 0, 0);
+
+                &.open {
+                    .flex(0, 0, auto);
+                }
+            }
+
+            > .view {
+                .flexbox();
+                .flex(1, 1, auto);
+            }
+        }
+    }
 }
+
+
 
 // Reset fonts for relevant elements
 input,
@@ -71,28 +170,16 @@ a {
 //
 // We reset this here because previously Normalize had no `figure` margins. This
 // ensures we don't break anyone's use of the element.
-
-figure {
-    margin: 0;
-}
-
+figure { margin: 0 }
 
 // Images
-
-img {
-    vertical-align: middle;
-}
+img { vertical-align: middle }
 
 // Responsive images (ensure images don't scale beyond their parents)
-.img-responsive {
-    .img-responsive();
-}
+.img-responsive { .img-responsive() }
 
 // Rounded corners
-.img-rounded {
-    border-radius: @border-radius-large;
-}
-
+.img-rounded { border-radius: @border-radius-large }
 // Image thumbnails
 //
 // Heads up! This is mixin-ed into thumbnails.less for `.thumbnail`.
@@ -103,7 +190,6 @@ img {
     border: 1px solid @thumbnail-border;
     border-radius: @thumbnail-border-radius;
     .transition(all .2s ease-in-out);
-
     // Keep them at most 100% wide
     .img-responsive(inline-block);
 }
@@ -113,21 +199,17 @@ img {
     border-radius: 50%; // set radius in percents
 }
 
-
 // Horizontal rules
-
 hr {
-    margin-top:    @line-height-computed;
-    margin-bottom: @line-height-computed;
+    margin-top: @line-height-computed;
+    //    margin-bottom: @line-height-computed;
     border: 0;
-    border-top: 1px solid @hr-border;
+    //    border-top: 1px solid @hr-border;
 }
-
 
 // Only display content to screen readers
 //
 // See: http://a11yproject.com/posts/how-to-hide-content/
-
 .sr-only {
     position: absolute;
     width: 1px;
@@ -135,17 +217,15 @@ hr {
     margin: -1px;
     padding: 0;
     overflow: hidden;
-    clip: rect(0,0,0,0);
+    clip: rect(0, 0, 0, 0);
     border: 0;
 }
 
 // Use in conjunction with .sr-only to only display content when it's focused.
 // Useful for "Skip to main content" links; see http://www.w3.org/TR/2013/NOTE-WCAG20-TECHS-20130905/G1
 // Credit: HTML5 Boilerplate
-
 .sr-only-focusable {
-    &:active,
-    &:focus {
+    &:active, &:focus {
         position: static;
         width: auto;
         height: auto;
@@ -154,3 +234,22 @@ hr {
         clip: auto;
     }
 }
+
+.flash {
+    overflow: hidden;
+    .transition(all 216ms ease);
+
+    &.flash-hidden {
+        max-height: 0px;
+        opacity: 0;
+    }
+
+    &.flash-shown {
+        max-height: 120px;
+        opacity: 1;
+    }
+}
+
+.fa-sr { margin-right: @padding-base-horizontal }
+
+.fa-sl { margin-left: @padding-base-horizontal }

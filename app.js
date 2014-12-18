@@ -82,7 +82,7 @@ app.use(logger('dev'));
 configs.schemas(); /* Register schemas */
 configs.routes(app); /* Compile routes */
 configs.errors(app); /* Error handlers */
-//configs.tasks(app.get('env')); /* Perform grunt tasks */
+configs.tasks(app.get('env')); /* Perform grunt tasks */
 
 /**** Initialization *****/
 configs.database(function (err) {
