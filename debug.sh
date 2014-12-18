@@ -1,3 +1,3 @@
 #! /bin/sh
 
-NODE_ENV=development DEBUG=telemed node app
+NODE_ENV=development DEBUG=app:* node app

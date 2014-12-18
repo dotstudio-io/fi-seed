@@ -12,6 +12,14 @@
             return $moment(date).fromNow();
         };
 
+    }).filter('calendar', function ($moment) {
+
+        $moment.locale('es');
+
+        return function (date) {
+            return $moment(date).calendar();
+        };
+
     });
 
 }());

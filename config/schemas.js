@@ -6,10 +6,9 @@ var walk = require('walk');
 var path = require('path');
 var fs = require('fs');
 var util = require('util');
+var debug = require('debug')('app:schemas');
 
 module.exports = function () {
-
-    console.log("\n\x1b[1mRegistering schemas...\x1b[0m\x1b[2m");
 
     walk.walkSync('schemas', {
         listeners: {
@@ -17,7 +16,7 @@ module.exports = function () {
                 if (path.extname(stats.name) === '.js') {
                     var file = path.join('../', root, stats.name);
 
-                    console.log(stats.name, "-->", require(file).modelName);
+                    debug("%s --> %s", stats.name, require(file).modelName);
                 }
 
                 next();
@@ -25,10 +24,6 @@ module.exports = function () {
 
             errors: function (root, stats, next) {
                 panic("Could not register schemas!\n", root, stats);
-            },
-
-            end: function () {
-                console.log('\n\x1b[0m');
             }
         }
     });

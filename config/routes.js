@@ -5,10 +5,9 @@
 var walk = require('walk');
 var path = require('path');
 var fs = require('fs');
+var debug = require('debug')('app:routes');
 
 module.exports = function (app) {
-
-    console.log("\n\x1b[1mBuilding routes...\x1b[0m\x1b[2m");
 
     walk.walkSync('routes', {
         listeners: {
@@ -17,7 +16,7 @@ module.exports = function (app) {
                     var route = path.normalize(path.join(root, path.basename(stats.name, '.js')).replace(/routes|index/gi, '/'));
                     var file = path.join('../', root, stats.name);
 
-                    console.log(route, '-->', file);
+                    debug('%s --> %s', route, file);
 
                     app.use(route, require(file));
                 }
@@ -28,9 +27,9 @@ module.exports = function (app) {
             errors: function (root, stats, next) {
                 panic("Could not compile routes!\n", root, stats);
             },
-
+            
             end: function () {
-                console.log('\n\x1b[0m');
+                console.log('');
             }
         }
     });

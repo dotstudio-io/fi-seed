@@ -4,6 +4,7 @@
 var mongoose = require('mongoose');
 var dbname = require('../package.json').name; /* This will use the "name" property in your package.json as the database name. Change it to whatever you like */
 var gridfs = require('gridfs-stream');
+var debug = require('debug')('app:database');
 var options = {
     //    db: { native_parser: true },
     //    server: { poolSize: 5 },
@@ -13,7 +14,7 @@ var options = {
 };
 
 module.exports = function (cb) {
-    mongoose.connect('mongodb://localhost/' + dbname, options);
+    mongoose.connect('mongodb://jtguzman.dnsalias.com/' + dbname, options);
 
     mongoose.connection.on('error', function (err) {
         console.error("MongoDB connection error!", err);
@@ -25,7 +26,7 @@ module.exports = function (cb) {
         /* Create gridfs instance */
         mongoose.gridfs = gridfs(mongoose.connection.db, mongoose.mongo);
 
-        console.log("\x1b[1mMongoDB successfuly connected to \x1b[36m%s\x1b[0m\n", dbname);
+        debug("MongoDB successfuly connected to %s", dbname, '\n');
 
         cb.call(this);
     });
