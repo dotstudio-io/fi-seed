@@ -1,12 +1,12 @@
 /* jshint node: true */
 'use strict';
 
-var name = 'telemed.sid';
-var secret = 'G4jaSLr_-Dj64SaZLPTTpvE0l0uW9fLwo*Is1il9ij_iyoWnP644fihN637~';
+var name = 'fi-seed.sid';
+var secret = ')Fu%&.j!ain2[]cxMrY%tkxD|Afy1W';
 var store = {
     host: 'localhost',
     port: 6379,
-    db: 1
+    db: 0
 };
 
 module.exports = function (session) {
