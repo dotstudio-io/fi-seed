@@ -1,5 +1,4 @@
-telemed
+Fi Seed
 =======
 
-Private
-Show me some love
+A boilerplate for MEAN apps.
