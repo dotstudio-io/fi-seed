@@ -1,22 +1,26 @@
-/*jslint nomen: true, browser: true */
-/*global angular, console */
+/* global angular */
 
-(function () {
-    'use strict';
+(function (ng) {
+  'use strict';
 
-    /**
-     * Navbar Controller.
-     */
-    angular.module('App').controller('Navbar', function ($scope, $location, $http, $session) {
+  ng.module('App').controller('Navbar', [
+    '$scope', '$location', '$http', '$session',
 
-        $scope.logout = function () {
-            $http.get('/api/logout').success(function () {
-                $session.logout();
-                $location.path('/');
+    function ($scope, $location, $http, $session) {
 
-            }).error(function () {});
-        };
+      $scope.signout = function () {
+        $http.get('/api/users/signout').success(function () {
+          $session.flash('success', 'See you soon ' + $session.user('name') + '!');
+          $session.logout();
+          $location.path('/');
 
-    });
+        }).error(function () {
+          /* Couldn't log the user out!!!! */
+          $session.flash('danger', 'Logout failed!');
+        });
+      };
 
-}());
+    }
+  ]);
+
+}(angular));

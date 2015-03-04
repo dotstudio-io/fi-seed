@@ -1,29 +1,39 @@
-(function () {
-    'use strict';
+/* global angular */
 
-    angular.module('App').config(function ($routeProvider, $locationProvider) {
+(function (ng) {
+  'use strict';
 
-        /** Not found route **/
-        $routeProvider.otherwise({
-            redirectTo: '/notfound'
-        }).when('/notfound', {
-            templateUrl: '/templates/notfound.html'
-        });
+  ng.module('App').config([
+    '$routeProvider', '$locationProvider',
 
-        $locationProvider.html5Mode(true);
+    function ($routeProvider, $locationProvider) {
+      /** Not found route **/
+      $routeProvider.otherwise({
+        redirectTo: '/notfound'
+      }).when('/notfound', {
+        templateUrl: '/templates/notfound.html'
+      });
 
-    }).run(function ($rootScope, $location, $session, $http) {
+      $locationProvider.html5Mode(true);
+    }
 
-        /* Retrieve current session */
-        $http.get('/api/session').success(function (data) {
-            $session.login(data.user);
-            $session.set('workplace', data.workplace);
+  ]).run([
+    '$rootScope', '$location', '$session', '$http',
 
-            if ($location.path() === '/') {
-                $location.path('/worktable/ongoing');
-            }
-        });
+    function ($rootScope, $location, $session, $http) {
+      /* Retrieve current session */
+      $http.get('/api/session').success(function (data) {
+        /* Session exists */
+        $session.login(data.user);
+        $location.path('/dashboard');
 
-    });
+      }).error(function () {
+        /* No session */
+        $location.path('/');
 
-}());
+      });
+    }
+
+  ]);
+
+}(angular));

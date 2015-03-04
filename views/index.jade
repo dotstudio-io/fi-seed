@@ -1,65 +1,28 @@
 doctype html
 
-//- html(ng-app='App', lang='es', manifest='/appcache.mf')
-html(ng-app='App', lang='es')
+//- You may want to comment the manifest attr while developing
+//html(
+//  manifest='/appcache.mf',
+//  ng-app='App',
+//  lang='en')
+  
+html(
+  ng-app='App',
+  lang='en')
 
-    head
-        base(href='/')
+  head
+    include ./elements/head
 
-        title= title
+  body
+    //- Navbar
+    include ./elements/navbar
 
-        //- Metadata
-        meta(charset='utf-8')
-        meta(name='X-UA-Compatible', content='IE=edge')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
-        meta(name='mobile-web-app-capable' content='yes')
+    main
+      //- Flash messages
+      include ./elements/flash
+      
+      //- Angular viewport
+      div.container-fluid(ng-view)
 
-        //- Android manifest
-        link(rel='manifest', href='manifest.json')
-
-        //- Webapp icons
-        link(rel='icon', sizes='36x36' href='/icons/icon-ldpi.png')
-        link(rel='icon', sizes='48x48' href='/icons/icon-mdpi.png')
-        link(rel='icon', sizes='72x72' href='/icons/icon-hdpi.png')
-        link(rel='icon', sizes='96x96' href='/icons/icon-xhdpi.png')
-        link(rel='icon', sizes='128x128' href='/icons/icon-xxhdpi.png')
-        link(rel='icon', sizes='192x192', href='/icons/icon-xxxhdpi.png')
-        link(rel='apple-touch-icon', href='/icons/iphone.png')
-        link(rel='apple-touch-icon', sizes='60x60', href='/icons/iphone.png')
-        link(rel='apple-touch-icon', sizes='76x76', href='/icons/ipad.png')
-        link(rel='apple-touch-icon', sizes='120x120', href='/icons/iphone-retina.png')
-        link(rel='apple-touch-icon', sizes='152x152', href='/icons/ipad-retina.png')
-        link(rel='apple-touch-icon', sizes='180x180', href='/icons/iphone-6-plus.png')
-
-        //- Styles
-        link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Ubuntu:300,400', type='text/css')
-        link(rel='stylesheet', href='/components/fontawesome/css/font-awesome.min.css')
-        link(rel='stylesheet', href='/styles/styles.min.css')
-
-    body
-        //- Viewport
-        include ./elements/navbar
-    
-        main
-            include ./elements/sidebar
-
-            section
-                include ./elements/flash
-
-                div.view(ng-view)
-
-        //- Include the Socket.IO's client library
-        script(src='/socket.io/socket.io.js')
-
-        //- Include other libraries
-        script(src='/components/moment/min/moment-with-locales.min.js')
-        
-        //- Include Angular and it's dependencies
-        script(src='/components/angular/angular.js')
-        script(src='/components/angular-route/angular-route.min.js')
-        script(src='/components/ng-file-upload/angular-file-upload.min.js')
-        script(src='/components/angularjs-scroll-glue/src/scrollglue.js')
-
-
-        //- Angular application main script
-        script(src='/scripts/client.min.js')
+    //- App scripts
+    include ./elements/scripts

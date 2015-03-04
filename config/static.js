@@ -1,6 +1,10 @@
-/*jshint node: true */
+/* jshint node: true */
 'use strict';
 
 var path = require('path');
 
-module.exports = path.join(process.cwd(), 'client', 'assets');
+module.exports = {
+
+  basedir: path.join(process.cwd(), 'client', 'assets')
+
+};

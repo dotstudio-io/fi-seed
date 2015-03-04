@@ -1,19 +1,15 @@
-/*global angular */
+/* global angular */
 
-(function () {
-    'use strict';
+(function (ng) {
+  'use strict';
 
-    var app = angular.module('App', [
-        /** Angular dependencies **/
-        'ngRoute',
-        'angularFileUpload',
-        'luegg.directives',
+  ng.module('App', [
+    /** Angular dependencies **/
+    'ngRoute',
+    'angularFileUpload',
 
-        /** Modules */
-        'Adapter',
-        'Session',
-        'Moment',
-        'Auth'
-    ]);
+    /** Modules */
+    'Session'
+  ]);
 
-}());
+}(angular));

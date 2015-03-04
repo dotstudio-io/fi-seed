@@ -1,10 +1,10 @@
-/*jslint node: true */
+/* jshint node: true */
 'use strict';
 
 var name = 'telemed.sid';
 var secret = 'G4jaSLr_-Dj64SaZLPTTpvE0l0uW9fLwo*Is1il9ij_iyoWnP644fihN637~';
 var store = {
-    host: 'jtguzman.dnsalias.com',
+    host: 'localhost',
     port: 6379,
     db: 1
 };

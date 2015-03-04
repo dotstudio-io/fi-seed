@@ -1,4 +1,4 @@
-/*jslint node: true, nomen: true */
+/* jshint node: true */
 'use strict';
 
 var path = require('path');
@@ -7,11 +7,11 @@ var engine = 'jade';
 
 module.exports = function (app) {
 
-    app.locals.basedir = path.join(__dirname, '..', basedir);
+  app.locals.basedir = path.join(__dirname, '..', basedir);
 
-    return {
-        basedir: basedir,
-        engine: engine
-    };
+  return {
+    basedir: basedir,
+    engine: engine
+  };
 
 };

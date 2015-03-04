@@ -5,16 +5,14 @@
 
 doctype html
 
-html(lang='es')
+html(lang='en')
 
-    head
-        title #{err.message}
+  head
+    include ./elements/head
 
-        link(rel='stylesheet', href='/styles/styles.min.css')
+  body.container-fluid
+    h1
+      strong #{err.status}
+      |  - #{err.message}
 
-    body.container-fluid
-        h1
-            strong #{err.status}
-            |  - #{err.message}
-
-        pre #{err.stack}
+    pre #{err.stack}

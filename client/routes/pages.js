@@ -1,38 +1,28 @@
-(function () {
-    'use strict';
+/* global angular */
 
-    angular.module('App').config(function ($routeProvider) {
+(function (ng) {
+  'use strict';
 
-        $routeProvider.when('/', {
-            controller: 'Pages:Home',
-            templateUrl: '/templates/pages/home.html'
+  ng.module('App').config([
+    '$routeProvider',
 
-        }).when('/help', {
-            controller: 'Pages:Help',
-            templateUrl: '/templates/pages/help.html'
-            
-        }).when('/login', {
-            controller: 'Pages:Login',
-            templateUrl: '/templates/pages/login.html'
+    function ($routeProvider) {
 
-        }).when('/recover', {
-            controller: 'Pages:Recover',
-            templateUrl: '/templates/pages/recover.html'
+      $routeProvider.when('/', {
+        templateUrl: '/templates/pages/home.html'
 
-        }).when('/signup', {
-            controller: 'Pages:Signup',
-            templateUrl: '/templates/pages/signup.html'
+      }).when('/help', {
+        controller: 'Pages:Help',
+        templateUrl: '/templates/pages/help.html'
 
-        }).when('/profile', {
-            controller: 'Pages:Profile',
-            templateUrl: '/templates/pages/profile.html'
+      }).when('/dashboard', {
+        controller: 'Pages:Dashboard',
+        templateUrl: '/templates/pages/dashboard.html'
 
-        }).when('/welcome', {
-            controller: 'Pages:Welcome',
-            templateUrl: '/templates/pages/welcome.html'
+      });
 
-        });
+    }
 
-    });
+  ]);
 
-}());
+}(angular));

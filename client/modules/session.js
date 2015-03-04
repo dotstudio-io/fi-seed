@@ -1,54 +1,60 @@
-/*global angular */
+/* global angular */
 
-(function () {
-    'use strict';
+(function (ng) {
+  'use strict';
 
-    var session = angular.module('Session', []);
+  var timeout;
 
-    session.factory('$session', function ($rootScope) {
+  ng.module('Session', []).factory('$session', [
+    '$rootScope', '$timeout',
 
-        $rootScope.session = {};
+    function ($rootScope, $timeout) {
+      $rootScope.session = {};
 
-        return {
-            login: function (user) {
-                $rootScope.session.user = user;
-            },
+      return {
+        login: function (user) {
+          $rootScope.session.user = user;
+        },
 
-            logout: function () {
-                $rootScope.session = {};
-            },
+        logout: function () {
+          delete $rootScope.session.user;
+        },
 
-            flash: function (message) {
-                if (message) {
-                    $rootScope.session.flash = message;
-                } else {
-                    delete $rootScope.session.flash;
-                }
-            },
+        flash: function (type, message) {
+          $timeout.cancel(timeout);
 
-            get: function (key) {
-                return $rootScope.session[key];
-            },
+          if (message) {
+            $rootScope.session.flash = {
+              message: message,
+              type: type
+            };
 
-            set: function (key, value) {
-                $rootScope.session[key] = value;
-            },
+            timeout = $timeout(function () {
+              delete $rootScope.session.flash;
+            }, 5000);
+          } else {
+            delete $rootScope.session.flash;
+          }
+        },
 
-            delete: function (key) {
-                delete $rootScope.session[key];
-            }
+        user: function (field) {
+          return $rootScope.session.user[field];
+        },
 
-        };
+        get: function (key) {
+          return $rootScope.session[key];
+        },
 
-    });
+        set: function (key, value) {
+          $rootScope.session[key] = value;
+        },
 
-    session.run(function ($rootScope, $session) {
+        delete: function (key) {
+          delete $rootScope.session[key];
+        }
+      };
+    }
 
-        /* Clear session flash messages on route change */
-        $rootScope.$on('$routeChangeStart', function () {
-            $session.delete('flash');
-        });
+  ]);
 
-    });
-
-}());
+}(angular));

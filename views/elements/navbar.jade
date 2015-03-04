@@ -1,47 +1,31 @@
-header.navbar(ng-controller='Navbar', role='navigation')
-    div.container-fluid
-        div.navbar-header
-            button.navbar-toggle.collapsed(
-                type='button',
-                data-toggle='collapse',
-                data-target='#navbar-collapse')
+nav.navbar.navbar-inverse.navbar-static-top(
+  ng-controller='Navbar',
+  role='navigation')
 
-                span.sr-only Toggle navigation
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
+  div.container-fluid
+    div.navbar-header
+      button.navbar-toggle.collapsed(
+        type='button',
+        data-toggle='collapse',
+        data-target='#navbar-collapse')
 
-            a.navbar-brand(ng-href='/{{ (session.user && !session.workplace) && "welcome" || (session.user && session.workplace) && "worktable/ongoing" || "" }}')
-                img(src='/images/navbar_logo.png')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
 
-        div.collapse.navbar-collapse#navbar-collapse
-            ul.nav.navbar-nav.navbar-right
-                li.hidden-md.hidden-lg(ng-show='(session.user && !session.user.specialty) && session.workplace')
-                    a(ng-href='/sics/create')
-                        i.fa.fa-sr.fa-plus
-                        |Crear solicitud
+      a.navbar-brand(ng-href='/{{ session.user && "dashboard" || "" }}')
+        i.fa.fa-circle-o
+        |  #{title}
 
-                li.hidden-md.hidden-lg(ng-show='session.user && session.workplace')
-                    a(ng-href='/worktable/ongoing')
-                        i.fa.fa-sr.fa-home
-                        |Mesa de trabajo
+    div.collapse.navbar-collapse#navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        li(ng-show='session.user')
+          a(href ng-click='signout()')
+            i.fa.fa-sign-out
+            |  Sign Out
 
-                li(ng-show='session.user && session.workplace')
-                    a(ng-href='/profile')
-                        i.fa.fa-sr.fa-user
-                        |{{ session.user.name }}
-
-                 li(ng-show='session.workplace')
-                    a(ng-href='/welcome')
-                        i.fa.fa-sr.fa-hospital-o
-                        |{{ session.workplace.name }}
-
-                li(ng-show='session.user')
-                    button.btn.navbar-btn(ng-click='logout()')
-                        i.fa.fa-sr.fa-sign-out
-                        |Salir
-
-                li
-                    a(ng-href='/help')
-                        i.fa.fa-sr.fa-life-ring
-                        |Ayuda
+        li
+          a(ng-href='/help')
+            i.fa.fa-life-ring
+            |  Help

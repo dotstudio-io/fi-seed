@@ -1,17 +1,17 @@
-/*jshint browser: true */
-/*global angular, console */
+/* jshint browser: true */
+/*global angular */
 
-(function () {
-    'use strict';
+(function (ng) {
+  'use strict';
 
-    angular.module('App').factory('$io', function () {
+  ng.module('App').factory('$io', function () {
 
-        return {
-            connect: function (namespace, options) {
-                return window.io(namespace, options);
-            }
-        };
+    return {
+      connect: function (namespace, options) {
+        return window.io(namespace, options);
+      }
+    };
 
-    });
+  });
 
-}());
+}(angular));

@@ -3,44 +3,49 @@ CACHE MANIFEST
 
 CACHE:
 # Templates
-/templates/pages/home
-/templates/pages/help
-/templates/pages/signup
-/templates/pages/recover
-/templates/pages/welcome
-/templates/pages/profile
 /templates/pages/notfound
+/templates/pages/home
+/templates/pages/dashboard
+/templates/pages/help
+/templates/users/signup
+/templates/users/recover
+/templates/users/login
 
 # Scripts
 /scripts/client.min.js
+
+# Styles
 /styles/styles.min.css
 
 # Images
-/images/navbar_logo.png
-/images/answer_form.png
-/images/clinical_form.jpg
-/images/patient_form.jpg
-/images/folders.png
-/images/unavailable.png
+/icons/icon-hdpi.png
+/icons/icon-ldpi.png
+/icons/icon-mdpi.png
+/icons/icon-xhdpi.png
+/icons/icon-xxhdpi.png
+/icons/icon-xxxhdpi.png
+/icons/ipad.png
+/icons/ipad-retina.png
+/icons/iphone.png
+/icons/iphone-6-plus.png
+/icons/iphone-retina.png
 
 # Components
-/components/iscroll/build/iscroll.min.js
 /components/fontawesome/css/font-awesome.min.css
 /components/fontawesome/fonts/fontawesome-webfont.eot?v=4.2.0
 /components/fontawesome/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0
 /components/fontawesome/fonts/fontawesome-webfont.woff?v=4.2.0
 /components/fontawesome/fonts/fontawesome-webfont.ttf?v=4.2.0
 /components/fontawesome/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular
-/components/moment/min/moment-with-locales.min.js
-/components/angular/angular.min.js
-/components/angular-animate/angular-animate.min.js
-/components/angular-route/angular-route.min.js
 /components/ng-file-upload/angular-file-upload.min.js
+/components/moment/min/moment-with-locales.min.js
+/components/angular-route/angular-route.min.js
+/components/angular/angular.min.js
 
 FALLBACK:
 # This will enable imagename4.png to be as a replacement for 
 # all resources under the images dir when there is no network connectivity.
-/images/ /images/unavailable.png
+/images/ /images/disconnected.png
 
 NETWORK:
 # This will prevent other network resources from being accessed.

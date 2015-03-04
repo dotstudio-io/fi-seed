@@ -1,39 +1,44 @@
-/*jslint nomen: true, browser: true */
-/*global angular, console */
+/* global angular */
 
-(function () {
-    'use strict';
+(function (ng) {
+  'use strict';
 
-    angular.module('App').factory('$statics', function ($http, $q) {
+  ng.module('App').factory('$statics', [
+    '$http', '$q',
 
-        return {
-            get: function (param) {
-                var deferred = $q.defer(),
-                    name = '',
-                    query = {};
+    function ($http, $q) {
 
-                if (param) {
-                    if (angular.isArray(param) || angular.isString(param)) {
-                        query.params = {
-                            statics: param
-                        };
-                    } else {
-                        throw new TypeError("Wrong parameter type! Must be a String or an Array.");
-                    }
+      return {
 
-                    $http.get('/api/statics' + name, query).success(function (data) {
-                        deferred.resolve(data);
-                    }).error(function (data, status) {
-                        deferred.reject(data, status);
-                    });
-                } else {
-                    throw new TypeError("Parameter cannot be null!");
-                }
+        get: function (param) {
+          var deferred = $q.defer(),
+              query = {},
+              name = '';
 
-                return deferred.promise;
+          if (param) {
+            if (angular.isArray(param) || angular.isString(param)) {
+              query.params = {
+                statics: param
+              };
+            } else {
+              throw new TypeError("Wrong parameter type! Must be a String or an Array.");
             }
-        };
 
-    });
+            $http.get('/api/statics' + name, query).success(function (data) {
+              deferred.resolve(data);
+            }).error(function (data, status) {
+              deferred.reject(data, status);
+            });
+          } else {
+            throw new TypeError("Parameter cannot be null!");
+          }
 
-}());
+          return deferred.promise;
+        }
+
+      };
+
+    }
+  ]);
+
+}(angular));

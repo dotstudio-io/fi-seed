@@ -1,6 +1,6 @@
-/*jshint node: true */
+/* jshint node: true */
 'use strict';
 
 module.exports = {
-    port: 8080
+    port: 3030
 };

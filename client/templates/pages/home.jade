@@ -1,6 +1,20 @@
+div.jumbotron
+  h1 Welcome to Fi Seed!
+  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut mattis augue. Suspendisse nec ligula tortor. Mauris eget turpis sit amet neque cursus viverra at condimentum quam.
+
 div.row
-    div.col-md-6.col-md-offset-3.col-lg-4.col-lg-offset-4
-        div.page-header
-            h1
-                i.fa.fa-sr.fa-home
-                |Bienvenido
+  div.col-sm-6
+    div.panel.panel-default
+      div.panel-body.text-center
+        p.lead Have an account?
+        a.btn.btn-lg.btn-primary(ng-href='/users/signin')
+          i.fa.fa-sign-in
+          |  Sign In
+
+  div.col-sm-6
+    div.panel.panel-default
+      div.panel-body.text-center
+        p.lead Need an account?
+        a.btn.btn-lg.btn-primary(ng-href='/users/signup')
+          i.fa.fa-pencil
+          |  Sign Up

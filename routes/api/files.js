@@ -1,86 +1,78 @@
-/*jshint node: true */
-/*global component */
+/* jshint node: true */
+/* global component */
 'use strict';
 
-var router = require('express').Router();
-var mongoose = require('mongoose');
 var path = require('path');
-var fs = require('fs');
 var util = require('util');
-var gridfs = mongoose.gridfs;
+var fs = require('fs');
 
 var fileman = component('fileman');
+var gridfs = component('gridfs');
 
-/**
- * Obtain a file.
- */
-router.get('/:id', function (req, res, next) {
+module.exports = function (router, mongoose) {
 
-    gridfs.exist({
-        _id: req.param('id')
-    }, function (err, found) {
-        if (err) {
-            next(err);
-        } else if (found) {
-            var readstream = gridfs.createReadStream({
-                _id: req.param('id')
-            });
+  var FsFile = mongoose.model('fs.file');
 
-            readstream.pipe(res);
-        } else {
-            next({status: 404});
-        }
+  /**
+   * Obtain a file.
+   */
+  router.get('/:id/:name', function (req, res, next) {
+
+    /* Get the file from GridFS */
+    gridfs.get(req.params.id, function (err, fsfile, stream) {
+
+      if (err) {
+        next(err);
+      } else if (fsfile) {
+        res.set('Content-Type', fsfile.contentType);
+        stream.pipe(res);
+      } else {
+        res.status(404).end();
+      }
+
     });
 
-});
+  });
 
-/**
- * Upload a file.
- */
-router.post('/', function (req, res, next) {
+  /**
+   * Upload a file.
+   */
+  router.post('/', function (req, res, next) {
 
-    var file, result, curr = 0;
+    var file, result,
+        curr = 0;
 
     function validated(err, file) {
-        curr += 1;
+      curr += 1;
 
-        if (err) {
-            next(err);
-        } else {
-            var writestream = gridfs.createWriteStream({
-                mode: 'w',
-                content_type: file.mimetype,
-                filename: file.filename
-            });
+      if (err) {
+        next(err);
+      } else {
+        var stream = gridfs.save(file.data, {
+          content_type: file.mimetype,
+          filename: file.filename
+        });
 
-            writestream.write(file.data);
-            writestream.end();
-            writestream.destroy();
+        stream.on('close', function (sfile) {
+          if (curr === req.files.length) {
+            res.end();
+          }
+        });
 
-            writestream.on('close', function (sfile) {
-                console.log("Saved file:", sfile);
-
-                res.write(util.format('<p><a href="/api/files/%s" target="_blank">%s</a></p>', sfile._id, sfile.filename));
-
-                if (curr === req.files.length) {
-                    res.end();
-                }
-            });
-
-            writestream.on('error', function (err) {
-                next(err);
-            });
-        }
+        stream.on('error', function (err) {
+          next(err);
+        });
+      }
     }
 
     if (req.files.length) {
-        req.files.forEach(function (file) {
-            result = fileman.validate(file, validated);
-        });
+      req.files.forEach(function (file) {
+        result = fileman.validate(file, validated);
+      });
     } else {
-        res.status(400).end();
+      res.status(400).end();
     }
 
-});
+  });
 
-module.exports = router;
+};

@@ -1,16 +1,16 @@
-/*jslint nomen: true, browser: true, es5: true */
-/*global angular, console */
+/* global angular */
 
-(function () {
-    'use strict';
+(function (ng) {
+  'use strict';
 
-    /**
-     * Pages Help Controller.
-     */
-    angular.module('App').controller('Pages:Help', function ($scope, $window) {
-        $scope.back = function () {
-            $window.history.back();
-        };
-    });
+  ng.module('App').controller('Pages:Help', [
+    '$scope', '$window',
 
-}());
+    function ($scope, $window) {
+      $scope.back = function () {
+        $window.history.back();
+      };
+    }
+  ]);
+
+}(angular));
