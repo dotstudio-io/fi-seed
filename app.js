@@ -4,7 +4,7 @@
 
 
 /**** Register globals *****/
-require('./globals')(global);
+require('./config')(global);
 
 
 /**** Modules *****/
@@ -52,8 +52,8 @@ app.set('views', path.join(process.cwd(), configs.views.basedir));
 app.set('view engine', configs.views.engine);
 
 if (app.get('env') === 'production') {
-  app.set('trust proxy', 1); // Trust first proxy
-  configs.session.cookie.secure = true; // Serve secure cookies
+  app.set('trust proxy', 1); /* Trust first proxy */
+  configs.session.cookie.secure = true; /* Serve secure cookies */
 }
 
 

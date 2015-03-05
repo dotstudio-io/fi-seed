@@ -11,7 +11,7 @@ module.exports = function (router) {
   router.get(['/', /^\/(?!api)+\/?.*/gi], function (req, res) {
 
     /* Set the XSRF token cookie on first request */
-    res.cookie('XSRF-TOKEN', res.locals._csrf);
+    res.cookie('XSRF-TOKEN', res.locals._csrf); /* The _csrf is set by lusca */
 
     /* Render the default public layout */
     res.render('index', {

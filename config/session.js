@@ -1,27 +1,30 @@
 /* jshint node: true */
 'use strict';
 
-var name = 'fi-seed.sid';
-var secret = ')Fu%&.j!ain2[]cxMrY%tkxD|Afy1W';
-var store = {
+/* Session configuration */
+var config = {
+  name: 'fi-seed.sid',
+  secret: ')Fu%&.j!ain2[]cxMrY%tkxD|Afy1W',
+  store: {
     host: 'localhost',
     port: 6379,
-    db: 0
+    db: 11
+  }
 };
 
 module.exports = function (session) {
 
-    var RedisStore = require('connect-redis')(session);
-    var cookieParser = require('cookie-parser');
+  var RedisStore = require('connect-redis')(session),
+      cookieParser = require('cookie-parser');
 
-    return {
-        name: name,
-        secret: secret,
-        store: new RedisStore(store),
-        cookieParser: cookieParser(secret),
-        cookie: { secure: false }, /* This should be true in production mode but requires HTTPS */
-        saveUninitialized: true,
-        resave: true
-    };
+  return {
+    name: config.name,
+    secret: config.secret,
+    store: new RedisStore(config.store),
+    cookieParser: cookieParser(config.secret),
+    cookie: { secure: false }, /* This should be true in production mode but requires HTTPS */
+    saveUninitialized: true,
+    resave: true
+  };
 
 };
