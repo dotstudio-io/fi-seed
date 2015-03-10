@@ -1,36 +1,34 @@
-/*jslint node: true, nomen: true */
+/* jshint node: true */
 'use strict';
 
 var path = require('path');
 
 module.exports = function (global) {
 
-  /**
-   * Use this to include a script relative to the root folder.
-   */
+  /** Use this to include a script relative to the root folder */
   function include(folder, name) {
     var target = path.normalize(path.join(process.cwd(), folder, name));
 
+    /* Try to require the module */
     try {
       return require(target);
     } catch (ex) {
-      console.error('\n\x1b[33m\x1b[1m>>\x1b[0m', ex, '\n');
+      console.error(ex);
       return null;
     }
   }
 
-  /**
-   * Use this method to include Components from anywhere
-   */
-  global.component = function component(name) {
+  /** Include a configuration */
+  global.getconf = function (name) {
+    return include ('config', name);
+  };
+
+  /** Use this method to include Components from anywhere */
+  global.component = function (name) {
     return include('components', name);
   };
 
-  /**
-   * Global fatal error handler.
-   * 
-   * Prints an error and exists the app.
-   */
+  /** Prints an error and exists the app */
   global.panic = function panic() {
     console.error('\x1b[31m\x1b[1m'); /* Paint it red and fat */
     console.error.apply(console, arguments);

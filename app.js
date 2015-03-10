@@ -4,7 +4,7 @@
 
 
 /**** Register globals *****/
-require('./config')(global);
+require('./config/globals')(global);
 
 
 /**** Modules *****/
@@ -104,7 +104,7 @@ configs.database(function (err) {
     gridfs.init(mongoose.connection.db, mongoose.mongo);
 
     http.listen(app.get('port'), function () {
-      debug("Server listening on port " + app.get('port'));
+      console.log('Server listening on port \x1b[1m' + app.get('port') + '\x1b[0m');
       sockets(io, configs.session); /* Initialize sockets */
     });
   }
