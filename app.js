@@ -74,12 +74,12 @@ if (app.get('env') === 'production') {
  */
 
 app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev')); /* Logger */
-app.use(favicon(__dirname + '/client/assets/icons/icon-ldpi.png')); /* Serve favicon */
+app.use(favicon(__dirname + '/client/assets/icons/favicon.png')); /* Serve favicon */
 app.use(express.static(configs.static.basedir)); /* Serve static content */
 app.use(configs.session.cookieParser); /* Cookie parser */
-app.use(bodyParser.json()); /* Form body json parser */
+app.use(bodyParser.json()); /* Form json body parser */
 app.use(bodyParser.urlencoded({ extended: false })); /* Form URL encoded body parser */
-app.use(multiParser()); /* Form multipart parser */
+app.use(multiParser()); /* Form multipart body parser */
 app.use(session(configs.session)); /* Session */
 app.use(security.csrf(configs.security.csrf)); /* CSRF security */
 //app.use(security.csp(configs.security.csp)); /* CSP security */
