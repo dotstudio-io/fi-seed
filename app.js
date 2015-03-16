@@ -60,28 +60,29 @@ if (app.get('env') === 'production') {
 /**** Settings ****/
 /* Keep this order:
  *
- * 1.- Session
+ * 1.- Static
  * 2.- Cookie Parser
  * 3.- Body Parser
  * 4.- Multipart Parser
+ * 5.- Session
  * 6.- Security [...]
- * 5.- Compression
- * 7.- Anything else...
+ * 7.- Compression
+ * 8.- Anything else...
  */
-app.use(express.static(configs.static.basedir));
-app.use(session(configs.session));
-app.use(configs.session.cookieParser);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multiParser());
-app.use(security.csrf(configs.security.csrf));
-app.use(security.csp(configs.security.csp));
-app.use(security.xframe(configs.security.xframe));
-app.use(security.p3p(configs.security.p3p));
-app.use(security.hsts(configs.security.hsts));
-app.use(security.xssProtection(configs.security.xssProtection));
-app.use(compression());
-app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev'));
+app.use(express.static(configs.static.basedir)); /* Serve static content */
+app.use(configs.session.cookieParser); /* Cookie parser */
+app.use(bodyParser.json()); /* Form body json parser */
+app.use(bodyParser.urlencoded({ extended: false })); /* Form URL encoded body parser */
+app.use(multiParser()); /* Form multipart parser */
+app.use(session(configs.session)); /* Session */
+app.use(security.csrf(configs.security.csrf)); /* CSRF security */
+app.use(security.csp(configs.security.csp)); /* CSP security */
+app.use(security.xframe(configs.security.xframe)); /* XFRAME security */
+app.use(security.p3p(configs.security.p3p)); /* P3P security */
+app.use(security.hsts(configs.security.hsts)); /* HSTS security */
+app.use(security.xssProtection(configs.security.xssProtection)); /* XSS protection security */
+app.use(compression()); /* Data compression */
+app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev')); /* Logger */
 
 
 /**** Auth ****/
