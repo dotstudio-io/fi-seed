@@ -8,19 +8,20 @@ require('./config/globals')(global);
 
 
 /**** Modules *****/
+var debug = require('debug')('app:main');
+var path = require('path');
+var mongoose = require('mongoose');
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var compression = require('compression');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var security = require('lusca');
-var session = require('express-session');
-var sockets = require('./sockets');
+var favicon = require('serve-favicon');
+var compression = require('compression');
 var logger = require('morgan');
-var path = require('path');
-var debug = require('debug')('app:main');
-var mongoose = require('mongoose');
+var io = require('socket.io')(http);
+var sockets = require('./sockets');
 
 
 /**** Components ****/
@@ -57,9 +58,11 @@ if (app.get('env') === 'production') {
 }
 
 
-/**** Settings ****/
+/**** Middleware ****/
 /* Keep this order:
  *
+ * 1.- Logger
+ * 1.- Favicon
  * 1.- Static
  * 2.- Cookie Parser
  * 3.- Body Parser
@@ -69,6 +72,9 @@ if (app.get('env') === 'production') {
  * 7.- Compression
  * 8.- Anything else...
  */
+
+app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev')); /* Logger */
+app.use(favicon(__dirname + '/client/assets/icons/icon-ldpi.png')); /* Serve favicon */
 app.use(express.static(configs.static.basedir)); /* Serve static content */
 app.use(configs.session.cookieParser); /* Cookie parser */
 app.use(bodyParser.json()); /* Form body json parser */
@@ -76,13 +82,12 @@ app.use(bodyParser.urlencoded({ extended: false })); /* Form URL encoded body pa
 app.use(multiParser()); /* Form multipart parser */
 app.use(session(configs.session)); /* Session */
 app.use(security.csrf(configs.security.csrf)); /* CSRF security */
-app.use(security.csp(configs.security.csp)); /* CSP security */
+//app.use(security.csp(configs.security.csp)); /* CSP security */
 app.use(security.xframe(configs.security.xframe)); /* XFRAME security */
-app.use(security.p3p(configs.security.p3p)); /* P3P security */
+//app.use(security.p3p(configs.security.p3p)); /* P3P security */
 app.use(security.hsts(configs.security.hsts)); /* HSTS security */
 app.use(security.xssProtection(configs.security.xssProtection)); /* XSS protection security */
 app.use(compression()); /* Data compression */
-app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev')); /* Logger */
 
 
 /**** Auth ****/

@@ -4,7 +4,7 @@
 /* Session configuration */
 var config = {
   name: 'fi-seed.sid',
-  secret: ')Fu%&.j!ain2[]cxMrY%tkxD|Afy1W',
+  secret: '5up3rsecr3t',
   store: {
     host: 'localhost',
     port: 6379,
