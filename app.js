@@ -68,6 +68,7 @@ if (app.get('env') === 'production') {
  * 5.- Compression
  * 7.- Anything else...
  */
+app.use(express.static(configs.static.basedir));
 app.use(session(configs.session));
 app.use(configs.session.cookieParser);
 app.use(bodyParser.json());
@@ -79,7 +80,6 @@ app.use(security.xframe(configs.security.xframe));
 app.use(security.p3p(configs.security.p3p));
 app.use(security.hsts(configs.security.hsts));
 app.use(security.xssProtection(configs.security.xssProtection));
-app.use(express.static(configs.static.basedir));
 app.use(compression());
 app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev'));
 
