@@ -9,15 +9,15 @@ var walk = require('walk');
 var path = require('path');
 var fs = require('fs');
 
-function getRoute() {
-  return getPath.apply(null, arguments).replace(/routes|index/gi, '/').replace(/\\+/g, '/').replace(/\/+/g, '/');
-}
-
-function getPath() {
-  return path.normalize(path.join.apply(null, arguments));
-}
-
 module.exports = function (app, basedir) {
+
+  function getRoute() {
+    return getPath.apply(null, arguments).replace(basedir, '/').replace('index', '/').replace(/\\+|\/+/g, '/');
+  }
+
+  function getPath() {
+    return path.normalize(path.join.apply(null, arguments));
+  }
 
   walk.walkSync(basedir, {
     listeners: {
