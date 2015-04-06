@@ -11,15 +11,15 @@ var mongoose = require('mongoose');
 var debug = require('debug')('app:schemas');
 var inflection = require('inflection');
 
-function getName() {
-  return getPath.apply(null, arguments).replace(/\\+|\/+/g, '.').replace(/^\.+/, '');
-}
-
-function getPath() {
-  return path.normalize(path.join.apply(null, arguments));
-}
-
 module.exports = function (basedir) {
+
+  function getName() {
+    return getPath.apply(null, arguments).replace(/\\+|\/+/g, '.').replace(/^\.+/, '');
+  }
+
+  function getPath() {
+    return path.normalize(path.join.apply(null, arguments));
+  }
 
   walk.walkSync(basedir, {
     listeners: {

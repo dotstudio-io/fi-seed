@@ -13,20 +13,19 @@ var path = require('path');
 var mongoose = require('mongoose');
 var express = require('express');
 var app = express();
-var http = require('http').Server(app);
+var server = require('http').Server(app);
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var security = require('lusca');
 var favicon = require('serve-favicon');
 var compression = require('compression');
 var logger = require('morgan');
-var io = require('socket.io')(http);
-var sockets = require('./sockets');
 
 
 /**** Components ****/
 var multiParser = component('multiparse');
 var schemas = component('schemas');
+var sockets = component('sockets');
 var routes = component('routes');
 var gridfs = component('gridfs');
 var auth = component('auth');
@@ -40,6 +39,7 @@ var configs = {
   session: getconf('session')(session),
   routes: getconf('routes'), // Routes must be compiled later
   schemas: getconf('schemas'),
+  sockets: getconf('sockets'),
   views: getconf('views')(app),
   errors: getconf('errors'),
   static: getconf('static'),
@@ -94,10 +94,17 @@ app.use(compression()); /* Data compression */
 auth(app, configs.auth);
 
 
+/**** Sockets ****/
+sockets(server, configs.sockets);
+
+
 /**** Routes ****/
 schemas(configs.schemas.basedir); /* Register schemas */
 routes(app, configs.routes.basedir); /* Compile routes */
-configs.errors(app); /* Error handlers */
+
+
+/**** Errors ****/
+configs.errors(app);
 
 
 /**** Initialization *****/
@@ -109,9 +116,8 @@ configs.database(function (err) {
     /* Initialize GridFS component */
     gridfs.init(mongoose.connection.db, mongoose.mongo);
 
-    http.listen(app.get('port'), function () {
-      console.log('Server listening on port \x1b[1m' + app.get('port') + '\x1b[0m');
-      sockets(io, configs.session); /* Initialize sockets */
+    server.listen(app.get('port'), function () {
+      debug('Server listening on port %d', app.get('port'));
     });
   }
 
