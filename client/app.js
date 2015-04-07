@@ -1,15 +1,27 @@
-/* global angular */
+/* jshint esnext: true */
 
-(function (ng) {
-  'use strict';
+import {Router}   from 'aurelia-router';
+import bootstrap  from 'bootstrap';
 
-  ng.module('App', [
-    /** Angular dependencies **/
-    'ngRoute',
-    'angularFileUpload',
+export class App {
 
-    /** Modules */
-    'Session'
-  ]);
+  static inject() {
+    return [Router];
+  }
 
-}(angular));
+  constructor(router) {
+    this.router = router;
+
+    this.router.configure(config => {
+      config.title = 'Aurelia';
+      config.map([
+        {
+          route: '',
+          moduleId: 'home',
+          nav: true,
+          title: 'Home'
+        }
+      ]);
+    });
+  }
+}

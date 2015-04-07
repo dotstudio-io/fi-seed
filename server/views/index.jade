@@ -1,0 +1,21 @@
+doctype html
+
+//- You may want to comment the manifest attr while developing
+//html(
+//  manifest='/appcache.mf',
+//  ng-app='App',
+//  lang='en')
+
+html(lang='en')
+
+  head
+    include ./elements/head
+
+  body(aurelia-app)
+
+    h1
+      i.fa.fa-fw.fa-spinner.fa-spin
+      | Welcome to Fi Seed
+
+    //- App scripts
+    include ./elements/scripts
