@@ -32,6 +32,7 @@
     "express": "^4.12.3",
     "express-session": "^1.10.4",
     "gridfs-stream": "^0.5.3",
+    "gulp": "^3.8.11",
     "inflection": "^1.7.0",
     "jade": "^1.6.0",
     "lusca": "^1.0.3",

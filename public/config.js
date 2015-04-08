@@ -1,11 +1,10 @@
-System.baseUrl = 'app/';
-
 System.config({
   "paths": {
     "*": "*.js",
     "github:*": "packages/github/*.js",
     "npm:*": "packages/npm/*.js"
-  }
+  },
+  "baseUrl": "app/"
 });
 
 System.config({
