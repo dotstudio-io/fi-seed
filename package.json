@@ -74,10 +74,10 @@
   },
   "jspm": {
     "directories": {
-      "lib": "./client",
-      "packages": "./public/packages/"
+      "baseURL": "public",
+      "lib": "client",
+      "packages": "public/packages"
     },
-    "configFile": "public/config.js",
     "dependencies": {
       "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.9.5",
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@^0.4.5",
