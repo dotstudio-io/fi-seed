@@ -16,7 +16,6 @@
   },
   "scripts": {
     "setup": "npm install && jspm install && node install/statics && gulp build",
-    "postupdate": "",
     "prestart": "gulp build",
     "start": "NODE_ENV=production node server",
     "dev": "gulp watch"
