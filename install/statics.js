@@ -2,7 +2,7 @@
 'use strict';
 
 var validate = require('jsonschema').validate;
-var database = require('../config/database');
+var database = require('../server/config/database');
 var inflection = require('inflection');
 var mongoose = require('mongoose');
 var path = require('path');
@@ -37,7 +37,7 @@ database(function (err) {
       }
 
       try {
-        schema = require('../schemas/static/' + inflection.singularize(path.basename(json, '.json')))(mongoose.Schema);
+        schema = require('../server/schemas/static/' + inflection.singularize(path.basename(json, '.json')))(mongoose.Schema);
         Model = mongoose.model('static.' + path.basename(json, '.json'), schema);
       } catch (ex) {
         console.error(">>".bold.red, ex);
