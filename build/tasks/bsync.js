@@ -8,7 +8,7 @@ var server = require('../../server/config/server.js');
 
 gulp.task('browser-sync', function () {
 
-  browserSync({
+  return browserSync({
     proxy: 'http://localhost:' + server.port,
     files: ['client/**/*.*'],
     browser: 'google chrome',

@@ -9,7 +9,7 @@ var gulp = require('gulp');
 // at http://localhost:9000
 gulp.task('nodemon', function () {
 
-  nodemon({
+  return nodemon({
     script: 'server',
     ext: 'js',
     watch: 'server/',
