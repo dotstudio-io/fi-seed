@@ -5,5 +5,5 @@ A boilerplate for **M E A N** apps where the **A** stands form [Aurelia](http://
 
 * **M**: [MongoDB](https://www.mongodb.org/)
 * **E**: [Express](http://expressjs.com/)
-* **A**: [Aurelia](http://aurelia.io/)
+* **A**: [AngularJS](https://angularjs.org/)
 * **N**: [Node.js](https://nodejs.org/)
