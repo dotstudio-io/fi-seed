@@ -1,7 +1,7 @@
 Fi Seed
 =======
 
-A boilerplate for **M E A N** apps where the **A** stands form [Aurelia](http://aurelia.io).
+A boilerplate for **M E A N** apps.
 
 * **M**: [MongoDB](https://www.mongodb.org/)
 * **E**: [Express](http://expressjs.com/)
