@@ -1,6 +1,5 @@
 Fi Seed
 =======
-
 A boilerplate for [Node|io].js applications with angular in the front-end.
 
 ## What does it includes
