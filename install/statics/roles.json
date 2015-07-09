@@ -1,0 +1,29 @@
+[
+  {
+    "_id" : "553f9495fadf79673c5bd3ce",
+    "slug" : "admin",
+    "name" : "Administrator",
+    "__v" : 0
+  },
+
+  {
+    "_id" : "553f9495fadf79673c5bd3e4",
+    "slug" : "moderator",
+    "name" : "Moderator",
+    "__v" : 0
+  },
+
+  {
+    "_id" : "553f9495fadf79673c5bd3f4",
+    "slug" : "provider",
+    "name" : "Provider",
+    "__v" : 0
+  },
+
+  {
+    "_id" : "553f9495fadf79673c5bd401",
+    "slug" : "user",
+    "name" : "User",
+    "__v" : 0
+  }
+]

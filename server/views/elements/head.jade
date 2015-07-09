@@ -1,3 +1,5 @@
+base(href='/')
+
 //- Title
 title= title
 
@@ -5,10 +7,15 @@ title= title
 include ../head/meta
 
 //- Android manifest
-link(rel='manifest', href='manifest.json')
+link(rel='manifest', href='/assets/manifest.json')
 
 //- Webapp icons
 include ../head/icons
 
 //- Styles
 include ../head/styles
+
+//- HTML5Shiv for IE 8 and below
+<!--[if lt IE 9]>
+script(src='/components/html5shiv/dist/html5shiv-printshiv.min.js')
+<![endif]-->

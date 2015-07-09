@@ -1,0 +1,6 @@
+.flash(class='{{ hidden && "flash-hidden" || "" }}')
+  .alert(
+    class='alert-{{ session.flash.type && session.flash.type || "info" }}',
+    ng-click='dismiss()')
+
+    | #[i.fa.fa-fw(class="fa-{{ icons[session.flash.type] }}")] #[strong {{ session.flash.title }}] {{ session.flash.message }}

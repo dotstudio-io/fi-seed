@@ -1,4 +1,3 @@
-/* jshint node: true */
 'use strict';
 
 var validator = require('validator');
@@ -19,7 +18,6 @@ module.exports = function (Schema) {
       unique: true,
       validate: [
         validator.isEmail,
-        "Uh oh, looks like you don't know how to write an email address. Go back to your cave."
       ]
     },
 
@@ -33,6 +31,11 @@ module.exports = function (Schema) {
       ref: 'static.gender'
     },
 
+    created: {
+      type: Date,
+      default: Date.now
+    },
+
     updated: {
       type: Date,
       default: Date.now
@@ -40,32 +43,50 @@ module.exports = function (Schema) {
 
   });
 
-  /** Hash user's password before saving */
+  /**
+   * Hash user's password before saving.
+   */
   schema.pre('save', function (next) {
     var user = this;
 
+    /* Update 'updated' field */
+    if (user.isModified()) {
+      user.updated = Date.now();
+    }
+
+    /* Hash password if changed */
     if (user.isModified('password')) {
       bcrypt.hash(user.password, 8, function (err, hash) {
         if (err) {
-          next(err);
-        } else {
-          user.password = hash;
-          next();
+          return next(err);
         }
+
+        user.password = hash;
+
+        next();
       });
     } else {
       next();
     }
   });
 
-  /** User's sign up date */
-  schema.virtual('created').get(function () {
-    return this._id.getTimestamp();
-  });
+  /**
+   * Find a user by it's email.
+   */
+  schema.static('findByEmail', function (email, done) {
+    var query = this.model('user').findOne();
 
-  /** Show virtuals on JSON conversion */
-  schema.set('toJSON', {
-    virtuals: true
+    query.where('email').equals(email);
+
+    if (!done) {
+      return query;
+    }
+
+    if (typeof done === 'function') {
+      return query.exec(done);
+    }
+
+    throw new TypeError('Callback must be empty or a function!');
   });
 
   return schema;

@@ -1,0 +1,26 @@
+.md-toolbar-tools
+  h2
+    span Home
+    
+  span(flex)
+    
+  md-button(ng-href='/help')
+    | Ayuda
+    
+  md-button(ng-href='/about')
+    | Acerca de
+
+  md-menu
+    md-button.md-icon-button(ng-click='$mdOpenMenu()')
+      md-icon(md-menu-origin, md-font-icon='material-icons') more_vert
+    
+    md-menu-content(width='4')
+      md-menu-item
+        md-button(ng-href='/users/sign-in', ng-click='$mdCloseMenu()')
+          md-icon(md-menu-align-target, md-font-icon='material-icons') person
+          | My Account
+            
+      md-menu-item
+        md-button(ng-href='/users/sign-up', ng-click='$mdCloseMenu()')
+          md-icon(md-menu-align-target, md-font-icon='material-icons') person_add
+          | Create Account

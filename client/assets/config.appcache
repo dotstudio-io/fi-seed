@@ -1,0 +1,19 @@
+CACHE MANIFEST
+# Version 1
+
+CACHE:
+# Templates
+
+# Scripts
+
+# Styles
+
+# Images
+
+# Components
+
+FALLBACK:
+/assets/assets/images/ /assets/images/disconnected.png
+
+NETWORK:
+*

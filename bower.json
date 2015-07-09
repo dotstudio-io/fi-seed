@@ -1,0 +1,27 @@
+{
+  "name": "Presupuesta",
+  "title": "Presupuesta",
+  "description": "Marketplace de proyectos de contrucción, remodelación y reparaciones del hogar, empresa e industria.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Final Development Studio <sorcery@finaldevstudio.com> (http://finaldevstudio.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FinalDevStudio/fi-seed.git"
+  },
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "angular-route"
+  ],
+  "dependencies": {
+    "angular": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "angular-i18n": "~1.4.1",
+    "angular-material": "~0.10.0"
+  }
+}

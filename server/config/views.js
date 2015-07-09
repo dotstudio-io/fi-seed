@@ -1,17 +1,16 @@
-/* jshint node: true */
 'use strict';
 
 var path = require('path');
-var basedir = 'views';
-var engine = 'jade';
 
 module.exports = function (app) {
+  var basedir = path.join(__basedir, 'views');
+  var engine = 'jade';
 
-  app.locals.basedir = path.join(__dirname, '..', basedir);
+  /* Set the basedir into the app locals */
+  app.locals.basedir = basedir;
 
   return {
     basedir: basedir,
     engine: engine
   };
-
 };

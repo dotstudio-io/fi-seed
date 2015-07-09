@@ -1,9 +1,12 @@
-//- Import the Socket.IO's client library
-script(src='socket.io/socket.io.js')
+- var component = '/assets/components';
 
-//- Import other libraries like 'moment' here
+//- Angular and related
+script(src='#{ component }/angular/angular#{ suffix }.js')
+script(src='#{ component }/angular-route/angular-route#{ suffix }.js')
+script(src='#{ component }/angular-aria/angular-aria#{ suffix }.js')
+script(src='#{ component }/angular-animate/angular-animate#{ suffix }.js')
+script(src='#{ component }/angular-material/angular-material#{ suffix }.js')
+script(src='#{ component }/angular-i18n/angular-locale_es-cl.js')
 
-//- Import Angular and it's dependencies
-script(src='packages/system.js')
-script(src='config.js')
-script(src='client.js')
+//- Angular application client script
+script(src='/assets/scripts/client#{ suffix }.js')

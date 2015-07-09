@@ -1,0 +1,87 @@
+section.jumbotron.bg-cover
+  .container
+    h1 Ingresa con tu cuenta de proveedor
+    p Ingresa y actualiza tu página web, sube tus proyectos y revisa tus solicitudes.
+
+    .row
+      .col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+        form(
+          ng-submit='form.$valid && submit()',
+          role='form',
+          name='form')
+
+          fieldset.row
+            .col-sm-4
+              .form-group
+                label.sr-only(for='provider-signup-email') Su correo
+                input#provider-signup-email.form-control(
+                  ng-disabled='submitting',
+                  ng-model='data.email',
+                  placeholder='Email',
+                  type='email',
+                  required)
+
+            .col-sm-4
+              .form-group
+                label.sr-only(for='provider-signup-password') Su clave
+                input#provider-signup-password.form-control(
+                  ng-disabled='submitting',
+                  ng-model='data.password',
+                  placeholder='Clave',
+                  type='password',
+                  required)
+
+            .col-sm-4
+              .form-group
+                button.btn.btn-block.btn-primary(
+                  ng-disabled='form.$invalid || submitting',
+                  type='submit')
+
+                  | #[i.fa(class="fa-{{ submitting && 'circle-o-notch fa-spin' || 'sign-in' }}")] Ingresar
+
+        .text-right.row
+          span.text-center.visible-xs-block.visible-sm-inline-block.visible-md-inline-block.visible-lg-inline-block
+            a.btn.btn-link(ng-href='/providers/recover') ¿Olvidaste tu clave?
+
+          span.text-center.visible-xs-block.visible-sm-inline-block.visible-md-inline-block.visible-lg-inline-block
+            a.btn.btn-link(ng-href='/providers/sign-up') ¿No tienes una cuenta?
+
+//-
+  .container
+    .row
+      .col-sm-6
+        .perk-box
+          h3.perk-box-title
+            | Escritorio de proveedor
+
+          .perk-box-body
+            .perk
+              i.fa.fa-pie-chart
+              p #[strong Lorem alteration] in some form  injected humour these randomised words.
+
+            .perk
+              i.fa.fa-th
+              p #[strong There are many variations] of passages of Lorem alteration in some form  injected humour these randomised words.
+
+            .perk
+              i.fa.fa-heartbeat
+              p #[strong Alteration in some form] injected humour these randomised words.
+
+      .col-sm-6
+        .panel.panel-default
+          .panel-heading
+            .panel-title Ayuda
+
+          .panel-body
+            p
+              strong ¿Olvidaste tu clave?
+
+            p
+              | No te preocupes. Tu clave está segura pero puedes #[a(ng-href='/providers/recover') reestablecer tu clave] si así lo deseas.
+
+          .panel-body
+            p
+              strong ¿No tienes una cuenta?
+
+            p
+              | ¡No hay problema! solo #[a(ng-href='/providers/sign-up') crea una cuenta] y accede a todos los beneficios de #[strong {{ APP_NAME }}].

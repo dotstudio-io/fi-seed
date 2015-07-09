@@ -1,4 +1,3 @@
-/* jshint node: true */
 'use strict';
 
 module.exports = {
@@ -6,34 +5,17 @@ module.exports = {
   debug: 'app:auth',
 
   authorizer: function (req) {
-    if (req.session.user && req.session.workplace) {
-      return 'user workplace';
-    } else if (req.session.user) {
-      return 'user';
+    if (req.session.user) {
+      return true;
     }
 
-    return null;
+    return false;
   },
 
-  paths: [
-    {
-      method: 'DELETE',
-      route: '*',
-      allows: 'admin'
-    },
-    {
-      method: ['GET', 'POST', 'PUT'],
-      route: '/api/workplaces*',
-      allows: ['user', 'user workplace']
-    },
-    {
-      method: ['GET', 'POST', 'PUT'],
-      route: [
-        '/api/answers*', '/api/attachments*', '/api/comments*',
-        '/api/files*', '/api/patients*', '/api/sics*'
-      ],
-      allows: 'user workplace'
-    }
-  ]
+  paths: [{
+    method: 'GET',
+    route: ['/api/users/:id'],
+    allows: true
+  }]
 
 };

@@ -1,0 +1,341 @@
+[
+  {
+    "_id": "553f9495fadf79673c5b0000",
+    "slug": "construction",
+    "name": "Construcción",
+    "values": [
+      {
+        "name": "Casa",
+        "_id": "553f9495fadf79673c5b0001"
+      },
+      {
+        "name": "Edificio",
+        "_id": "553f9495fadf79673c5b0002"
+      },
+      {
+        "name": "Galpón",
+        "_id": "553f9495fadf79673c5b0003"
+      },
+      {
+        "name": "Ampliación",
+        "_id": "553f9495fadf79673c5b0004"
+      },
+      {
+        "name": "Habilitación interior",
+        "_id": "553f9495fadf79673c5b0005"
+      },
+      {
+        "name": "Quincho",
+        "_id": "553f9495fadf79673c5b0006"
+      },
+      {
+        "name": "Piscina",
+        "_id": "553f9495fadf79673c5b0007"
+      },
+      {
+        "name": "Terraza",
+        "_id": "553f9495fadf79673c5b0008"
+      },
+      {
+        "name": "Local Comercial",
+        "_id": "553f9495fadf79673c5b0009"
+      },
+      {
+        "name": "Industrial",
+        "_id": "553f9495fadf79673c5b0010"
+      },
+      {
+        "name": "Obras Civiles",
+        "_id": "553f9495fadf79673c5b0011"
+      }
+    ]
+  },
+
+  {
+    "_id": "553f9495fadf79673c5b0012",
+    "slug": "professionals",
+    "name": "Profesionales",
+    "values": [
+      {
+        "name": "Aire acondicionado",
+        "_id": "553f9495fadf79673c5b0013"
+      },
+      {
+        "name": "Aislamiento acústico",
+        "_id": "553f9495fadf79673c5b0014"
+      },
+      {
+        "name": "Aislamiento térmico",
+        "_id": "553f9495fadf79673c5b0015"
+      },
+      {
+        "name": "Albañiles",
+        "_id": "553f9495fadf79673c5b0016"
+      },
+      {
+        "name": "Ascensores",
+        "_id": "553f9495fadf79673c5b0017"
+      },
+      {
+        "name": "Calefacción",
+        "_id": "553f9495fadf79673c5b0018"
+      },
+      {
+        "name": "Carpinteros (madera, metal, pvc)",
+        "_id": "553f9495fadf79673c5b0019"
+      },
+      {
+        "name": "Domótica",
+        "_id": "553f9495fadf79673c5b0020"
+      },
+      {
+        "name": "Electricista",
+        "_id": "553f9495fadf79673c5b0021"
+      },
+      {
+        "name": "Gasfitería",
+        "_id": "553f9495fadf79673c5b0022"
+      },
+      {
+        "name": "Impermeabilización",
+        "_id": "553f9495fadf79673c5b0023"
+      },
+      {
+        "name": "Limpieza",
+        "_id": "553f9495fadf79673c5b0024"
+      },
+      {
+        "name": "Pintura",
+        "_id": "553f9495fadf79673c5b0025"
+      },
+      {
+        "name": "Pisos",
+        "_id": "553f9495fadf79673c5b0026"
+      },
+      {
+        "name": "Seguridad",
+        "_id": "553f9495fadf79673c5b0027"
+      },
+      {
+        "name": "Ventanas",
+        "_id": "553f9495fadf79673c5b0028"
+      },
+      {
+        "name": "Yeseros",
+        "_id": "553f9495fadf79673c5b0029"
+      },
+      {
+        "name": "Reparaciones del hogar",
+        "_id": "553f9495fadf79673c5b0a30"
+      }
+    ]
+  },
+
+  {
+    "_id": "553f9495fadf79673c5b0030",
+    "slug": "architecture",
+    "name": "Arquitectura",
+    "values": [
+      {
+        "name": "Casa",
+        "_id": "553f9495fadf79673c5b0031"
+      },
+      {
+        "name": "Edificio residencial",
+        "_id": "553f9495fadf79673c5b0032"
+      },
+      {
+        "name": "Edificio no residencial",
+        "_id": "553f9495fadf79673c5b0033"
+      },
+      {
+        "name": "Local comercial",
+        "_id": "553f9495fadf79673c5b0034"
+      },
+      {
+        "name": "Industrial",
+        "_id": "553f9495fadf79673c5b0035"
+      }
+    ]
+  },
+
+  {
+    "_id": "553f9495fadf79673c5b0036",
+    "slug": "makeover",
+    "name": "Remodelación",
+    "values": [
+      {
+        "name": "Casa",
+        "_id": "553f9495fadf79673c5b0037"
+      },
+      {
+        "name": "Cocina",
+        "_id": "553f9495fadf79673c5b0038"
+      },
+      {
+        "name": "Edificio",
+        "_id": "553f9495fadf79673c5b0039"
+      },
+      {
+        "name": "Galpón",
+        "_id": "553f9495fadf79673c5b0040"
+      },
+      {
+        "name": "Local comercial",
+        "_id": "553f9495fadf79673c5b0041"
+      },
+      {
+        "name": "Oficina",
+        "_id": "553f9495fadf79673c5b0042"
+      },
+      {
+        "name": "Piscina",
+        "_id": "553f9495fadf79673c5b0043"
+      },
+      {
+        "name": "Terraza",
+        "_id": "553f9495fadf79673c5b0044"
+      },
+      {
+        "name": "Quincho",
+        "_id": "553f9495fadf79673c5b0045"
+      }
+    ]
+  },
+
+  {
+    "_id": "553f9495fadf79673c5b0046",
+    "slug": "project",
+    "name": "Proyecto",
+    "values": [
+      {
+        "name": "Diseño Interior",
+        "_id": "553f9495fadf79673c5b0047"
+      },
+      {
+        "name": "Energías Renovables",
+        "_id": "553f9495fadf79673c5b0048"
+      },
+      {
+        "name": "Sanitario",
+        "_id": "553f9495fadf79673c5b0049"
+      },
+      {
+        "name": "Eléctrico",
+        "_id": "553f9495fadf79673c5b0050"
+      },
+      {
+        "name": "Climatización",
+        "_id": "553f9495fadf79673c5b0051"
+      },
+      {
+        "name": "Paisajismo",
+        "_id": "553f9495fadf79673c5b0052"
+      },
+      {
+        "name": "Cálculo estructural",
+        "_id": "553f9495fadf79673c5b0053"
+      },
+      {
+        "name": "Topografía",
+        "_id": "553f9495fadf79673c5b0054"
+      },
+      {
+        "name": "Mobiliario",
+        "_id": "553f9495fadf79673c5b0055"
+      },
+      {
+        "name": "Urbanización",
+        "_id": "553f9495fadf79673c5b0056"
+      },
+      {
+        "name": "Mecánica de Suelo",
+        "_id": "553f9495fadf79673c5b0057"
+      }
+    ]
+  },
+
+  {
+    "_id": "553f9495fadf79673c5b0058",
+    "slug": "freight",
+    "name": "Flete",
+    "values": [
+      {
+        "name": "Nacional",
+        "_id": "553f9495fadf79673c5b0059"
+      },
+      {
+        "name": "Internacional",
+        "_id": "553f9495fadf79673c5b0060"
+      }
+    ]
+  },
+
+  {
+    "_id": "553f9495fadf79673c5b0061",
+    "slug": "service",
+    "name": "Servicio",
+    "values": [
+      {
+        "name": "Aseo hogar",
+        "_id": "553f9495fadf79673c5b0062"
+      },
+      {
+        "name": "Aseo industrial",
+        "_id": "553f9495fadf79673c5b0063"
+      },
+      {
+        "name": "Aseo local comercial",
+        "_id": "553f9495fadf79673c5b0064"
+      },
+      {
+        "name": "Aseo oficina",
+        "_id": "553f9495fadf79673c5b0065"
+      },
+      {
+        "name": "Demoliciones",
+        "_id": "553f9495fadf79673c5b0066"
+      },
+      {
+        "name": "Excavaciones",
+        "_id": "553f9495fadf79673c5b0067"
+      },
+      {
+        "name": "Inspección de obra",
+        "_id": "553f9495fadf79673c5b0068"
+      },
+      {
+        "name": "Regularizaciones",
+        "_id": "553f9495fadf79673c5b0069"
+      },
+      {
+        "name": "Retiro de escombros",
+        "_id": "553f9495fadf79673c5b0070"
+      },
+      {
+        "name": "Permisos Municipales",
+        "_id": "553f9495fadf79673c5b0071"
+      }
+    ]
+  },
+
+  {
+    "_id": "553f9495fadf79673c5b0072",
+    "slug": "move",
+    "name": "Mudanza",
+    "values": [
+      {
+        "name": "Casa",
+        "_id": "553f9495fadf79673c5b0073"
+      },
+      {
+        "name": "Local comercial",
+        "_id": "553f9495fadf79673c5b0074"
+      },
+      {
+        "name": "Oficina",
+        "_id": "553f9495fadf79673c5b0075"
+      }
+    ]
+  }
+]

@@ -1,0 +1,18 @@
+- var err = {};
+- err.status = (error && error.status ? error.status : 500);
+- err.message = (error && error.message ? error.message : "Something bad happened...");
+- err.stack = (error && error.stack ? error.stack : "No aditional information is available.");
+
+doctype html
+
+html(lang='es')
+
+  head
+    include ./elements/head
+
+  body.container-fluid
+    h1
+      strong= err.status
+      span= err.message
+
+    pre= err.stack

@@ -1,22 +1,58 @@
+- var suffix = development ? '' : '.min';
+
 doctype html
 
-//- You may want to comment the manifest attr while developing
-//html(
-//  manifest='/appcache.mf',
-//  ng-app='App',
-//  lang='en')
+html(
+  ng-app='App',
+  lang='es')
 
-html(lang='en')
 
   head
     include ./elements/head
 
-  body(aurelia-app)
+  body(layout='row')
+    md-sidenav.md-sidenav-left.md-whiteframe-z2(
+      md-is-locked-open='$mdMedia("gt-sm")',
+      md-component-id='left')
+      
+      md-toolbar.md-whiteframe-z1
+        h1.md-toolbar-tools Fi Seed
+      
+      md-list
+        md-list-item(ng-click='/')
+          md-icon(md-font-icon='material-icons') home
+          p Home
+      
+        md-subheader
+          | Users
+          
+        md-list-item(ng-click='/users/sign-up')
+          md-icon(md-font-icon='material-icons') person
+          p My Account
+        
+        md-list-item(ng-click='/users/sign-up')
+          md-icon(md-font-icon='material-icons') person_add
+          p Create account
 
-    div.container
-      h1
-        i.fa.fa-fw.fa-spinner.fa-spin
-        | Initializing Fi Seed
 
-    //- App scripts
+    main.md-whiteframe-z2(
+      layout='column',
+      tabIndex='-1',
+      role='main',
+      flex)
+      
+      md-toolbar.md-whiteframe-z1(
+        layout='row',
+        main-navbar)
+      
+      md-content(
+        style='height: 100vh',
+        autoscroll='true',
+        ng-view,
+        flex)
+
+    //- main-footer
+
+    //- main-flash
+
     include ./elements/scripts
