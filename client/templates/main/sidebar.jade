@@ -1,0 +1,18 @@
+md-toolbar
+  h1.md-toolbar-tools Fi Seed
+
+md-list
+  md-list-item(ng-click='$navigateTo("/")')
+    md-icon(md-font-icon='material-icons') home
+    p Home
+
+  md-subheader
+    | Users
+
+  md-list-item(ng-click='$navigateTo("/users/sign-in")')
+    md-icon(md-font-icon='material-icons') person
+    p My Account
+
+  md-list-item(ng-click='$navigateTo("/users/sign-up")')
+    md-icon(md-font-icon='material-icons') person_add
+    p Create account
