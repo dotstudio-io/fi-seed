@@ -1,6 +1,7 @@
 'use strict';
 
-var fileman = component('fileman');
+var fs = require('fs');
+
 var gridfs = component('gridfs');
 
 module.exports = function (router) {
@@ -45,10 +46,16 @@ module.exports = function (router) {
     var saved = [];
 
     req.files.forEach(function (file) {
-      gridfs.save(file.data, {
+      var options = {
         content_type: file.mimetype,
         filename: file.filename
-      }, function (err, fsfile) {
+      };
+
+      /* Read temp file */
+      var rstream = fs.createReadStream(file.path);
+
+      /* Save file to GridFS */
+      gridfs.save(rstream, options, function (err, fsfile) {
         if (err) {
           return next(err);
         }

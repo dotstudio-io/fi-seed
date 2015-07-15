@@ -20,27 +20,24 @@ function init(db, mongo) {
 /**
 * Save a new file.
 *
-* @param data {Buffer} The file's data buffer.
+* @param data {Stream} The input read stream.
 * @param options {Object} Any valid gridfs-stream options.
 *
 * @retun {Stream} The file's read stream.
 */
-function save(data, options, cb) {
-  var stream;
-
+function save(rstream, options, cb) {
   options.mode = options.mode || 'w';
   options.filename = options.filename || 'unnamed_file';
 
-  stream = gfs.createWriteStream(options);
+  var wstream = gfs.createWriteStream(options);
 
-  stream.write(data);
-  stream.end();
+  rstream.pipe(wstream);
 
-  stream.on('close', function(fsfile) {
+  wstream.on('close', function(fsfile) {
     cb(null, fsfile);
   });
 
-  stream.on('error', function(err) {
+  wstream.on('error', function(err) {
     cb(err);
   });
 }
