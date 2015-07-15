@@ -15,10 +15,10 @@
     "url": "https://github.com/FinalDevStudio/fi-seed.git"
   },
   "scripts": {
-    "setup": "npm install && bower install",
+    "setup": "npm install && bower install && gulp",
     "dev": "NODE_PATH=. NODE_ENV=development DEBUG=app:* node server",
     "start": "NODE_PATH=. NODE_ENV=production node server",
-    "reinstall": "rm -Rf node_modules/ client/assets/components/ && npm install && bower install",
+    "reinstall": "rm -Rf node_modules/ client/assets/components/ && npm install && bower install && gulp",
     "prestart": "gulp"
   },
   "dependencies": {
