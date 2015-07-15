@@ -1,13 +1,13 @@
 {
-  "name": "Presupuesta",
-  "title": "Presupuesta",
-  "description": "Marketplace de proyectos de contrucción, remodelación y reparaciones del hogar, empresa e industria.",
+  "name": "fi-seed",
+  "title": "Fi Seed",
+  "description": "A boilerplate for [Node|io].js Express apps with AngularJS on the frontend",
   "version": "1.0.0",
   "license": "MIT",
   "author": "Final Development Studio <sorcery@finaldevstudio.com> (http://finaldevstudio.com)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/FinalDevStudio/fi-seed.git"
+    "url": "https://github.com/finaldevstudio/fi-seed.git"
   },
   "private": true,
   "ignore": [
@@ -19,9 +19,9 @@
     "angular-route"
   ],
   "dependencies": {
-    "angular": "~1.4.1",
-    "angular-route": "~1.4.1",
-    "angular-i18n": "~1.4.1",
+    "angular": "~1.4.3",
+    "angular-route": "~1.4.3",
+    "angular-i18n": "~1.4.3",
     "angular-material": "~0.10.0"
   }
 }
