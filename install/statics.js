@@ -1,111 +1,111 @@
 'use strict';
 
-var path = require('path');
-var validate = require('jsonschema').validate;
-var database = require('../server/config/database');
-var inflection = require('inflection');
-var mongoose = require('mongoose');
-var fs = require('fs');
-
 require('colors');
 
-database(function(err) {
-	var inserted = 0,
-		index = 0,
-		jsons;
+var connection = require('../server/config/mongoose');
+var inflection = require('inflection');
+var mongoose = require('mongoose');
+var path = require('path');
+var fs = require('fs');
 
-	function next() {
-		/* Check if all the files were processed */
-		if (index === jsons.length) {
-			if (inserted === jsons.length) {
-				console.log("\nEverything was inserted!\n".bold);
-			} else {
-				console.log("\nSome insertions failed\n".bold.yellow);
-			}
+connection(function (err) {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
 
-			/* Finish the process */
-			process.exit(0);
-		} else {
-			var data, Model, schema, json = jsons[index];
-			index++;
+  var inserted = 0;
+  var jsons = [];
+  var index = 0;
 
-			console.log("\n%s...".bold, json);
+  function next() {
+    /* Check if all the files were processed */
+    if (index === jsons.length) {
+      if (inserted === jsons.length) {
+        console.log("\nEverything was inserted!\n".bold);
+      } else {
+        console.log("\nSome insertions were not made\n".bold.yellow);
+      }
 
-			try {
-				data = require('./statics/' + json);
-			} catch (ex) {
-				console.error(ex);
-				console.log("\nHave you created the JSON file?".bold.red);
-			}
+      /* Finish the process successfully */
+      process.exit(0);
+    }
 
-			try {
-				schema = require('../server/schemas/static/' + inflection.singularize(path.basename(json, '.json')))(mongoose.Schema);
-				Model = mongoose.model('static.' + path.basename(json, '.json'), schema);
-			} catch (ex) {
-				console.error(ex);
-				console.log("\nHave you created the schema yet?".bold.red);
-			}
+    var data, Model;
+    var json = jsons[index];
 
-			if (data && Model) {
-				if (validate(4, data)) {
-					var total = data.length,
-						count = 0,
-						success = 0;
+    index++;
 
-					var onsaved = function() {
-						if (count === total) {
-							console.log("saved %d of %d documents", success, total);
+    console.log("\n%s...".bold, json);
 
-							inserted += 1;
-							next();
-						} else {
-							saveDoc();
-						}
-					};
+    /* Read the JSON data */
+    try {
+      data = require('./statics/' + json);
+    } catch (ex) {
+      console.error(ex);
+      console.log("\nAre you sure it's a valid JSON file?".bold.red);
+    }
 
-					var saveDoc = function() {
-						new Model(data[count]).save(function(err) {
-							if (!err) {
-								success++;
-							}
+    /* Load the model on mongoose */
+    try {
+      var basename = path.basename(json, '.json');
+      var schemaname = inflection.singularize(basename);
+      var modelname = 'static.' + basename;
 
-							count++;
-							onsaved();
-						});
-					};
+      var schema = require('../server/schemas/static/' + schemaname)(mongoose.Schema);
 
-					saveDoc();
-				} else {
-					console.log("\nMalformed JSON".bold.yellow);
-					next();
-				}
-			} else {
-				next();
-			}
-		}
-	}
+      Model = mongoose.model(modelname, schema);
+    } catch (ex) {
+      console.error(ex);
+      console.log("\nHave you created the schema?".bold.red);
+    }
 
-	if (err) {
-		console.error(err);
-		process.exit(1);
-	} else {
-		console.log("\nInserting statics JSON into database...\n".bold);
+    if (!data || !Model) {
+      return next();
+    }
 
-		fs.readdir('./install/statics', function(err, files) {
-			var fl = [];
+    var total = data.length;
+    var created = 0;
+    var count = 0;
 
-			files.forEach(function(f) {
-				if (path.extname(f) === '.json') {
-					fl.push(f);
-				}
-			});
+    console.log("%d documents total", total);
 
-			console.log("Read %d files".bold, fl.length);
-			console.dir(fl);
+    data.forEach(function (item) {
+      new Model(item).save(function (err) {
+        if (err) {
+          if (err.code && err.code === 11000) {
+            console.log("Already inserted (%s)", item._id);
+          } else {
+            console.log(err);
+          }
+        } else {
+          created++;
+        }
 
-			jsons = fl;
+        if (++count === total) {
+          console.log("Created %d new documents", created);
 
-			next();
-		});
-	}
+          inserted++;
+
+          next();
+        }
+      });
+    });
+  }
+
+  console.log("\nInserting statics JSON into database...\n".bold);
+
+  /* Read all JSONs in the statics directory */
+  fs.readdir('install/statics', function (err, files) {
+    files.forEach(function (file) {
+      if (path.extname(file) === '.json') {
+        jsons.push(file);
+      }
+    });
+
+    console.log("Read %d files".bold, jsons.length);
+    console.dir(jsons);
+
+    next();
+  });
 });
