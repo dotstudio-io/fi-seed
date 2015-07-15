@@ -6,53 +6,26 @@ html(
   ng-app='App',
   lang='es')
 
-
   head
     include ./elements/head
 
   body(layout='row')
-    md-sidenav.md-sidenav-left.md-whiteframe-z2(
+    md-sidenav.md-sidenav-left(
       md-is-locked-open='$mdMedia("gt-sm")',
-      md-component-id='left')
-      
-      md-toolbar.md-whiteframe-z1
-        h1.md-toolbar-tools Fi Seed
-      
-      md-list
-        md-list-item(ng-click='/')
-          md-icon(md-font-icon='material-icons') home
-          p Home
-      
-        md-subheader
-          | Users
-          
-        md-list-item(ng-click='/users/sign-up')
-          md-icon(md-font-icon='material-icons') person
-          p My Account
-        
-        md-list-item(ng-click='/users/sign-up')
-          md-icon(md-font-icon='material-icons') person_add
-          p Create account
+      md-component-id='left',
+      main-sidebar)
 
-
-    main.md-whiteframe-z2(
+    md-content(
       layout='column',
       tabIndex='-1',
       role='main',
       flex)
-      
-      md-toolbar.md-whiteframe-z1(
-        layout='row',
-        main-navbar)
-      
+
+      md-toolbar(main-navbar)
+
       md-content(
-        style='height: 100vh',
         autoscroll='true',
         ng-view,
         flex)
-
-    //- main-footer
-
-    //- main-flash
 
     include ./elements/scripts
