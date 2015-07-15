@@ -15,7 +15,7 @@ module.exports = {
   paths: [{
     method: 'GET',
     route: ['/api/users/:id'],
-    allows: true
+    allows: 'admin'
   }]
 
 };

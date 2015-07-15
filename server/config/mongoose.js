@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var debug = require('debug')('app:database');
 /* This will use the "name" property in your package.json as the database name. Change it to whatever you like */
-var dbname = require(__appdir + '/package.json').name;
+var dbname = require('../../package.json').name;
 
 var options = {
   //    db: { native_parser: true },
