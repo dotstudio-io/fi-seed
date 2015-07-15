@@ -10,46 +10,46 @@ var less = require('gulp-less');
 var gulp = require('gulp');
 var del = require('del');
 
+/**** PATHS ****/
 var paths = {
-  scripts: [
-    'client/app.js',
+  source: {
+    scripts: [
+      'client/scripts/app.js',
 
-    'client/modules/**/*.js',
-    'client/services/**/*.js',
-    'client/routes/**/*.js',
-    'client/controllers/**/*.js',
-    'client/directives/**/*.js',
+      'client/scripts/modules/**/*.js',
+      'client/scripts/services/**/*.js',
+      'client/scripts/routes/**/*.js',
+      'client/scripts/controllers/**/*.js',
+      'client/scripts/directives/**/*.js',
 
-    'client/main.js'
-  ],
+      'client/scripts/main.js'
+    ],
 
-  styles: [
-    'client/styles/styles.less'
-  ],
+    styles: 'client/styles/styles.less',
 
-  templates: [
-    'client/templates/**/*.jade'
-  ],
+    templates: 'client/templates/**/*.jade'
+  },
 
-  output: {
+  dest: {
     templates: 'client/assets/templates',
     scripts: 'client/assets/scripts',
     styles: 'client/assets/styles'
   },
 
-  watch: [
-    'client/!(assets)/**/*'
-  ]
+  watch: {
+    templates: 'client/templates/**/*.jade',
+    scripts: 'client/scripts/**/*.js',
+    styles: 'client/styles/**/*.less'
+  }
 };
 
 /**** SCRIPTS ****/
-
 gulp.task('scripts:clean', function (done) {
-  del(paths.output.scripts, done);
+  del(paths.dest.scripts, done);
 });
 
 gulp.task('scripts:minify', ['scripts:clean'], function () {
-  return gulp.src(paths.scripts).
+  return gulp.src(paths.source.scripts).
 
   pipe(sourcemaps.init()).
 
@@ -59,11 +59,11 @@ gulp.task('scripts:minify', ['scripts:clean'], function () {
 
   pipe(sourcemaps.write()).
 
-  pipe(gulp.dest(paths.output.scripts));
+  pipe(gulp.dest(paths.dest.scripts));
 });
 
 gulp.task('scripts', ['scripts:minify'], function () {
-  return gulp.src(paths.scripts).
+  return gulp.src(paths.source.scripts).
 
   pipe(concat('client.js')).
 
@@ -77,27 +77,26 @@ gulp.task('scripts', ['scripts:minify'], function () {
     }
   })).
 
-  pipe(gulp.dest(paths.output.scripts));
+  pipe(gulp.dest(paths.dest.scripts));
 });
 
 /**** STYLES ****/
-
 gulp.task('styles:clean', function (done) {
-  del(paths.output.styles, done);
+  del(paths.dest.styles, done);
 });
 
 gulp.task('styles:compile', ['styles:clean'], function () {
-  return gulp.src(paths.styles).
+  return gulp.src(paths.source.styles).
 
   pipe(less({
     paths: paths.styles
   })).
 
-  pipe(gulp.dest(paths.output.styles));
+  pipe(gulp.dest(paths.dest.styles));
 });
 
 gulp.task('styles', ['styles:compile'], function () {
-  return gulp.src(paths.styles).
+  return gulp.src(paths.source.styles).
 
   pipe(sourcemaps.init()).
 
@@ -113,21 +112,20 @@ gulp.task('styles', ['styles:compile'], function () {
     extname: '.min.css'
   })).
 
-  pipe(gulp.dest(paths.output.styles));
+  pipe(gulp.dest(paths.dest.styles));
 });
 
 /**** TEMPLATES ****/
-
 gulp.task('templates:clean', function (done) {
-  del(paths.output.templates, done);
+  del(paths.dest.templates, done);
 });
 
 gulp.task('templates', ['templates:clean'], function () {
-  return gulp.src(paths.templates).
+  return gulp.src(paths.source.templates).
 
   pipe(jade()).
 
-  pipe(gulp.dest(paths.output.templates));
+  pipe(gulp.dest(paths.dest.templates));
 });
 
 /**** TASKS ****/
@@ -139,7 +137,7 @@ gulp.task('default', ['build']);
 
 /* Watch for file changes */
 gulp.task('watch', ['build'], function () {
-  gulp.watch(paths.templates, ['templates']);
-  gulp.watch(paths.scripts, ['scripts']);
-  gulp.watch(paths.styles, ['styles']);
+  gulp.watch(paths.watch.templates, ['templates']);
+  gulp.watch(paths.watch.scripts, ['scripts']);
+  gulp.watch(paths.watch.styles, ['styles']);
 });
