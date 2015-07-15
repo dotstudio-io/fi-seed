@@ -31,6 +31,11 @@ module.exports = function (Schema) {
       ref: 'static.gender'
     },
 
+    role: {
+      type: Schema.Types.ObjectId,
+      ref: 'static.role'
+    },
+
     created: {
       type: Date,
       default: Date.now
