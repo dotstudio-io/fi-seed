@@ -2,6 +2,8 @@
 
 var debug = require('debug')('app:statics');
 var mongoose = require('mongoose');
+var path = require('path');
+var walk = require('walk');
 
 module.exports = {
 
@@ -12,47 +14,47 @@ module.exports = {
   },
 
   load: function statics(config, done) {
+    var fullpath = path.join(__basedir, config.basedir);
+    var walker = walk.walk(fullpath);
     var models = this.models;
-    var total = config.models.length;
-    var count = 0;
-    var Model;
 
-    config.models.forEach(function (model) {
-      try {
-        Model = mongoose.model(config.prefix + '.' + model);
-
-        Model.find(function (err, results) {
-          var tt = 0;
-          var cc = 0;
-
-          count++;
-
-          if (err) {
-            debug("Could not retrieve %s.%s!", config.prefix, model);
-          } else if (!results.length) {
-            debug("There is no data for %s.%s!", config.prefix, model);
-          } else {
-            tt += results.length;
-
-            models[model] = {};
-
-            results.forEach(function (result) {
-              cc++;
-
-              models[model][result.slug] = result;
-
-              debug("%s.%s.%s --> %s", config.prefix, model, result.slug, result._id);
-            });
-          }
-
-          if (tt === cc && count === total) {
-            done();
-          }
-        });
-      } catch (ex) {
-        debug("Could not load %s.%s!", config.prefix, model);
+    walker.on('file', function (root, stats, next) {
+      if (path.extname(stats.name) !== '.js') {
+        return next();
       }
+
+      var model = path.basename(stats.name, '.js');
+      var Model = mongoose.model(config.prefix + '.' + model);
+
+      Model.find(function (err, results) {
+        if (err) {
+          debug("Could not retrieve %s.%s!", config.prefix, model);
+          return next();
+        }
+
+        if (!results.length) {
+          debug("There is no data for %s.%s!", config.prefix, model);
+          return next();
+        }
+
+        models[model] = {};
+
+        results.forEach(function (result) {
+          models[model][result.slug] = result;
+
+          debug("%s.%s.%s --> %s", config.prefix, model, result.slug, result._id);
+        });
+
+        next();
+      });
     });
+
+    walker.on('error', function (root, stats) {
+      panic("Could not register statics!\n", root, stats);
+    });
+
+    walker.on('end', done);
+
   }
 
 };

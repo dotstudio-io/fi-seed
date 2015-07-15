@@ -4,8 +4,6 @@ module.exports = {
 
   prefix: 'static',
 
-  models: [
-    'gender'
-  ]
+  basedir: 'schemas/static'
 
 };
