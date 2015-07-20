@@ -15,7 +15,12 @@ module.exports = function (app) {
   /* Error handler */
   app.use(function (err, req, res, next) {
     var dev = app.get('env') === 'development';
-    var locals = {};
+
+    var locals = {
+      development: process.env.NODE_ENV === 'development',
+      title: require(__appdir + '/package.json').title,
+      error: null
+    };
 
     res.status(err.status || 500);
 
@@ -41,7 +46,12 @@ module.exports = function (app) {
       };
     }
 
-    res.render('error', locals);
+    if (err.status === 404) {
+      /* Let Angular handle 404s */
+      res.render('index', locals);
+    } else {
+      res.render('error', locals);
+    }
   });
 
 };
