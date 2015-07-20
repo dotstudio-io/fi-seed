@@ -1,18 +1,15 @@
-- var err = {};
-- err.status = (error && error.status ? error.status : 500);
-- err.message = (error && error.message ? error.message : "Something bad happened...");
-- err.stack = (error && error.stack ? error.stack : "No aditional information is available.");
+extends index
 
-doctype html
+block body
+  .container
+    if (error)
+      .alert.alert-danger
+        | #[strong #{ error.status  || 500 }] #{ error.message || "Server error" }
 
-html(lang='es')
+      if (error.stack)
+        .well
+          pre #{ err.stack }
 
-  head
-    include ./elements/head
-
-  body.container-fluid
-    h1
-      strong= err.status
-      span= err.message
-
-    pre= err.stack
+    else
+      .alert.alert-danger
+        | #[strong 500] Server error
