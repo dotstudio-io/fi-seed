@@ -2,13 +2,29 @@
 
 var sourcemaps = require('gulp-sourcemaps');
 var minifycss = require('gulp-minify-css');
+var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var jade = require('gulp-jade');
 var less = require('gulp-less');
+var util = require('util');
 var gulp = require('gulp');
 var del = require('del');
+
+var options = {
+  plumber: {
+    errorHandler: function (err) {
+      console.error(util.inspect(err, {
+        showHidden: true,
+        colors: true,
+        depth: 8
+      }));
+
+      this.emit('end');
+    }
+  }
+};
 
 /**** PATHS ****/
 var paths = {
@@ -51,6 +67,8 @@ gulp.task('scripts:clean', function (done) {
 gulp.task('scripts:minify', ['scripts:clean'], function () {
   return gulp.src(paths.source.scripts).
 
+  pipe(plumber(options.plumber)).
+
   pipe(sourcemaps.init()).
 
   pipe(concat('client.min.js')).
@@ -64,6 +82,8 @@ gulp.task('scripts:minify', ['scripts:clean'], function () {
 
 gulp.task('scripts', ['scripts:minify'], function () {
   return gulp.src(paths.source.scripts).
+
+  pipe(plumber(options.plumber)).
 
   pipe(concat('client.js')).
 
@@ -88,6 +108,8 @@ gulp.task('styles:clean', function (done) {
 gulp.task('styles:compile', ['styles:clean'], function () {
   return gulp.src(paths.source.styles).
 
+  pipe(plumber(options.plumber)).
+
   pipe(less({
     paths: paths.styles
   })).
@@ -97,6 +119,8 @@ gulp.task('styles:compile', ['styles:clean'], function () {
 
 gulp.task('styles', ['styles:compile'], function () {
   return gulp.src(paths.source.styles).
+
+  pipe(plumber(options.plumber)).
 
   pipe(sourcemaps.init()).
 
@@ -122,6 +146,8 @@ gulp.task('templates:clean', function (done) {
 
 gulp.task('templates', ['templates:clean'], function () {
   return gulp.src(paths.source.templates).
+
+  pipe(plumber(options.plumber)).
 
   pipe(jade()).
 
