@@ -6,15 +6,15 @@ module.exports = {
 
   authorizer: function (req) {
     if (req.session.user) {
-      return true;
+      return 'user';
     }
 
-    return false;
+    return null;
   },
 
-  paths: [{
+  routes: [{
     method: 'GET',
-    route: ['/api/users/:id'],
+    path: ['/api/users/:id'],
     allows: 'admin'
   }]
 

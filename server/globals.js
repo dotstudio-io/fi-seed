@@ -33,13 +33,13 @@ module.exports = function (global) {
   function include(dirpath, name) {
     var target = path.normalize(path.join(__basedir, dirpath, name));
 
-    debug("Including --> %s", target);
+    debug("Including --> %s:%s", dirpath, name);
 
     /* Try to require the module */
     try {
       return require(target);
     } catch (ex) {
-      panic(ex);
+      throw ex;
     }
   }
 
@@ -58,7 +58,15 @@ module.exports = function (global) {
    * @param {String} name The component name.
    */
   function component(name) {
-    return include('components', name);
+    try {
+      return include('components', name);
+    } catch (ex) {
+      try {
+        return require('fi-seed-component-' + name);
+      } catch (ex) {
+        panic("Component not found!", ex);
+      }
+    }
   }
 
   global.component = component;

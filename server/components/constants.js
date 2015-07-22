@@ -2,6 +2,6 @@
 
 module.exports = {
 
-  DOMAIN: 'https://github.com/FinalDevStudio/fi-seed'
+  DOMAIN: 'https://github.com/finaldevstudio/fi-seed'
 
 };

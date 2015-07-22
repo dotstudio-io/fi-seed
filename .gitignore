@@ -1,5 +1,24 @@
-# misc
-.DS_Store
+#### PROJECT ####
+
+# Bower components directory
+client/assets/components/
+
+# Compiled views
+client/assets/templates/
+
+# Compiled styles
+client/assets/styles/
+
+# Compiled scripts
+client/assets/scripts/
+
+
+#### NPM ####
+
+dev.config.json
+
+
+#### NODEJS ####
 
 # Logs
 logs
@@ -19,34 +38,62 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
+# node-waf configuration
+.lock-wscript
+
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directory
-# Commenting this out is preferred by some people, see
-# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-# Users Environment Variables
-.lock-wscript
 
-#npm debug
-npm-debug.log
+#### WINDOWS ####
 
-# SASS cache
-.sass-cache/
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
 
-# Bower components directory
-client/assets/components
+# Folder config file
+Desktop.ini
 
-# Compiled views
-client/assets/templates
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
-# Compiled styles
-client/assets/styles
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
 
-# Compiled scripts
-client/assets/scripts
+# Windows shortcuts
+*.lnk
 
-# Theme
-clean-canvas-wrap/
+
+#### OSX ####
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
