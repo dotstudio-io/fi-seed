@@ -35,7 +35,6 @@
     "express-session": "^1.11.2",
     "fi-seed-component-auth": "^1.0.1",
     "fi-seed-component-gridfs": "^1.0.0",
-    "gridfs-stream": "^1.1.1",
     "inflection": "^1.7.1",
     "jade": "^1.10.0",
     "lusca": "^1.1.0",
