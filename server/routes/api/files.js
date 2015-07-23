@@ -12,7 +12,7 @@ module.exports = function (router) {
   router.get('/:id', function (req, res, next) {
 
     /* Get the file from GridFS */
-    gridfs.get(req.params.id, function (err, fsfile, stream) {
+    gridfs.read(req.params.id, function (err, fsfile, rs) {
       if (err) {
         return next(err);
       }
@@ -21,6 +21,10 @@ module.exports = function (router) {
         return res.status(404).end();
       }
 
+      /**
+       * Since files have a unique MD5 hash they should be cached for a long time,
+       * in this case, a full year.
+       */
       res.set({
         'Content-Type': fsfile.contentType,
         'Content-Length': fsfile.length,
@@ -29,7 +33,7 @@ module.exports = function (router) {
         'ETag': fsfile.md5
       });
 
-      stream.pipe(res);
+      rs.pipe(res);
     });
 
   });
@@ -55,7 +59,7 @@ module.exports = function (router) {
       var rstream = fs.createReadStream(file.path);
 
       /* Save file to GridFS */
-      gridfs.save(rstream, options, function (err, fsfile) {
+      gridfs.write(rstream, options, function (err, fsfile) {
         if (err) {
           return next(err);
         }
