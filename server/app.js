@@ -47,7 +47,7 @@ var configs = {
 };
 
 /**** Setup ****/
-app.set('port', process.env.PORT || configs.server.port);
+app.set('port', process.env.PORT || configs.server.port || 0);
 app.set('view engine', configs.views.engine);
 app.set('views', configs.views.basedir);
 
@@ -149,7 +149,7 @@ function initGridFS() {
  */
 function registerRoutes() {
   /* Register routes */
-  routes(app, configs.routes.basedir);
+  routes(app, configs.routes);
 
   /* Register error handlers */
   configs.errors(app);
@@ -176,7 +176,7 @@ function loadStatics() {
  * Registers schemas.
  */
 function registerSchemas() {
-  schemas(configs.schemas.basedir);
+  schemas(mongoose, configs.schemas);
   loadStatics();
 }
 

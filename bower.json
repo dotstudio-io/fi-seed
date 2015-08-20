@@ -24,6 +24,8 @@
     "angular-i18n": "~1.4.3",
     "angular-material": "~0.10.0",
     "ng-file-upload": "~5.0.9",
-    "angular-filter": "~0.5.4"
+    "angular-filter": "~0.5.4",
+    "moment": "~2.10.5",
+    "ng-scroll-glue": "~2.0.10"
   }
 }

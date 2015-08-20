@@ -1,9 +1,11 @@
 'use strict';
 
+var path = require('path');
+
 module.exports = {
 
   prefix: 'static',
 
-  basedir: 'schemas/static'
+  basedir: path.normalize(path.join(__basedir, 'schemas', 'static'))
 
 };

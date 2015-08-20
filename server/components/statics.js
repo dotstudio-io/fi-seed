@@ -14,8 +14,7 @@ module.exports = {
   },
 
   load: function statics(config, done) {
-    var fullpath = path.join(__basedir, config.basedir);
-    var walker = walk.walk(fullpath);
+    var walker = walk.walk(config.basedir);
     var models = this.models;
 
     walker.on('file', function (root, stats, next) {

@@ -1,7 +1,11 @@
 'use strict';
 
+var path = require('path');
+
 module.exports = {
 
-  basedir: 'schemas'
+  basedir: path.normalize(path.join(__basedir, 'schemas')),
+
+  debug: require('debug')('app:schemas')
 
 };
