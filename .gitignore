@@ -1,4 +1,5 @@
-#### PROJECT ####
+# File storage folder
+storage
 
 # Bower components directory
 client/assets/components/
@@ -12,17 +13,10 @@ client/assets/styles/
 # Compiled scripts
 client/assets/scripts/
 
-
-#### NPM ####
-
-dev.config.json
-
-
-#### NODEJS ####
-
 # Logs
 logs
 *.log
+npm-debug.log*
 
 # Runtime data
 pids
@@ -45,11 +39,8 @@ coverage
 build/Release
 
 # Dependency directory
-# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+# https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
-
-
-#### WINDOWS ####
 
 # Windows image file caches
 Thumbs.db
@@ -70,15 +61,13 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-
-#### OSX ####
-
 .DS_Store
 .AppleDouble
 .LSOverride
 
 # Icon must end with two \r
 Icon
+
 
 # Thumbnails
 ._*
@@ -97,3 +86,11 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+*~
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*

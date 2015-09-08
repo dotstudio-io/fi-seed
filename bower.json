@@ -1,23 +1,5 @@
 {
   "name": "fi-seed",
-  "title": "Fi Seed",
-  "description": "A boilerplate for [Node|io].js Express apps with AngularJS on the frontend",
-  "version": "1.0.0",
-  "license": "MIT",
-  "author": "Final Development Studio <sorcery@finaldevstudio.com> (http://finaldevstudio.com)",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/finaldevstudio/fi-seed.git"
-  },
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests",
-    "angular-route"
-  ],
   "dependencies": {
     "angular": "~1.4.3",
     "angular-route": "~1.4.3",
