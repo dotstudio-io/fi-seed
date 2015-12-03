@@ -2,9 +2,6 @@
 
 require('colors');
 
-/**** Register globals *****/
-require('./globals')(global);
-
 /**** Modules *****/
 var debug = require('debug')('app:main');
 var compression = require('compression');
@@ -17,18 +14,18 @@ var security = require('lusca');
 var logger = require('morgan');
 var http = require('http');
 var path = require('path');
+var fileman = require('fi-fileman');
+var schemas = require('fi-schemas');
+var routes = require('fi-routes');
+var gridfs = require('fi-gridfs');
+var auth = require('fi-auth');
+
+var statics = component('statics');
 
 /**** Application ****/
 var app = express();
 var server = http.createServer(app);
 
-/**** Components ****/
-var fileman = component('fileman');
-var schemas = component('schemas');
-var statics = component('statics');
-var routes = component('routes');
-var gridfs = component('gridfs');
-var auth = component('auth');
 
 /**** Configuration ****/
 var configs = {
@@ -51,11 +48,11 @@ app.set('port', process.env.PORT || configs.server.port || 0);
 app.set('view engine', configs.views.engine);
 app.set('views', configs.views.basedir);
 
-/* UNCOMMENT IF YOU USE HTTPS */
-//if (app.get('env') === 'production') {
-//  app.set('trust proxy', 1); /* Trust first proxy */
-//  configs.session.cookie.secure = true; /* Serve secure cookies */
-//}
+/* Security configuration for HTTPS */
+if (app.get('env') === 'production') {
+ app.set('trust proxy', 1); /* Trust first proxy */
+ configs.session.cookie.secure = true; /* Serve secure cookies */
+}
 
 /**** Settings ****/
 /* Keep this order:
@@ -78,13 +75,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-app.use(fileman.multiparser);
+app.use(fileman.multiparser());
 app.use(security.csrf(configs.security.csrf));
 app.use(security.csp(configs.security.csp));
 app.use(security.xframe(configs.security.xframe));
 app.use(security.hsts(configs.security.hsts));
 app.use(security.xssProtection(configs.security.xssProtection));
-app.use(fileman.uploadedFilesCleaner);
+app.use(fileman.cleaner());
 app.use(compression());
 
 /**** Initialization ****/

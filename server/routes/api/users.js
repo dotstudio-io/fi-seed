@@ -2,9 +2,9 @@
 
 var bcrypt = require('bcrypt');
 
-module.exports = function (router, mongoose) {
+module.exports = function (router, db) {
 
-  var User = mongoose.model('user');
+  var User = db.model('user');
 
   /**
    * Creates a user.

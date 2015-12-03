@@ -1,8 +1,7 @@
 'use strict';
 
+var gridfs = require('fi-gridfs');
 var fs = require('fs');
-
-var gridfs = component('gridfs');
 
 module.exports = function (router) {
 

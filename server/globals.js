@@ -36,11 +36,7 @@ module.exports = function (global) {
     debug("Including --> %s:%s", dirpath, name);
 
     /* Try to require the module */
-    try {
-      return require(target);
-    } catch (ex) {
-      throw ex;
-    }
+    return require(target);
   }
 
   /**
@@ -58,15 +54,7 @@ module.exports = function (global) {
    * @param {String} name The component name.
    */
   function component(name) {
-    try {
-      return include('components', name);
-    } catch (ex) {
-      try {
-        return require('fi-seed-component-' + name);
-      } catch (ex) {
-        panic("Component not found!", ex);
-      }
-    }
+    return include('components', name);
   }
 
   global.component = component;

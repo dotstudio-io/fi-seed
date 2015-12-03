@@ -1,9 +1,8 @@
 'use strict';
 
-var debug = require('debug')('app:component:statics');
 var inflection = require('inflection');
 
-module.exports = function (router, mongoose) {
+module.exports = function (router, db) {
 
   /** Get statics by name */
   router.get('/', function (req, res) {
@@ -38,7 +37,7 @@ module.exports = function (router, mongoose) {
       }
 
       name = statics[curr];
-      model = mongoose.model('static.' + inflection.singularize(name));
+      model = db.model('static.' + inflection.singularize(name));
       curr += 1;
 
       if (!model) {
@@ -52,7 +51,7 @@ module.exports = function (router, mongoose) {
 
       exec(function (err, data) {
         if (err) {
-          debug(err);
+          console.dir(err);
         } else if (data) {
           results[name] = data;
         }

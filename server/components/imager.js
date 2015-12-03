@@ -3,6 +3,9 @@
 var lwip = require('lwip');
 var ExifImage = require('exif').ExifImage;
 
+/**
+ * Obtains the rotation of the image from it's EXIF information.
+ */
 function getRotation(data, cb) {
   try {
     new ExifImage({
@@ -11,8 +14,6 @@ function getRotation(data, cb) {
       if (err) {
         return cb(err);
       }
-
-      console.log("Got orientation %d", exif.image.Orientation);
 
       switch (exif.image.Orientation) {
         case 3:
@@ -33,6 +34,10 @@ function getRotation(data, cb) {
   }
 }
 
+
+/**
+ * Scale's the image to fit into a container.
+ */
 function scale(data, type, size, cb) {
   lwip.open(data, type, function (err, image) {
     if (err) {

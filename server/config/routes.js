@@ -1,7 +1,15 @@
 'use strict';
 
+var path = require('path');
+
 module.exports = {
 
-  basedir: 'routes'
+  debug: require('debug')('app:routes'),
+
+  basedir: path.join(__basedir, 'routes'),
+
+  arguments: [
+    require('mongoose')
+  ]
 
 };
