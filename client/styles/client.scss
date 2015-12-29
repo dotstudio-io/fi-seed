@@ -1,1 +1,35 @@
-@import 'scaffolding';
+/**
+ * This will only import the variables and mixins from bootstrap.
+ *
+ * If you want to create a completely custom bootstrap, remove
+ * 'bootstrap[.min].css' from your styles and from bower and edit the files
+ * in the bootstrap folder.
+ *
+ * Remember to update the '.gulpfile' too.
+ */
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+
+body {
+  background-color: $gray-lighter;
+}
+
+
+main,
+main-footer,
+main-navbar {
+  display: block;
+}
+
+
+main {
+  background-color: $body-bg;
+  padding-top: $navbar-height;
+  padding-bottom: $navbar-height;
+}
+
+
+footer {
+  padding-top: $padding-large-vertical;
+}
