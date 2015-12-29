@@ -13,21 +13,13 @@ module.exports = function (app) {
   });
 
   /* Error handler */
+  /* jshint unused: false */
   app.use(function (err, req, res, next) {
-    var dev = app.get('env') === 'development';
-
-    var locals = {
-      development: process.env.NODE_ENV === 'development',
-      title: require(__appdir + '/package.json').title,
-      error: null
-    };
+    var dev = process.env.NODE_ENV === 'development';
 
     res.status(err.status || 500);
 
-    console.log("\n");
-    debug("Catched an error!!");
-    console.error(err);
-    console.log("\n");
+    debug(err);
 
     if (req.xhr) {
       if (dev) {
@@ -38,20 +30,20 @@ module.exports = function (app) {
     }
 
     if (dev) {
-      locals.error = err;
+      res.locals.error = err;
     } else {
-      locals.error = {
+      res.locals.error = {
         message: err.message,
         status: err.status
       };
     }
 
     if (err.status === 404) {
-      /* Let Angular handle 404s */
-      res.render('index', locals);
-    } else {
-      res.render('error', locals);
+      /* Let the AngularJS application handle 404s */
+      return res.render('pages/home');
     }
+
+    res.render('pages/error');
   });
 
 };

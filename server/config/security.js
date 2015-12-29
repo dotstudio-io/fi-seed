@@ -5,21 +5,25 @@ module.exports = {
   p3p: 'ABCDEF',
 
   csrf: {
-    header: 'x-xsrf-token'
+    header: 'X-XSRF-TOKEN'
   },
 
-  xframe: 'SAMEORIGIN',
+  xframe: 'DENY',
 
   xssProtection: true,
 
   csp: {
-    "default-src": "'self'",
-    "report-uri": "http://localhost/myCspReporter" /* This URL does not exists in this app. You must provide your own. */
+    policy: {
+      'img-src': "http://lorempixel.com 'self'",
+      'style-src': "*.googleapis.com 'self'",
+      'font-src': "*.gstatic.com 'self'",
+      'default-src': "'self'"
+    }
   },
 
   hsts: {
-    maxAge: 31536000,
-    includeSubDomains: true
+    includeSubDomains: true,
+    maxAge: 31536000
   }
 
 };

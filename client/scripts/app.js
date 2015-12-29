@@ -3,9 +3,8 @@
 
   ng.module('App', [
     /** Angular dependencies **/
-    'ngFileUpload',
-    'ngMaterial',
     'ngRoute',
+    'ngAria',
 
     /** Custom Modules **/
     'Session'

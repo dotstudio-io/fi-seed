@@ -1,25 +1,31 @@
-.md-toolbar-tools
-  h2 Fi Seed
-    
-  span(flex)
-    
-  md-button(ng-href='/help')
-    | Ayuda
-    
-  md-button(ng-href='/about')
-    | Acerca de
+nav.navbar.navbar-inverse.navbar-fixed-top
+  .container
+    .navbar-header
+      button.navbar-toggle.collapsed(
+        aria-controls='navbar',
+        aria-expanded='false',
+        type='button')
 
-  md-menu
-    md-button.md-icon-button(ng-click='$mdOpenMenu()')
-      md-icon(md-menu-origin, md-font-icon='material-icons') more_vert
-    
-    md-menu-content(width='4')
-      md-menu-item
-        md-button(ng-href='/users/sign-in', ng-click='$mdCloseMenu()')
-          md-icon(md-menu-align-target, md-font-icon='material-icons') person
-          | My Account
-            
-      md-menu-item
-        md-button(ng-href='/users/sign-up', ng-click='$mdCloseMenu()')
-          md-icon(md-menu-align-target, md-font-icon='material-icons') person_add
-          | Create Account
+        span.sr-only Toggle navigation
+
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
+      a.navbar-brand(ng-href='/') Fi Seed
+
+    #navbar.navbar-collapse.collapse
+      form.navbar-form.navbar-right
+        .form-group
+          input.form-control(
+            placeholder='Email',
+            type='text')
+
+        .form-group
+          input.form-control(
+            placeholder='Password',
+            type='password')
+
+        button.btn.btn-success(type='submit') Sign in
+
+        .navbar-collapse

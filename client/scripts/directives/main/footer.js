@@ -7,9 +7,12 @@
     function ($window, $location, $http, $session, $timeout, APP_NAME, YEAR) {
 
       return {
-        scope: {},
-        restrict: 'E',
         templateUrl: '/assets/templates/main/footer.html',
+
+        restrict: 'E',
+
+        scope: {},
+
         link: function ($scope) {
           $scope.APP_NAME = APP_NAME;
           $scope.YEAR = YEAR;

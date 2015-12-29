@@ -1,8 +1,9 @@
 'use strict';
 
+require('../server/globals')(global);
 require('colors');
 
-var connection = require('../server/config/mongoose');
+var connection = require('../server/config/database');
 var inflection = require('inflection');
 var mongoose = require('mongoose');
 var path = require('path');
@@ -28,6 +29,7 @@ connection(function (err) {
       }
 
       /* Finish the process successfully */
+      mongoose.connection.close();
       process.exit(0);
     }
 
@@ -57,7 +59,7 @@ connection(function (err) {
       Model = mongoose.model(modelname, schema);
     } catch (ex) {
       console.error(ex);
-      console.log("\nHave you created the schema?".bold.red);
+      console.log("\nHave you created the schema yet?".bold.red);
     }
 
     if (!data || !Model) {

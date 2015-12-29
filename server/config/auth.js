@@ -2,7 +2,7 @@
 
 module.exports = {
 
-  debug: 'app:auth',
+  debug: require('debug')('app:auth'),
 
   authorizer: function (req) {
     if (req.session.user) {

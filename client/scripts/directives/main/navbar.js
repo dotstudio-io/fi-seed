@@ -17,80 +17,82 @@
     function ($window, $location, $http, $session) {
 
       return {
-        restrict: 'A',
         templateUrl: '/assets/templates/main/navbar.html',
-        link: function ($scope, $element) {
-          // var lastScrollTop = 0;
-          // var minDiff = 60;
-          // var minTop = 60;
-          //
-          // var $collapse = $element.find('#main-navbar-collapse');
-          //
-          // $scope.location = $location.path();
-          // $scope.folded = false;
-          //
-          // /**
-          //  * Sets the folding state of the navbar.
-          //  */
-          // function setFolding(folded) {
-          //   $scope.$apply(function () {
-          //     $scope.folded = folded;
-          //   });
-          // }
 
-          // /**
-          //  * Detect scroll changes and set navbar style accordingly.
-          //  */
-          // ng.element($window).on('scroll', function () {
-          //   var scrollTop = $(this).scrollTop();
+        restrict: 'E',
+
+        link: function ($scope, $element) {
+          //   var lastScrollTop = 0;
+          //   var minDiff = 60;
+          //   var minTop = 60;
           //
-          //   /* Calculate only if scroll top is more than "minTop" units */
-          //   if (scrollTop > minTop) {
-          //     /* Wait for a minimum difference of "minDiff" units */
-          //     if (Math.abs(scrollTop - lastScrollTop) > minDiff) {
-          //       if (scrollTop < lastScrollTop) {
-          //         if ($scope.folded) {
-          //           setFolding(false);
-          //         }
-          //       } else if (!$scope.folded) {
-          //         setFolding(true);
-          //       }
+          //   var $collapse = $element.find('#main-navbar-collapse');
           //
-          //       lastScrollTop = scrollTop;
-          //     }
-          //   } else if ($scope.folded) {
-          //     setFolding(false);
-          //   }
-          // });
-          //
-          // /**
-          //  * Sign the user out.
-          //  */
-          // $scope.signout = function () {
-          //   $http.get('/api/users/signout').
-          //
-          //   success(function () {
-          //     $session.flash('success', "¡Ha sido un gusto!", "Vuelve pronto :)");
-          //     $session.logout();
-          //     $location.path('/');
-          //   }).
-          //
-          //   error(function () {
-          //     $session.flash('danger', "Hmmmmm...", "Alguien no quiere que te vayas.");
-          //   });
-          // };
-          //
-          // /* Collapse the navbar menu when route changes */
-          // /* Clear the scope's location variable */
-          // $scope.$on('$routeChangeStart', function () {
-          //   $collapse.collapse('hide');
-          //   $scope.location = "";
-          // });
-          //
-          // /* Update the scope's location */
-          // $scope.$on('$routeChangeSuccess', function () {
           //   $scope.location = $location.path();
-          // });
+          //   $scope.folded = false;
+          //
+          //   /**
+          //    * Sets the folding state of the navbar.
+          //    */
+          //   function setFolding(folded) {
+          //     $scope.$apply(function () {
+          //       $scope.folded = folded;
+          //     });
+          //   }
+          //
+          //   /**
+          //    * Detect scroll changes and set navbar style accordingly.
+          //    */
+          //   ng.element($window).on('scroll', function () {
+          //     var scrollTop = $(this).scrollTop();
+          //
+          //     /* Calculate only if scroll top is more than "minTop" units */
+          //     if (scrollTop > minTop) {
+          //       /* Wait for a minimum difference of "minDiff" units */
+          //       if (Math.abs(scrollTop - lastScrollTop) > minDiff) {
+          //         if (scrollTop < lastScrollTop) {
+          //           if ($scope.folded) {
+          //             setFolding(false);
+          //           }
+          //         } else if (!$scope.folded) {
+          //           setFolding(true);
+          //         }
+          //
+          //         lastScrollTop = scrollTop;
+          //       }
+          //     } else if ($scope.folded) {
+          //       setFolding(false);
+          //     }
+          //   });
+          //
+          //   /**
+          //    * Sign the user out.
+          //    */
+          //   $scope.signout = function () {
+          //     $http.get('/api/users/signout').
+          //
+          //     success(function () {
+          //       $session.flash('success', "¡Ha sido un gusto!", "Vuelve pronto :)");
+          //       $session.logout();
+          //       $location.path('/');
+          //     }).
+          //
+          //     error(function () {
+          //       $session.flash('danger', "Hmmmmm...", "Alguien no quiere que te vayas.");
+          //     });
+          //   };
+          //
+          //   /* Collapse the navbar menu when route changes */
+          //   /* Clear the scope's location variable */
+          //   $scope.$on('$routeChangeStart', function () {
+          //     $collapse.collapse('hide');
+          //     $scope.location = "";
+          //   });
+          //
+          //   /* Update the scope's location */
+          //   $scope.$on('$routeChangeSuccess', function () {
+          //     $scope.location = $location.path();
+          //   });
         }
       };
     }

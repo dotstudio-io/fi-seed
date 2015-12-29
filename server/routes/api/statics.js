@@ -1,69 +1,37 @@
 'use strict';
 
 var inflection = require('inflection');
+var statics = require('fi-statics');
+var is = require('is_js');
 
-module.exports = function (router, db) {
+module.exports = function (router) {
 
   /** Get statics by name */
   router.get('/', function (req, res) {
 
-    var statics = req.query.statics;
-
     /* Convert the static name string to array if necessary */
-    if (typeof statics === 'string') {
-      statics = [statics];
+    if (is.string(req.query.statics)) {
+      req.query.statics = [req.query.statics];
     }
 
     /* Check if there are statics to find */
-    if (!Array.isArray(statics)) {
-      return res.status(400).end();
-    }
+    if (is.array(req.query.statics) && is.not.empty(req.query.statics)) {
+      var results = {};
 
-    var curr, total, model, name;
-    var results = {};
+      req.query.statics.forEach(function (model) {
+        if (is.string(model)) {
+          var data = statics.get(inflection.singularize(model));
 
-    /**
-     * Finds the next static
-     */
-    function findNext() {
-      /* Check if there are any more statics to find */
-      if (curr === total) {
-        if (!Object.keys(results).length) {
-          /* No results */
-          return res.status(404).end();
+          if (is.existy(data) && is.not.empty(data)) {
+            results[inflection.pluralize(model)] = data;
+          }
         }
-
-        return res.send(results);
-      }
-
-      name = statics[curr];
-      model = db.model('static.' + inflection.singularize(name));
-      curr += 1;
-
-      if (!model) {
-        return findNext();
-      }
-
-      /* If the model exists, find it */
-      model.find().
-
-      sort('_id').
-
-      exec(function (err, data) {
-        if (err) {
-          console.dir(err);
-        } else if (data) {
-          results[name] = data;
-        }
-
-        findNext();
       });
+
+      res.send(results);
     }
 
-    total = statics.length;
-    curr = 0;
+    res.status(400).end();
 
-    findNext();
   });
-
 };

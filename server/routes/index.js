@@ -13,7 +13,7 @@ module.exports = function (router) {
    */
   router.get([
     /* Pages */
-    '/', '/help', '/about',
+    '/', '/theme',
 
     /* Error routes */
     '/lost', '/forbidden',
@@ -23,11 +23,7 @@ module.exports = function (router) {
 
   ], function (req, res) {
     /* Render the base layout */
-    res.render('index', {
-      development: process.env.NODE_ENV === 'development',
-      title: require(__basedir + '/../package.json').title
-    });
-
+    res.render('pages/main');
   });
 
 };

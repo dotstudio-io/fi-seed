@@ -1,33 +1,37 @@
 'use strict';
 
-var minifycss = require('gulp-minify-css');
-var expect = require('gulp-expect-file');
-var plumber = require('gulp-plumber');
-var rename = require('gulp-rename');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var jade = require('gulp-jade');
-var less = require('gulp-less');
-var gulp = require('gulp');
-var del = require('del');
+const expect = require('gulp-expect-file');
+const plumber = require('gulp-plumber');
+const rename = require('gulp-rename');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const jade = require('gulp-jade');
+const sass = require('gulp-sass');
+const gulp = require('gulp');
+const del = require('del');
 
-var options = {
-  plumber: {
-    errorHandler: function (err) {
-      console.dir(err, {
-        showHidden: true,
-        colors: true,
-        depth: 8
-      });
+const options = {
+  errorHandler: function (err) {
+    console.dir(err, {
+      showHidden: true,
+      colors: true,
+      depth: 8
+    });
 
-      this.emit('end');
-    }
+    this.emit('end');
   }
 };
 
 /**** PATHS ****/
-var paths = {
+const paths = {
   source: {
+
+    templates: ['client/templates/**/*.jade'],
+
+    styles: [
+      'client/styles/client.scss'
+    ],
+
     scripts: [
       'client/scripts/app.js',
 
@@ -39,11 +43,7 @@ var paths = {
       'client/scripts/directives/**/*.js',
 
       'client/scripts/main.js'
-    ],
-
-    styles: 'client/styles/client.less',
-
-    templates: 'client/templates/**/*.jade'
+    ]
   },
 
   dest: {
@@ -55,25 +55,13 @@ var paths = {
   watch: {
     templates: 'client/templates/**/*.jade',
     scripts: 'client/scripts/**/*.js',
-    styles: 'client/styles/**/*.less'
+    styles: 'client/styles/**/*.scss'
   }
 };
 
 /**** SCRIPTS ****/
 gulp.task('scripts:clean', function () {
-  del.sync(paths.dest.scripts);
-});
-
-gulp.task('scripts:compile', ['scripts:clean'], function () {
-  return gulp.src(paths.source.scripts).
-
-  pipe(expect(paths.source.scripts)).
-
-  pipe(plumber(options.plumber)).
-
-  pipe(concat('client.js')).
-
-  pipe(gulp.dest(paths.dest.scripts));
+  del(paths.dest.scripts);
 });
 
 gulp.task('scripts:minify', ['scripts:clean'], function () {
@@ -81,61 +69,25 @@ gulp.task('scripts:minify', ['scripts:clean'], function () {
 
   pipe(expect(paths.source.scripts)).
 
-  pipe(plumber(options.plumber)).
+  pipe(plumber(options)).
+
+  pipe(uglify()).
 
   pipe(concat('client.min.js')).
-
-  pipe(uglify({
-    compress: true,
-    mangle: true
-  })).
 
   pipe(gulp.dest(paths.dest.scripts));
 });
 
-/**** STYLES ****/
-gulp.task('styles:clean', function () {
-  del.sync(paths.dest.styles);
-});
+gulp.task('scripts:compile', ['scripts:clean'], function () {
+  return gulp.src(paths.source.scripts).
 
-gulp.task('styles:compile', ['styles:clean'], function () {
-  return gulp.src(paths.source.styles).
+  pipe(expect(paths.source.scripts)).
 
-  pipe(expect(paths.source.styles)).
+  pipe(plumber(options)).
 
-  pipe(plumber(options.plumber)).
+  pipe(concat('client.js')).
 
-  pipe(less({
-    paths: paths.styles
-  })).
-
-  pipe(rename({
-    basename: 'client',
-    extname: '.css'
-  })).
-
-  pipe(gulp.dest(paths.dest.styles));
-});
-
-gulp.task('styles:minify', ['styles:clean'], function () {
-  return gulp.src(paths.source.styles).
-
-  pipe(expect(paths.source.styles)).
-
-  pipe(plumber(options.plumber)).
-
-  pipe(less({
-    paths: paths.styles
-  })).
-
-  pipe(minifycss()).
-
-  pipe(rename({
-    basename: 'client',
-    extname: '.min.css'
-  })).
-
-  pipe(gulp.dest(paths.dest.styles));
+  pipe(gulp.dest(paths.dest.scripts));
 });
 
 /**** TEMPLATES ****/
@@ -148,22 +100,7 @@ gulp.task('templates:compile', ['templates:clean'], function () {
 
   pipe(expect(paths.source.templates)).
 
-  pipe(plumber(options.plumber)).
-
-  pipe(jade({
-    basedir: 'client/templates',
-    pretty: true
-  })).
-
-  pipe(gulp.dest(paths.dest.templates));
-});
-
-gulp.task('templates:minify', ['templates:clean'], function () {
-  return gulp.src(paths.source.templates).
-
-  pipe(expect(paths.source.templates)).
-
-  pipe(plumber(options.plumber)).
+  pipe(plumber(options)).
 
   pipe(jade({
     basedir: 'client/templates'
@@ -172,12 +109,47 @@ gulp.task('templates:minify', ['templates:clean'], function () {
   pipe(gulp.dest(paths.dest.templates));
 });
 
+/**** STYLES ****/
+gulp.task('styles:clean', function () {
+  del.sync(paths.dest.styles);
+});
+
+gulp.task('styles:compile', ['styles:clean'], function () {
+  return gulp.src(paths.source.styles).
+
+  pipe(expect(paths.source.styles)).
+
+  pipe(plumber(options)).
+
+  pipe(sass().on('error', sass.logError)).
+
+  pipe(gulp.dest(paths.dest.styles));
+});
+
+gulp.task('styles:minify', ['styles:clean'], function () {
+  return gulp.src(paths.source.styles).
+
+  pipe(expect(paths.source.styles)).
+
+  pipe(plumber(options)).
+
+  pipe(sass({
+    outputStyle: 'compressed'
+  }).on('error', sass.logError)).
+
+  pipe(rename({
+    extname: '.min.css'
+  })).
+
+  pipe(gulp.dest(paths.dest.styles));
+});
+
 /**** TASKS ****/
 /* Compile all without minification */
 gulp.task('compile', ['scripts:compile', 'styles:compile', 'templates:compile']);
 
 /* Compile and minify all */
-gulp.task('default', ['scripts:minify', 'styles:minify', 'templates:minify']);
+gulp.task('default', ['scripts:minify', 'styles:minify', 'templates:compile']);
 
 /* Watch for file changes */
 gulp.task('watch', ['compile'], function () {

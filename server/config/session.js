@@ -3,7 +3,7 @@
 var uuid = require('node-uuid');
 
 var config = {
-  name: require(__appdir + '/package.json').name + '.sid',
+  name: require(__basedir + '/package.json').name + '.sid',
   secret: uuid.v4(),
   store: {
     host: 'localhost',
@@ -23,7 +23,7 @@ module.exports = function (session) {
     store: new RedisStore(config.store),
     cookieParser: cookieParser(config.secret),
     cookie: {
-      secure: false /* This should be true in production but requires HTTPS */
+      secure: true
     },
     saveUninitialized: true,
     resave: true

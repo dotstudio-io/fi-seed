@@ -4,14 +4,10 @@
   ng.module('App').
 
   config([
-    '$routeProvider', '$locationProvider', '$mdThemingProvider',
+    '$locationProvider',
 
-    function ($routeProvider, $locationProvider, $mdThemingProvider) {
+    function ($locationProvider) {
       $locationProvider.html5Mode(true);
-
-      $mdThemingProvider.theme('default').
-      primaryPalette('blue-grey').
-      accentPalette('light-green');
     }
   ]).
 

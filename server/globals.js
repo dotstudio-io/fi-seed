@@ -5,11 +5,11 @@ var path = require('path');
 
 module.exports = function (global) {
 
-  /* The dir where the app is located */
-  global.__appdir = path.normalize(path.join(__dirname, '..'));
+  /* The base application directory path */
+  global.__basedir = path.normalize(path.join(__dirname, '..'));
 
-  /* The server dir from where the app is located */
-  global.__basedir = __dirname;
+  /* The server directory path */
+  global.__serverdir = __dirname;
 
   /**
    * Prints an error and exists the process.
@@ -31,7 +31,7 @@ module.exports = function (global) {
    * @param {String} name The file name to require.
    */
   function include(dirpath, name) {
-    var target = path.normalize(path.join(__basedir, dirpath, name));
+    var target = path.normalize(path.join(__serverdir, dirpath, name));
 
     debug("Including --> %s:%s", dirpath, name);
 
@@ -56,6 +56,9 @@ module.exports = function (global) {
   function component(name) {
     return include('components', name);
   }
+
+  debug('Base directory: %s', __basedir);
+  debug('Server directory: %s', __serverdir);
 
   global.component = component;
   global.include = include;

@@ -1,10 +1,15 @@
 [{
-  "_id": "55a67dd3b44aae032d64294f",
+  "_id": "55a67dd3b44aae032d000000",
   "slug": "admin",
   "name": "Administrator",
   "__v": 0
 }, {
-  "_id": "55a67dd3b44aae032d642950",
+  "_id": "55a67dd3b44aae032d000001",
+  "slug": "manager",
+  "name": "Manager",
+  "__v": 0
+}, {
+  "_id": "55a67dd3b44aae032d000002",
   "slug": "user",
   "name": "User",
   "__v": 0

@@ -10,7 +10,10 @@ module.exports = function (Schema) {
       unique: true
     },
 
-    name: String
+    name: {
+      type: String,
+      required: true
+    }
 
   });
 

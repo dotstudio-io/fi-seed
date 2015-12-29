@@ -3,11 +3,7 @@
   "dependencies": {
     "angular": "~1.4.3",
     "angular-route": "~1.4.3",
-    "angular-i18n": "~1.4.3",
-    "angular-material": "~0.10.0",
-    "ng-file-upload": "~10.1.2",
-    "angular-filter": "~0.5.4",
-    "moment": "~2.10.5",
-    "ng-scroll-glue": "~2.0.10"
+    "bootstrap": "~3.3.6",
+    "angular-aria": "~1.4.8"
   }
 }

@@ -7,12 +7,15 @@
     function ($timeout, $session) {
 
       return {
-        restrict: 'E',
         templateUrl: '/assets/templates/main/flash.html',
+
+        restrict: 'E',
+
         link: function ($scope) {
           var timeout;
 
           $scope.hidden = true;
+
           $scope.icons = {
             danger: 'exclamation-triangle',
             warning: 'exclamation-circle',

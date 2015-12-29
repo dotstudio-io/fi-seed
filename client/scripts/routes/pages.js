@@ -13,14 +13,9 @@
         controller: 'Pages:Home'
       }).
 
-      when('/help', {
-        templateUrl: '/assets/templates/pages/help.html',
-        controller: 'Pages:Help'
-      }).
-
-      when('/about', {
-        templateUrl: '/assets/templates/pages/about.html',
-        controller: 'Pages:About'
+      when('/theme', {
+        templateUrl: '/assets/templates/pages/theme.html',
+        controller: 'Pages:Theme'
       }).
 
       /** Error routes */
