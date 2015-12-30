@@ -18,6 +18,6 @@ module.exports = {
    *
    * Set to 0 to use '80' (http) and '443' (https).
    */
-  portPrefix: 23
+  portPrefix: 3
 
 };

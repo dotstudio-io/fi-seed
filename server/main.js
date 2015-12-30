@@ -18,6 +18,7 @@ const auth = require('fi-auth');
 const https = require('https');
 const http = require('http');
 const path = require('path');
+const is = require('is_js');
 
 /**** Application ****/
 const app = express();
@@ -64,23 +65,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded(configs.bodyParser.urlencoded));
 
 /**** Initialization ****/
+function getBind(server) {
+  var addr = server.address();
 
-function onServerError(server, error) {
+  if (addr) {
+    return is.string(addr) ? 'pipe ' + addr : 'port ' + addr.port;
+  }
+
+  return '(unknown bind)';
+}
+
+function onServerError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  var addr = server.address();
-  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-
   switch (error.code) {
     case 'EACCES':
-      console.error("\n  Assigned %s requires elevated privileges!\n".bold.red, bind);
+      console.error("\n  Bind [%s:%s] requires elevated privileges!\n".bold.red, error.address, error.port);
       process.exit(1);
       break;
 
     case 'EADDRINUSE':
-      console.error("\n  Assigned %s is already in use!\n".bold.red, bind);
+      console.error("\n  Bind [%s:%s] is already in use!\n".bold.red, error.address, error.port);
       process.exit(1);
       break;
 
@@ -108,30 +115,24 @@ configs.database(function registerSchemas() {
     /* Register route error handlers */
     configs.errors(app);
 
-    /* Initalize HTTPS server */
-    var httpsPort = parseInt(app.get('port prefix') + '443');
-    var httpsServer = https.createServer(configs.server, app).listen(httpsPort);
-
-    httpsServer.on('listening', function () {
-      var addr = httpsServer.address();
-      var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-
-      console.log("\n  HTTPS Server is listening on %s\n".bold, bind);
-    });
-
-    httpsServer.on('error', onServerError.bind(null, httpsServer));
-
     /* Initalize HTTP server */
     var httpPort = parseInt(app.get('port prefix') + '080');
     var httpServer = http.createServer(app).listen(httpPort);
 
     httpServer.on('listening', function () {
-      var addr = httpServer.address();
-      var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-
-      console.log("  HTTP Server is listening on %s\n".bold, bind);
+      console.log("\n  HTTP server is listening on %s".bold, getBind(httpServer));
     });
 
-    httpServer.on('error', onServerError.bind(null, httpServer));
+    httpServer.on('error', onServerError);
+
+    /* Initalize HTTPS server */
+    var httpsPort = parseInt(app.get('port prefix') + '443');
+    var httpsServer = https.createServer(configs.server, app).listen(httpsPort);
+
+    httpsServer.on('listening', function () {
+      console.log("\n  HTTPS server is listening on %s\n".bold, getBind(httpsServer));
+    });
+
+    httpsServer.on('error', onServerError);
   });
 });
