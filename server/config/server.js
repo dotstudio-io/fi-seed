@@ -7,11 +7,14 @@ var credentials = path.join(__serverdir, 'credentials');
 
 module.exports = {
 
-  key: fs.readFileSync(path.join(credentials, 'privatekey.pem')),
+  /**
+   * These are insecure, self-signed keys. You must place your own.
+   */
+  key: fs.readFileSync(path.join(credentials, 'server.key')),
 
-  cert: fs.readFileSync(path.join(credentials, 'certificate.pem')),
+  cert: fs.readFileSync(path.join(credentials, 'server.crt')),
 
-  ca: fs.readFileSync(path.join(credentials, 'certrequest.csr')),
+  ca: fs.readFileSync(path.join(credentials, 'server.csr')),
 
   /**
    * This is a port prefix that will be prepended to '080' (http) or '443' (https).

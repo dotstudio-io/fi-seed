@@ -125,6 +125,11 @@ configs.database(function registerSchemas() {
 
     httpServer.on('error', onServerError);
 
+    /**
+     * IMPORTANT: If you're using HTTPS you should consider redirect all HTTP
+     * requests to the HTTPS server.
+     */
+
     /* Initalize HTTPS server */
     var httpsPort = parseInt(app.get('port prefix') + '443');
     var httpsServer = https.createServer(configs.server, app).listen(httpsPort);
