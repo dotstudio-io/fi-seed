@@ -57,7 +57,7 @@ if (app.get('env') === 'production') {
 /**** Settings ****/
 app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev'));
 app.use(compression());
-app.use(favicon(path.join('client', 'assets', 'icons', 'favicon.png')));
+app.use(favicon(path.join('client', 'assets', 'favicon.png')));
 app.use(configs.assets.route, express.static(configs.assets.basedir));
 app.use(session(configs.session));
 app.use(configs.session.cookieParser);
