@@ -33,3 +33,13 @@ main {
 footer {
   padding-top: $padding-large-vertical;
 }
+
+//- Custom navbar styles
+.navbar-fold {
+  @include transition(transform 200ms ease);
+}
+
+
+.navbar-folded {
+  @include translate(0, -100%);
+}
