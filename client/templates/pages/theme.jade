@@ -188,6 +188,82 @@
             td(colspan='2') Larry the Bird
             td @twitter
 
+            Submit
+
+  .page-header
+    h1 Forms
+
+  .row
+    .col-sm-6
+      form(
+        ng-submit='',
+        role='form')
+
+        .form-group
+          label(for='input-email-a') Email address
+          input#input-email-a.form-control(
+            placeholder='Email',
+            type='email')
+
+        .form-group
+          label(for='input-password-a') Password
+          input#input-password-a.form-control(
+            placeholder='Password',
+            type='password')
+
+        .form-group
+          label Picture
+          label.btn.btn-default.btn-block(for='input-file-a') Select your picture
+          input.hidden#input-file-a(type='file')
+          p.help-block Upload your best looking picture.
+
+        .checkbox
+          label
+            input(type='checkbox')
+            |&thinsp;
+            | Check me out
+
+        button.btn.btn-primary(type='button')
+          | Submit
+
+    .col-sm-6
+      form.form-horizontal
+        .form-group
+          label.col-sm-2.control-label(for='input-email-b') Email
+          .col-sm-10
+            input#input-email-b.form-control(
+              placeholder='Email',
+              type='email')
+
+        .form-group
+          label.col-sm-2.control-label(for='input-password-b') Password
+          .col-sm-10
+            input#input-password-b.form-control(
+              placeholder='Password',
+              type='password')
+
+        .form-group
+          label.col-sm-2.control-label(for='input-options-b') Options
+          .col-sm-10
+            select#input-options-b.form-control
+              option(value='', hidden) Select an option
+              option(value='1') First option
+              option(value='2') Second option
+              option(value='3') I'd go for the first option
+
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            .checkbox
+              label
+                input(type='checkbox')
+                |&thinsp;
+                | Remember me
+
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            button.btn.btn-primary(type='button')
+              | Sign in
+
   .page-header
     h1 Thumbnails
 
