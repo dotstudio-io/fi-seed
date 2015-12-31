@@ -21,11 +21,8 @@
       /** Error routes */
 
       when('/lost', {
-        templateUrl: '/assets/templates/lost.html'
-      }).
-
-      when('/forbidden', {
-        templateUrl: '/assets/templates/forbidden.html'
+        templateUrl: '/assets/templates/pages/lost.html',
+        controller: 'Pages:Lost'
       }).
 
       otherwise({

@@ -6,30 +6,28 @@ module.exports = function (app) {
 
   /* Catch 404 and forward it to the error handler... */
   app.use(function (req, res, next) {
-    var err = new Error("Looks like you are lost...");
+    var err = new Error("Resource not found");
     err.status = 404;
 
     next(err);
   });
 
   /* Error handler */
-  /* jshint unused: false */
-  app.use(function (err, req, res, next) {
-    var dev = process.env.NODE_ENV === 'development';
-
+  app.use(function (err, req, res, next) { // jshint ignore:line
     res.status(err.status || 500);
 
     debug(err);
 
-    if (req.xhr) {
-      if (dev) {
-        return res.send(err);
+    /* AJAX, assets or API errors should not render a view */
+    if (req.xhr || req.path.match(/^\/(assets|api)\/.*/i)) {
+      if (app.locals.development) {
+        return res.send(err.stack);
       }
 
       return res.end();
     }
 
-    if (dev) {
+    if (app.locals.development) {
       res.locals.error = err;
     } else {
       res.locals.error = {
@@ -38,9 +36,9 @@ module.exports = function (app) {
       };
     }
 
+    /* Let the AngularJS application handle 404 pages with some context */
     if (err.status === 404) {
-      /* Let the AngularJS application handle 404s */
-      return res.render('pages/home');
+      return res.redirect('/lost?path=' + req.path);
     }
 
     res.render('pages/error');
