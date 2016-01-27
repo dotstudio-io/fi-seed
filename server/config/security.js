@@ -5,7 +5,7 @@ module.exports = {
   p3p: 'ABCDEF',
 
   csrf: {
-    header: 'X-XSRF-TOKEN'
+    angular: true
   },
 
   xframe: 'DENY',
