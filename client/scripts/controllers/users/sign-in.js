@@ -9,36 +9,26 @@
 
       $scope.submit = function () {
         $scope.submitting = true;
-        $session.logout();
+        $session.signout();
         $session.flash();
 
-        $http.post('/api/users/signin', {
-          password: $scope.data.password,
-          email: $scope.data.email
-        }).
-
-        success(function (data) {
-          $session.login(data.user);
-          $session.flash('success', "¡Hola!", "Es un gusto tenerte de vuelta.");
+        $http.post('/api/users/sign-in', $scope.data).then(function success(res) {
+          $session.signin(res.data);
+          $session.flash('success', "Hi!", "It's nice to have you back.");
 
           if ($session.get('redirect')) {
             $location.path($session.get('redirect'));
             $session.set('redirect', null);
           } else {
-            $location.path('/providers/dashboard');
+            $location.path('/');
           }
-        }).
-
-        error(function (data, status) {
-          if (status === 400) {
-            $session.flash('warning', "Lo sentimos,",
-              "Pero parece que tu correo o clave son inválidos. ¿Tal vez necesitas crear una cuenta?");
+        }, function error(res) {
+          if (res.status === 400) {
+            $session.flash('warning', "Dammit!", "Looks like your email or password are wrong.");
           } else {
-            $session.flash('danger', "¡Aaaaaa!", "Algo anda mal...");
+            $session.flash('danger', "Panic!", "Something's wrong...");
           }
-        }).
-
-        finally(function () {
+        }).then(function complete() {
           $scope.submitting = false;
         });
       };

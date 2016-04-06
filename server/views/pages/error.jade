@@ -1,6 +1,15 @@
 extends ../layout
 
+block meta
+  meta(name='theme-color' content='#5a616e')
+
+block styles
+  link(rel='stylesheet', href='/assets/styles/styles#{ suffix }.css' )
+
 block body
+  .jumbotron
+    h1 Error!
+
   .container
     if (error)
       .alert.alert-danger
@@ -8,7 +17,7 @@ block body
 
       if (error.stack)
         .well
-          pre #{ err.stack }
+          pre #{ error.stack }
 
     else
       .alert.alert-danger

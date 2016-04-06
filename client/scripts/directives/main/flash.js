@@ -16,11 +16,13 @@
 
           $scope.hidden = true;
 
+          /* This are the flash icon classes */
+          /* Chage then to whatever your icon font uses */
           $scope.icons = {
-            danger: 'exclamation-triangle',
-            warning: 'exclamation-circle',
-            success: 'check-circle',
-            info: 'info-circle'
+            danger: 'remove-sign',
+            warning: 'exclamation-sign',
+            success: 'ok-sign',
+            info: 'info-dign'
           };
 
           $scope.$watch(function () {

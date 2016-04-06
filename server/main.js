@@ -6,6 +6,7 @@ const PACKAGE = require(__basedir + '/package.json');
 const compression = require('compression');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const requireDir = require('require-dir');
 const favicon = require('serve-favicon');
 const security = require('fi-security');
 const schemas = require('fi-schemas');
@@ -15,7 +16,7 @@ const routes = require('fi-routes');
 const express = require('express');
 const logger = require('morgan');
 const auth = require('fi-auth');
-const https = require('https');
+// const https = require('https');
 const http = require('http');
 const path = require('path');
 const is = require('is_js');
@@ -24,20 +25,8 @@ const is = require('is_js');
 const app = express();
 
 /**** Configuration ****/
-const configs = {
-  session: config('session')(session),
-  bodyParser: config('body-parser'),
-  security: config('security'),
-  database: config('database'),
-  schemas: config('schemas'),
-  statics: config('statics'),
-  assets: config('assets'),
-  errors: config('errors'),
-  server: config('server'),
-  routes: config('routes'),
-  views: config('views'),
-  auth: config('auth')
-};
+var configs = requireDir(path.join(__serverdir, 'config'));
+configs.session = configs.session(session);
 
 /**** Setup ****/
 app.locals.development = process.env.NODE_ENV === 'development';
@@ -62,7 +51,7 @@ app.use(configs.assets.route, express.static(configs.assets.basedir));
 app.use(session(configs.session));
 app.use(configs.session.cookieParser);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded(configs.bodyParser.urlencoded));
+app.use(bodyParser.urlencoded(configs['body-parser'].urlencoded));
 
 /**** Initialization ****/
 function getBind(server) {
@@ -81,28 +70,28 @@ function onServerError(error) {
   }
 
   switch (error.code) {
-    case 'EACCES':
-      console.error("\n  Bind [%s:%s] requires elevated privileges!\n".bold.red, error.address, error.port);
-      process.exit(1);
-      break;
+  case 'EACCES':
+    console.error("\n  Bind [%s:%s] requires elevated privileges!\n".bold.red, error.address, error.port);
+    process.exit(1);
+    break;
 
-    case 'EADDRINUSE':
-      console.error("\n  Bind [%s:%s] is already in use!\n".bold.red, error.address, error.port);
-      process.exit(1);
-      break;
+  case 'EADDRINUSE':
+    console.error("\n  Bind [%s:%s] is already in use!\n".bold.red, error.address, error.port);
+    process.exit(1);
+    break;
 
-    default:
-      throw error;
+  default:
+    throw error;
   }
 }
 
 /* Configure database (mongoose) */
-configs.database(function registerSchemas() {
+configs.database(() => {
   /* Registers schemas (mongoose) */
   schemas(mongoose, configs.schemas);
 
   /* Load and cache static database models data */
-  statics(mongoose, configs.statics, function () {
+  statics(mongoose, configs.statics, () => {
     /* Setup application security */
     security(app, configs.security);
 
@@ -119,7 +108,7 @@ configs.database(function registerSchemas() {
     var httpPort = parseInt(app.get('port prefix') + '080');
     var httpServer = http.createServer(app).listen(httpPort);
 
-    httpServer.on('listening', function () {
+    httpServer.on('listening', () => {
       console.log("\n  HTTP server is listening on %s".bold, getBind(httpServer));
     });
 
@@ -131,13 +120,13 @@ configs.database(function registerSchemas() {
      */
 
     /* Initalize HTTPS server */
-    var httpsPort = parseInt(app.get('port prefix') + '443');
-    var httpsServer = https.createServer(configs.server, app).listen(httpsPort);
-
-    httpsServer.on('listening', function () {
-      console.log("\n  HTTPS server is listening on %s\n".bold, getBind(httpsServer));
-    });
-
-    httpsServer.on('error', onServerError);
+    // var httpsPort = parseInt(app.get('port prefix') + '443');
+    // var httpsServer = https.createServer(configs.server, app).listen(httpsPort);
+    //
+    // httpsServer.on('listening', function () {
+    //   console.log("\n  HTTPS server is listening on %s\n".bold, getBind(httpsServer));
+    // });
+    //
+    // httpsServer.on('error', onServerError);
   });
 });

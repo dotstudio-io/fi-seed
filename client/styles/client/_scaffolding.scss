@@ -1,0 +1,38 @@
+main,
+main-footer,
+main-navbar {
+  display: block;
+}
+
+
+main {
+  background-color: $body-bg;
+  padding-top: $navbar-height;
+  padding-bottom: $navbar-height;
+}
+
+
+footer {
+  padding-top: $padding-large-vertical;
+}
+
+.navbar {
+  .navbar-brand {
+    img {
+      max-height: ($navbar-height - $navbar-padding-vertical);
+      display: inline-block;
+      margin-right: $padding-base-horizontal;
+      margin-top: -($navbar-padding-vertical / 2);
+    }
+  }
+}
+
+//- Custom navbar styles
+.navbar-fold {
+  @include transition(transform 200ms ease);
+}
+
+
+.navbar-folded {
+  @include translate(0, -100%);
+}

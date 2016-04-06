@@ -16,18 +16,17 @@
   constant('DOMAIN', 'https://github.com/finaldevstudio/fi-seed').
 
   run([
-    '$rootScope', '$location', 'APP_NAME', 'YEAR', 'DOMAIN',
+    '$rootScope', '$location', '$http', '$session', 'APP_NAME', 'YEAR', 'DOMAIN',
 
-    function ($rootScope, $location, APP_NAME, YEAR, DOMAIN) {
+    function ($rootScope, $location, $http, $session, APP_NAME, YEAR, DOMAIN) {
       /* Constants set */
       $rootScope.APP_NAME = APP_NAME;
       $rootScope.DOMAIN = DOMAIN;
       $rootScope.YEAR = YEAR;
 
-      /* Convenience navigate to method */
-      $rootScope.$navigateTo = function (route) {
-        $location.path(route);
-      };
+      $http.get('/api/session').then(function success(res) {
+        $session.signin(res.data);
+      });
     }
   ]);
 

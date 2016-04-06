@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function (router) {
+module.exports = (router) => {
 
   /**
    * Get current session's public data.
    */
-  router.get('/session', function (req, res) {
+  router.get('/session', (req, res) => {
 
     /* Check if there's a user in session */
     if (!req.session.user) {

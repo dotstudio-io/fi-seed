@@ -4,8 +4,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
   .container
     .navbar-header
       button.navbar-toggle.collapsed(
-        aria-controls='navbar',
-        aria-expanded='false',
+        ng-click='toggleCollapse()',
         type='button')
 
         span.sr-only Toggle navigation
@@ -14,24 +13,22 @@ nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
         span.icon-bar
         span.icon-bar
 
-      a.navbar-brand(ng-href='/') {{ APP_NAME }}
+      a.navbar-brand(ng-href='/')
+        img(src='/assets/images/ic-navbar.png')
+        | {{ APP_NAME }}
 
     #navbar.navbar-collapse.collapse
-      form.navbar-form.navbar-right
-        .form-group
-          input.form-control(
-            placeholder='Email',
-            type='text')
+      p.navbar-text.navbar-right(ng-if='$root.session.user')
+        | Signed in as #[strong {{ $root.session.user.name }}]
+        | &ensp;&mdash;&ensp;
 
-        |&ensp;
+        a.navbar-link(
+          ng-click='signout()',
+          role='button',
+          href='')
 
-        .form-group
-          input.form-control(
-            placeholder='Password',
-            type='password')
+          | Sign out
 
-        |&ensp;
-
-        button.btn.btn-success(type='submit') Sign in
-
-        .navbar-collapse
+      p.navbar-text.navbar-right(ng-if='!$root.session.user')
+        a.navbar-link(ng-href='/users/sign-in')
+          | Sign in

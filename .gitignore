@@ -1,17 +1,5 @@
-# File storage folder
-storage
-
 # Bower components directory
-client/assets/components/
-
-# Compiled views
-client/assets/templates/
-
-# Compiled styles
-client/assets/styles/
-
-# Compiled scripts
-client/assets/scripts/
+bower_components/
 
 # Logs
 logs

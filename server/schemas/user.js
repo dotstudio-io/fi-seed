@@ -3,7 +3,7 @@
 var validator = require('validator');
 var bcrypt = require('bcrypt');
 
-module.exports = function (Schema) {
+module.exports = (Schema) => {
 
   var schema = new Schema({
 
@@ -16,9 +16,9 @@ module.exports = function (Schema) {
       type: String,
       required: true,
       unique: true,
-      validate: [
-        validator.isEmail,
-      ]
+      validate: function (val) {
+        return validator.isEmail(val);
+      }
     },
 
     password: {
@@ -54,14 +54,9 @@ module.exports = function (Schema) {
   schema.pre('save', function (next) {
     var user = this;
 
-    /* Update 'updated' field */
-    if (user.isModified()) {
-      user.updated = Date.now();
-    }
-
     /* Hash password if changed */
     if (user.isModified('password')) {
-      bcrypt.hash(user.password, 8, function (err, hash) {
+      return bcrypt.hash(user.password, 8, (err, hash) => {
         if (err) {
           return next(err);
         }
@@ -70,9 +65,9 @@ module.exports = function (Schema) {
 
         next();
       });
-    } else {
-      next();
     }
+
+    next();
   });
 
   /**

@@ -1,6 +1,10 @@
-.flash(class='{{ hidden && "flash-hidden" || "" }}')
+.flash(ng-class='{ hidden: hidden }')
   .alert(
-    class='alert-{{ session.flash.type && session.flash.type || "info" }}',
+    ng-class='"alert-" + (session.flash.type && session.flash.type || "info")',
     ng-click='dismiss()')
 
-    | #[i.fa.fa-fw(class="fa-{{ icons[session.flash.type] }}")] #[strong {{ session.flash.title }}] {{ session.flash.message }}
+    i.glyphicon(ng-class='"glyphicon-" + (icons[session.flash.type] || "info-circle")')
+    | &ensp;
+    strong {{ session.flash.title }}
+    | &thinsp;
+    | {{ session.flash.message }}

@@ -3,7 +3,7 @@
 var debug = require('debug')('app:globals');
 var path = require('path');
 
-module.exports = function (global) {
+module.exports = (global) => {
 
   /* The base application directory path */
   global.__basedir = path.normalize(path.join(__dirname, '..'));

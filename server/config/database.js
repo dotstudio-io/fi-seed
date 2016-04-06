@@ -3,33 +3,21 @@
 const debug = require('debug')('app:database');
 const mongoose = require('mongoose');
 
-/* This will use the "name" property in your package.json as the database name. Change it to whatever you like */
+/* This will use the "name" property in your package.json as the database name */
 const dbname = require(__basedir + '/package.json').name;
 
 /* Optional mongoose configuration */
-var options = {
-  //    user: 'myUserName',
-  //    pass: 'myPassword',
-  //    db: {
-  //      native_parser: true
-  //    },
-  //    server: {
-  //      poolSize: 5
-  //    },
-  //    replset: {
-  //      rs_name: 'myReplicaSetName'
-  //    }
-};
+var options = {};
 
-module.exports = function (callback) {
+module.exports = (callback) => {
   mongoose.connect('mongodb://localhost/' + dbname, options);
 
-  mongoose.connection.on('error', function (err) {
+  mongoose.connection.on('error', (err) => {
     debug(err);
     panic("Couldn't connect to database [%s]!", dbname);
   });
 
-  mongoose.connection.once('open', function () {
+  mongoose.connection.once('open', () => {
     debug("Mongoose successfuly connected to [%s]", dbname);
     callback();
   });

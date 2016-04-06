@@ -1,32 +1,14 @@
 .jumbotron.bg-cover
   .container
-    h1 Crea GRATIS tu página web
-    p Comienza a recibir propuestas de trabajo al instante.
+    h1 Create your account
+    p It's awesome! I promise!
 
 .container.container-pad-bottom
   .row
-    .col-sm-6
-      .perk-box
-        h3.perk-box-title
-          | Beneficios
-
-        .perk-box-body
-          .perk
-            i.fa.fa-globe
-            p #[strong Página web gratis] donde podras compartir y publicar tus proyectos.
-
-          .perk
-            i.fa.fa-line-chart
-            p #[strong Expande tu empresa] y aumenta tus oportunidades de negocio.
-
-          .perk
-            i.fa.fa-inbox
-            p #[strong Comienza a recibir] propuestas de trabajo desde el primer día.
-
-    .col-sm-6
+    .col-sm-6.col-sm-offset-3
       .panel.panel-default
         .panel-heading
-          .panel-title Regístrate
+          .panel-title Account details
 
         .panel-body
           form(
@@ -37,10 +19,21 @@
               .form-group
                 .input-group
                   .input-group-addon
-                    i.fa.fa-fw.fa-at
+                    i.glyphicon.glyphicon-user
 
                   input.form-control(
-                    placeholder='Ingresa tu email',
+                    placeholder='Enter your name',
+                    ng-model='data.name',
+                    type='text',
+                    required)
+
+              .form-group
+                .input-group
+                  .input-group-addon
+                    i.glyphicon.glyphicon-envelope
+
+                  input.form-control(
+                    placeholder='Enter your email',
                     ng-model='data.email',
                     type='email',
                     required)
@@ -48,44 +41,51 @@
               .form-group
                 .input-group
                   .input-group-addon
-                    i.fa.fa-fw.fa-at
+                    i.glyphicon.glyphicon-asterisk
 
                   input.form-control(
-                    placeholder='Confirma tu email',
-                    ng-model='data.vemail',
-                    ng-match='data.email',
-                    type='email',
-                    required)
-
-              .form-group
-                .input-group
-                  .input-group-addon
-                    i.fa.fa-fw.fa-asterisk
-
-                  input.form-control(
-                    placeholder='Crea tu clave',
+                    placeholder='Enter your password',
                     ng-model='data.password',
-                    ng-minLength='4',
                     type='password',
                     required)
 
               .form-group
                 .input-group
                   .input-group-addon
-                    i.fa.fa-fw.fa-asterisk
+                    i.glyphicon.glyphicon-heart
 
-                  input.form-control(
-                    placeholder='Confirma tu clave',
-                    ng-model='data.vpassword',
-                    ng-match='data.password',
+                  select.form-control(
+                    ng-options='gender._id as gender.name for gender in statics.genders',
+                    ng-model='data.gender',
                     type='password',
                     required)
+
+                    option(
+                      label='Choose a gender',
+                      value='',
+                      hidden)
+
+              .form-group
+                .input-group
+                  .input-group-addon
+                    i.glyphicon.glyphicon-pawn
+
+                  select.form-control(
+                    ng-options='role._id as role.name for role in statics.roles',
+                    ng-model='data.role',
+                    type='password',
+                    required)
+
+                    option(
+                      label='Choose a role',
+                      value='',
+                      hidden)
 
             button.btn.btn-block.btn-primary(
-              ng-disabled='form.$invalid',
+              ng-disabled='form.$invalid || submitting',
               type='submit')
 
-              | Registrarme
+              | Create my account!
 
         .panel-footer.text-center
-          a.btn.btn-link(ng-href='/providers/sign-in') Ya tengo una cuenta
+          a.btn.btn-link(ng-href='/users/sign-in') I have an account

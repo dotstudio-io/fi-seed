@@ -2,22 +2,16 @@
 
 var bcrypt = require('bcrypt');
 
-module.exports = function (router, db) {
+module.exports = (router, db) => {
 
   var User = db.model('user');
 
   /**
    * Creates a user.
    */
-  router.post('/', function (req, res, next) {
+  router.post('/', (req, res, next) => {
 
-    new User({
-      password: req.body.password,
-      gender: req.body.gender,
-      email: req.body.email
-    }).
-
-    save(function (err, user) {
+    new User(req.body).save((err, user) => {
       if (err) {
         /* Check for duplicated entry */
         if (err.code && err.code === 11000) {
@@ -33,13 +27,9 @@ module.exports = function (router, db) {
         return next(err);
       }
 
-      req.session.user = user;
+      req.session.user = user.toObject();
 
-      res.send({
-        gender: req.session.user.gender,
-        name: req.session.user.name,
-        _id: req.session.user._id
-      });
+      res.status(201).send(user);
     });
 
   });
@@ -47,75 +37,55 @@ module.exports = function (router, db) {
   /**
    * Logs a user in.
    */
-  router.post('/sign-in', function (req, res, next) {
+  router.post('/sign-in', (req, res, next) => {
 
     /* Logout any previous user */
     delete req.session.user;
 
     User.findByEmail(req.body.email).
 
-    exec(function (err, user) {
+    populate('role').
+    populate('gender').
+
+    exec((err, user) => {
       if (err) {
         return next(err);
       }
 
-      function unauthorized() {
-        setTimeout(function () {
-          res.status(401).end();
-        }, 1000);
-      }
-
       if (!user) {
-        return unauthorized();
+        return next();
       }
 
       /* Compare the passwords */
-      bcrypt.compare(req.body.password, user.password, function (err, matches) {
+      bcrypt.compare(req.body.password, user.password, (err, matches) => {
         if (err) {
           return next(err);
         }
 
         if (!matches) {
-          return unauthorized();
+          return next();
         }
 
         req.session.user = user;
 
-        res.send({
-          _id: user._id,
-        });
+        res.send(user);
       });
     });
 
+  }, (req, res) => {
+    setTimeout(() => {
+      res.status(401).end();
+    }, 1000);
   });
 
   /**
    * Logs a user out.
    */
-  router.get('/sign-out', function (req, res) {
+  router.get('/sign-out', (req, res) => {
 
     delete req.session.user;
 
     res.status(204).end();
-
-  });
-
-  /**
-   * Recovers a user's password.
-   */
-  router.post('/recover', function (req, res, next) {
-
-    User.findByEmail(req.body.email, function (err, user) {
-      if (err) {
-        return next(err);
-      }
-
-      if (!user) {
-        return res.status(400).end();
-      }
-
-      res.end(); /* TODO: Actually recover the user's password */
-    });
 
   });
 

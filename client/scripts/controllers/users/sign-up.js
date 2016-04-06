@@ -2,40 +2,30 @@
   'use strict';
 
   ng.module('App').controller('Users:SignUp', [
-    '$scope', '$http', '$location', '$session',
+    '$scope', '$http', '$location', '$session', 'statics',
 
-    function ($scope, $http, $location, $session) {
+    function ($scope, $http, $location, $session, statics) {
+      $scope.statics = statics.data;
       $scope.submitting = false;
 
       $scope.submit = function () {
         $scope.submitting = true;
-        $session.logout();
+        $session.signout();
         $session.flash();
 
-        $http.post('/api/users', {
-          password: $scope.data.password,
-          email: $scope.data.email
-        }).
-
-        success(function (data) {
-          $session.login(data.user);
-          $session.flash('success', "¡Bienvenido!", "Por favor sigue los pasos para completar tu perfíl.");
-
-          $location.path('/providers/profiles/edit/details');
-        }).
-
-        error(function (data, status) {
-          if (status === 409) {
-            $session.flash('warning', "Hay un problema,",
-              "esa cuenta ya está registrada. Tal vez debes iniciar sesión.");
-          } else if (status === 400) {
-            $session.flash('warning', "Revisa tu información.", "Tu correo o clave son inválidos.");
+        $http.post('/api/users', $scope.data).then(function success(res) {
+          $session.signin(res.data);
+          $session.flash('success', "Welcome!", "Please enjoy yourself!");
+          $location.path('/');
+        }, function error(res) {
+          if (res.status === 409) {
+            $session.flash('warning', "Hmmm...", "That account is already registered.");
+          } else if (res.status === 400) {
+            $session.flash('warning', "Check your details,", "your email or password are invalid.");
           } else {
-            $session.flash('danger', "¡#Dg@a&!", "Es servidor no responde :/");
+            $session.flash('danger', "¡#Dg@a&!", "Server is angry :/");
           }
-        }).
-
-        finally(function () {
+        }).then(function complete() {
           $scope.submitting = false;
         });
       };

@@ -23,15 +23,16 @@
 
         scope: {},
 
-        link: function ($scope, $element) {
+        link: function ($scope) {
           var lastScrollTop = 0;
           var minDiff = 60;
           var minTop = 60;
 
-          var $collapse = $element.find('#main-navbar-collapse');
+          var $collapse = ng.element(document.querySelector('.navbar-collapse'));
 
           $scope.location = $location.path();
           $scope.APP_NAME = APP_NAME;
+          $scope.signingIn = false;
           $scope.folded = false;
 
           /**
@@ -42,6 +43,14 @@
               $scope.folded = folded;
             });
           }
+
+          $scope.toggleCollapse = function () {
+            if ($collapse.hasClass('collapse')) {
+              $collapse.removeClass('collapse');
+            } else {
+              $collapse.addClass('collapse');
+            }
+          };
 
           /**
            * Detect scroll changes and set navbar style accordingly.
@@ -72,15 +81,11 @@
            * Sign the user out.
            */
           $scope.signout = function () {
-            $http.get('/api/users/signout').
-
-            success(function () {
+            $http.get('/api/users/sign-out').then(function success() {
               $session.flash('success', "¡It's been a pleasure!", "Come back soon!");
-              $session.logout();
+              $session.signout();
               $location.path('/');
-            }).
-
-            error(function () {
+            }, function error() {
               $session.flash('danger', "Hmmmmm,", "Someone doesn't want you to leave...");
             });
           };
@@ -88,7 +93,7 @@
           /* Collapse the navbar menu when route changes */
           /* Clear the scope's location variable */
           $scope.$on('$routeChangeStart', function () {
-            $collapse.collapse('hide');
+            $collapse.addClass('collapse');
             $scope.location = "";
           });
 

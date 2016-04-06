@@ -4,7 +4,6 @@
   ng.module('App', [
     /** Angular dependencies **/
     'ngRoute',
-    'ngAria',
 
     /** Custom Modules **/
     'Session'

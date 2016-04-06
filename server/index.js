@@ -9,7 +9,7 @@ require('./globals')(global);
 require('colors');
 
 /* Process has been asked to shut down */
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
   debug("\n\n  Shutting down application...\n".bold);
 
   /* You may put any cleanup script here */

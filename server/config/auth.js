@@ -4,9 +4,9 @@ module.exports = {
 
   debug: require('debug')('app:auth'),
 
-  authorizer: function (req) {
-    if (req.session.user) {
-      return 'user';
+  authorizer: (req) => {
+    if (req.session.user && req.session.user.role) {
+      return req.session.user.role.slug;
     }
 
     return null;
@@ -14,8 +14,8 @@ module.exports = {
 
   routes: [{
     method: 'GET',
-    path: ['/api/users/:id'],
-    allows: 'admin'
+    path: '/api/users/sign-out',
+    allows: ['user', 'manager', 'admin']
   }]
 
 };

@@ -5,7 +5,7 @@ var debug = require('debug')('app:errors');
 module.exports = function (app) {
 
   /* Catch 404 and forward it to the error handler... */
-  app.use(function (req, res, next) {
+  app.use((req, res, next) => {
     var err = new Error("Resource not found");
     err.status = 404;
 
@@ -13,7 +13,7 @@ module.exports = function (app) {
   });
 
   /* Error handler */
-  app.use(function (err, req, res, next) { // jshint ignore:line
+  app.use((err, req, res, next) => { // jshint ignore:line
     res.status(err.status || 500);
 
     debug(err);

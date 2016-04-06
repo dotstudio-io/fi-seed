@@ -1,87 +1,48 @@
-section.jumbotron.bg-cover
+.jumbotron.bg-cover
   .container
-    h1 Ingresa con tu cuenta de proveedor
-    p Ingresa y actualiza tu página web, sube tus proyectos y revisa tus solicitudes.
+    h1 Sign in to your account
+    p You won't believe it!
 
-    .row
-      .col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
-        form(
-          ng-submit='form.$valid && submit()',
-          role='form',
-          name='form')
+.container.container-pad-bottom
+  .row
+    .col-sm-6.col-sm-offset-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title My account
 
-          fieldset.row
-            .col-sm-4
+        .panel-body
+          form(
+            ng-submit='form.$valid && submit()',
+            name='form')
+
+            fieldset
               .form-group
-                label.sr-only(for='provider-signup-email') Su correo
-                input#provider-signup-email.form-control(
-                  ng-disabled='submitting',
-                  ng-model='data.email',
-                  placeholder='Email',
-                  type='email',
-                  required)
+                .input-group
+                  .input-group-addon
+                    i.glyphicon.glyphicon-envelope
 
-            .col-sm-4
+                  input.form-control(
+                    placeholder='Enter your email',
+                    ng-model='data.email',
+                    type='email',
+                    required)
+
               .form-group
-                label.sr-only(for='provider-signup-password') Su clave
-                input#provider-signup-password.form-control(
-                  ng-disabled='submitting',
-                  ng-model='data.password',
-                  placeholder='Clave',
-                  type='password',
-                  required)
+                .input-group
+                  .input-group-addon
+                    i.glyphicon.glyphicon-asterisk
 
-            .col-sm-4
-              .form-group
-                button.btn.btn-block.btn-primary(
-                  ng-disabled='form.$invalid || submitting',
-                  type='submit')
+                  input.form-control(
+                    placeholder='Enter your password',
+                    ng-model='data.password',
+                    type='password',
+                    required)
 
-                  | #[i.fa(class="fa-{{ submitting && 'circle-o-notch fa-spin' || 'sign-in' }}")] Ingresar
+            button.btn.btn-block.btn-primary(
+              ng-disabled='form.$invalid',
+              type='submit')
 
-        .text-right.row
-          span.text-center.visible-xs-block.visible-sm-inline-block.visible-md-inline-block.visible-lg-inline-block
-            a.btn.btn-link(ng-href='/providers/recover') ¿Olvidaste tu clave?
+              | Go to my account!
 
-          span.text-center.visible-xs-block.visible-sm-inline-block.visible-md-inline-block.visible-lg-inline-block
-            a.btn.btn-link(ng-href='/providers/sign-up') ¿No tienes una cuenta?
-
-//-
-  .container
-    .row
-      .col-sm-6
-        .perk-box
-          h3.perk-box-title
-            | Escritorio de proveedor
-
-          .perk-box-body
-            .perk
-              i.fa.fa-pie-chart
-              p #[strong Lorem alteration] in some form  injected humour these randomised words.
-
-            .perk
-              i.fa.fa-th
-              p #[strong There are many variations] of passages of Lorem alteration in some form  injected humour these randomised words.
-
-            .perk
-              i.fa.fa-heartbeat
-              p #[strong Alteration in some form] injected humour these randomised words.
-
-      .col-sm-6
-        .panel.panel-default
-          .panel-heading
-            .panel-title Ayuda
-
-          .panel-body
-            p
-              strong ¿Olvidaste tu clave?
-
-            p
-              | No te preocupes. Tu clave está segura pero puedes #[a(ng-href='/providers/recover') reestablecer tu clave] si así lo deseas.
-
-          .panel-body
-            p
-              strong ¿No tienes una cuenta?
-
-            p
-              | ¡No hay problema! solo #[a(ng-href='/providers/sign-up') crea una cuenta] y accede a todos los beneficios de #[strong {{ APP_NAME }}].
+        .panel-footer.text-center
+          a.btn.btn-link(ng-href='/users/sign-up') I don't have an account

@@ -10,16 +10,12 @@
       $rootScope.session = {};
 
       return {
-        login: function (user) {
+        signin: function (user) {
           $rootScope.session.user = user;
-
-          if (user && user.role === 'provider' && !user.provider) {
-            this.set('firstTime', true);
-          }
         },
 
-        logout: function () {
-          delete $rootScope.session.user;
+        signout: function () {
+          $rootScope.session.user = null;
         },
 
         flash: function (type, title, message) {
@@ -57,8 +53,14 @@
          * @return {Boolean} Wether the route can be accessed.
          */
         isAllowed: function (route) {
-          if (route && route.auth && route.auth.allows && ng.isString(route.auth.allows)) {
-            return route.auth.allows === this.user('role');
+          if (route && route.auth && route.auth.allows) {
+            if (ng.isString(route.auth.allows)) {
+              return route.auth.allows === this.user('role');
+            }
+
+            if (ng.isArray(route.auth.allows)) {
+              return route.auth.allows.indexOf(this.user('role')) > -1;
+            }
           } else {
             return false;
           }
@@ -92,45 +94,42 @@
 
       /* Session handling */
       $rootScope.$on('$routeChangeStart', function ($event, $next) {
-        var route = $next.$$route;
 
-        $next.$$route.resolve = $next.$$route.resolve || {};
+        if ($next && $next.$$route) {
+          $next.$$route.resolve = $next.$$route.resolve || {};
 
-        $next.$$route.resolve.session = [
-          '$route', '$session', '$http', '$q',
+          $next.$$route.resolve.session = [
+            '$route', '$session', '$http', '$q',
 
-          function ($route, $session, $http, $q) {
-            if (route.auth) {
-              var deferred = $q.defer();
+            function ($route, $session, $http, $q) {
+              if ($next.$$route.auth) {
+                var deferred = $q.defer();
 
-              /* Retrieve current session */
-              $http.get('/api/session').
-              success(function (data) {
-                /* Session exists and user is logged in */
-                $session.login(data.user);
-              }).
+                /* Retrieve current session */
+                $http.get('/api/session').then(function success(res) {
+                  /* Session exists and user is logged in */
+                  $session.signin(res.data);
+                }, function error() {
+                  $session.signout();
+                }).then(function complete() {
+                  if ($session.isAllowed($next.$$route)) {
+                    deferred.resolve();
+                  } else if ($session.canLogin($next.$$route)) {
+                    $session.set('redirect', $location.path());
+                    $location.path($next.$$route.auth.login);
+                  } else {
+                    $session.flash('warning', "Uh oh...", "that content isn't available");
+                    $location.path('/');
+                  }
+                });
 
-              error(function () {
-                $session.logout();
-              }).
-
-              finally(function () {
-                if ($session.isAllowed(route)) {
-                  deferred.resolve();
-                } else if ($session.canLogin(route)) {
-                  $session.set('redirect', $location.path());
-                  $location.path(route.auth.login);
-                } else {
-                  $location.path('/forbidden');
-                }
-              });
-
-              return deferred.promise;
-            } else {
-              return true;
+                return deferred.promise;
+              } else {
+                return true;
+              }
             }
-          }
-        ];
+          ];
+        }
       });
     }
 

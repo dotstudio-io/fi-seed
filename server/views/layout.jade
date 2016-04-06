@@ -1,5 +1,6 @@
 - var suffix = development ? '' : '.min';
-- var components = '/assets/components/';
+
+block vars
 
 doctype html
 
@@ -9,9 +10,47 @@ html(
   ng-csp)
 
   head
-    include ./elements/head
+    base(href='/')
+
+    //- Title
+    title #{ title }
+
+    //- Metadata
+    meta(charset='utf-8')
+    meta(name='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
+    meta(name='mobile-web-app-capable' content='yes')
+    block meta
+
+    //- Android manifest
+    link(
+      href='/assets/manifest.json',
+      rel='manifest')
+
+    //- Webapp icons
+    //- Android
+    link(rel='icon', sizes='192x192', href='/assets/icons/icon-xxxhdpi.png')
+    link(rel='icon', sizes='128x128' href='/assets/icons/icon-xxhdpi.png')
+    link(rel='icon', sizes='96x96' href='/assets/icons/icon-xhdpi.png')
+    link(rel='icon', sizes='72x72' href='/assets/icons/icon-hdpi.png')
+    link(rel='icon', sizes='48x48' href='/assets/icons/icon-mdpi.png')
+    link(rel='icon', sizes='36x36' href='/assets/icons/icon-ldpi.png')
+    //- iOS
+    link(rel='apple-touch-icon', sizes='180x180', href='/assets/icons/iphone-6-plus.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='/assets/icons/ipad-retina.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='/assets/icons/iphone-retina.png')
+    link(rel='apple-touch-icon', sizes='76x76', href='/assets/icons/ipad.png')
+    link(rel='apple-touch-icon', sizes='60x60', href='/assets/icons/iphone.png')
+    link(rel='apple-touch-icon', href='/assets/icons/iphone.png')
+    //- Web
+    link(rel='shortcut icon', href='/assets/favicon.ico')
+    link(rel='icon', href='/assets/favicon.png')
+    block icons
+
+    //- Styles
+    block styles
 
   body
     block body
 
-    include ./elements/scripts
+    block scripts

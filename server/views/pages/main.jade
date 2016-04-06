@@ -1,10 +1,26 @@
 extends ../layout
 
+//- View's meta
+block meta
+  //- View's main color for Chrome for Android
+  meta(name='theme-color' content='#5a616e')
+
+//- View's styles
+block styles
+  link(rel='stylesheet', href='/assets/styles/styles#{ suffix }.css' )
+
+//- View's body
 block body
   main-navbar
+
+  main-flash
 
   main(
     autoscroll='true',
     ng-view)
 
   main-footer
+
+//- View's scripts
+block scripts
+  script(src='/assets/scripts/scripts#{ suffix }.js')
