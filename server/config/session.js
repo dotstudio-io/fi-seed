@@ -1,44 +1,45 @@
 'use strict';
 
-var base64url = require('base64url');
-var crypto = require('crypto');
-var path = require('path');
-var fs = require('fs');
+const PACKAGE = require(__basedir + '/package.json');
 
-var sessionKeyFile = path.normalize(path.join(__serverdir, 'credentials', 'session.key'));
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const base64url = require('base64url');
+const redis = require('connect-redis');
+const crypto = require('crypto');
+const path = require('path');
+const fs = require('fs');
+
+const sessionKeyFile = path.normalize(path.join(__serverdir, 'credentials', 'session.key'));
+const RedisStore = redis(session);
+
+var secret;
+
+/* Generate or use an existant session key */
+try {
+  secret = fs.readFileSync(sessionKeyFile, 'utf8');
+} catch (ex) {
+  secret = base64url(crypto.randomBytes(48));
+  fs.writeFileSync(sessionKeyFile, secret, 'utf8');
+}
 
 var config = {
-  name: require(__basedir + '/package.json').name + '.sid',
-  store: {
+  name: PACKAGE.name + '.sid',
+  saveUninitialized: true,
+  secret: secret,
+  resave: true,
+
+  store: new RedisStore({
     host: 'localhost',
     port: 6379,
     db: 8
+  }),
+
+  cookie: {
+    secure: false
   }
 };
 
-/* Generate session key */
-try {
-  config.secret = fs.readFileSync(sessionKeyFile, 'utf-8');
-} catch (ex) {
-  config.secret = base64url(crypto.randomBytes(48));
-  fs.writeFileSync(sessionKeyFile, config.secret, 'utf-8');
-}
-
-module.exports = function (session) {
-
-  var RedisStore = require('connect-redis')(session);
-  var cookieParser = require('cookie-parser');
-
-  return {
-    name: config.name,
-    secret: config.secret,
-    store: new RedisStore(config.store),
-    cookieParser: cookieParser(config.secret),
-    cookie: {
-      secure: false
-    },
-    saveUninitialized: true,
-    resave: true
-  };
-
-};
+module.exports.cookieParser = cookieParser(secret);
+module.exports.middleware = session(config);
+module.exports.config = config;
