@@ -2,22 +2,21 @@
   "name": "fi-seed",
   "title": "Fi Seed",
   "description": "A boilerplate for Node.js + Express applications with MongoDB and AngularJS on the frontend, aka, MEAN.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": false,
   "license": "MIT",
   "author": "Final Development Studio <sorcery@finaldevstudio.com> (http://finaldevstudio.com)",
   "contributors": [
     "Santiago G. Marín <santiago@finaldevstudio.com>",
-    "José Tomás Guzmán <jtguzman@finaldevstudio.com>",
-    "Leonardo Ramos <leonardo@finaldevstudio.com>"
+    "José Tomás Guzmán <jtguzman@finaldevstudio.com>"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/finaldevstudio/pindale-dash.git"
+    "url": "https://github.com/finaldevstudio/fi-seed.git"
   },
   "scripts": {
-    "cluster": "NODE_PATH=. NODE_ENV=production pm2 start server -i 0 --name pindale-dash",
-    "fork": "NODE_PATH=. NODE_ENV=production pm2 start server --name pindale-dash",
+    "cluster": "NODE_PATH=. NODE_ENV=production pm2 start server -i 0 --name fi-seed",
+    "fork": "NODE_PATH=. NODE_ENV=production pm2 start server --name fi-seed",
     "reinstall": "rm -Rf node_modules && npm install",
     "dev": "NODE_PATH=. NODE_ENV=development DEBUG=app:* node server",
     "start": "NODE_PATH=. NODE_ENV=production node server"
