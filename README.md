@@ -1,5 +1,5 @@
 # Fi Seed
-A boilerplate for Node.js + Express applications with MongoDB and AngularJS on the frontend, aka, MEAN.
+A boilerplate for applications with Node.js + Express + MongoDB on the backend and AngularJS on the frontend (aka MEAN).
 
 ## Using as base structure
 To create an application based on **Fi Seed** just fork this repo somewhere else. If you want, you can also add it as upstream to an existing repo:
