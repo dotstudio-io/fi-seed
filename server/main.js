@@ -4,7 +4,6 @@ const PACKAGE = require(__basedir + '/package.json');
 
 /**** Modules *****/
 const compression = require('compression');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const requireDir = require('require-dir');
 const favicon = require('serve-favicon');
@@ -19,14 +18,15 @@ const auth = require('fi-auth');
 // const https = require('https');
 const http = require('http');
 const path = require('path');
-const is = require('is_js');
+
+const serverUtils = component('server-utils');
+const errors = component('errors');
 
 /**** Application ****/
 const app = express();
 
 /**** Configuration ****/
 var configs = requireDir(path.join(__serverdir, 'config'));
-configs.session = configs.session(session);
 
 /**** Setup ****/
 app.locals.development = process.env.NODE_ENV === 'development';
@@ -48,42 +48,12 @@ app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev'));
 app.use(compression());
 app.use(favicon(path.join('client', 'assets', 'favicon.png')));
 app.use(configs.assets.route, express.static(configs.assets.basedir));
-app.use(session(configs.session));
+app.use(configs.session.middleware);
 app.use(configs.session.cookieParser);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded(configs['body-parser'].urlencoded));
 
 /**** Initialization ****/
-function getBind(server) {
-  var addr = server.address();
-
-  if (addr) {
-    return is.string(addr) ? 'pipe ' + addr : 'port ' + addr.port;
-  }
-
-  return '(unknown bind)';
-}
-
-function onServerError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  switch (error.code) {
-  case 'EACCES':
-    console.error("\n  Bind [%s:%s] requires elevated privileges!\n".bold.red, error.address, error.port);
-    process.exit(1);
-    break;
-
-  case 'EADDRINUSE':
-    console.error("\n  Bind [%s:%s] is already in use!\n".bold.red, error.address, error.port);
-    process.exit(1);
-    break;
-
-  default:
-    throw error;
-  }
-}
 
 /* Configure database (mongoose) */
 configs.database(() => {
@@ -102,17 +72,17 @@ configs.database(() => {
     routes(app, configs.routes);
 
     /* Register route error handlers */
-    configs.errors(app);
+    errors(app);
 
     /* Initalize HTTP server */
     var httpPort = parseInt(app.get('port prefix') + '080');
     var httpServer = http.createServer(app).listen(httpPort);
 
     httpServer.on('listening', () => {
-      console.log("\n  HTTP server is listening on %s".bold, getBind(httpServer));
+      console.log("\n  HTTP server is listening on %s".bold, serverUtils.getBind(httpServer));
     });
 
-    httpServer.on('error', onServerError);
+    httpServer.on('error', serverUtils.onServerError);
 
     /**
      * IMPORTANT: If you're using HTTPS you should consider redirect all HTTP
