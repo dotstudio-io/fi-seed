@@ -1,8 +1,8 @@
 'use strict';
 
-var inflection = require('inflection');
-var statics = require('fi-statics');
-var is = require('is_js');
+const inflection = require('inflection');
+const statics = require('fi-statics');
+const is = require('fi-is');
 
 module.exports = (router) => {
 

@@ -11,7 +11,7 @@ module.exports = (router, db) => {
    */
   router.post('/', (req, res, next) => {
 
-    new User(req.body).save((err, user) => {
+    User.create(req.body, (err, user) => {
       if (err) {
         /* Check for duplicated entry */
         if (err.code && err.code === 11000) {
