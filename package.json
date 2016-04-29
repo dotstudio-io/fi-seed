@@ -1,10 +1,10 @@
 {
-  "name": "pindale-dash",
-  "title": "Pindale Dashboard",
-  "description": "External Pindale application to support user creation and URL iframe binding.",
-  "version": "0.0.0",
-  "private": true,
-  "license": "None",
+  "name": "fi-seed",
+  "title": "Fi Seed",
+  "description": "A boilerplate for Node.js + Express applications with MongoDB and AngularJS on the frontend, aka, MEAN.",
+  "version": "1.0.0",
+  "private": false,
+  "license": "MIT",
   "author": "Final Development Studio <sorcery@finaldevstudio.com> (http://finaldevstudio.com)",
   "contributors": [
     "Santiago G. Marín <santiago@finaldevstudio.com>",
