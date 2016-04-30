@@ -13,11 +13,13 @@
         $session.signout();
         $session.flash();
 
-        $http.post('/api/users', $scope.data).then(function success(res) {
-          $session.signin(res.data);
-          $session.flash('success', "Welcome!", "Please enjoy yourself!");
-          $location.path('/');
-        }, function error(res) {
+        $http.post('/api/users', $scope.data).then(function () {
+          return $http.post('/api/users/sign-in', $scope.data).then(function (res) {
+            $session.signin(res.data);
+            $session.flash('success', "Welcome!", "Please enjoy yourself!");
+            $location.path('/');
+          });
+        }).catch(function (res) {
           if (res.status === 409) {
             $session.flash('warning', "Hmmm...", "That account is already registered.");
           } else if (res.status === 400) {
@@ -25,7 +27,7 @@
           } else {
             $session.flash('danger', "¡#Dg@a&!", "Server is angry :/");
           }
-        }).then(function complete() {
+        }).finally(function () {
           $scope.submitting = false;
         });
       };

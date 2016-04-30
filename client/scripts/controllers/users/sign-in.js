@@ -12,7 +12,7 @@
         $session.signout();
         $session.flash();
 
-        $http.post('/api/users/sign-in', $scope.data).then(function success(res) {
+        $http.post('/api/users/sign-in', $scope.data).then(function (res) {
           $session.signin(res.data);
           $session.flash('success', "Hi!", "It's nice to have you back.");
 
@@ -22,13 +22,13 @@
           } else {
             $location.path('/');
           }
-        }, function error(res) {
+        }).catch(function (res) {
           if (res.status === 400) {
             $session.flash('warning', "Dammit!", "Looks like your email or password are wrong.");
           } else {
             $session.flash('danger', "Panic!", "Something's wrong...");
           }
-        }).then(function complete() {
+        }).finally(function complete() {
           $scope.submitting = false;
         });
       };
