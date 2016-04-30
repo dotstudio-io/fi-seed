@@ -11,7 +11,7 @@ module.exports = (router, db) => {
    */
   router.post('/', (req, res, next) => {
 
-    User.create(req.body, (err, user) => {
+    User.create(req.body, (err) => {
       if (err) {
         /* Check for duplicated entry */
         if (err.code && err.code === 11000) {
@@ -27,9 +27,7 @@ module.exports = (router, db) => {
         return next(err);
       }
 
-      req.session.user = user.toObject();
-
-      res.status(201).send(user);
+      res.sendStatus(201);
     });
 
   });
@@ -66,13 +64,14 @@ module.exports = (router, db) => {
           return next();
         }
 
-        req.session.user = user;
+        req.session.user = user.toObject();
 
         res.send(user);
       });
     });
 
   }, (req, res) => {
+    /* Respond unauthorized with a delay on wrong username or password */
     setTimeout(() => {
       res.status(401).end();
     }, 1000);

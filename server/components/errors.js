@@ -32,10 +32,10 @@ module.exports = (app) => {
 
     /* If it's a 404 render the lost page */
     if (err.status === 404) {
-      return res.redirect('/pages/lost?url=' + encodeURIComponent(req.originalUrl));
+      return res.redirect('/lost?url=' + encodeURIComponent(req.originalUrl));
     }
 
-    res.redirect('/pages/error');
+    res.redirect('/error');
   });
 
 };
