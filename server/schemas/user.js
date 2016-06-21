@@ -16,6 +16,8 @@ module.exports = (Schema) => {
       type: String,
       required: true,
       unique: true,
+      index: true,
+
       validate: function (val) {
         return validator.isEmail(val);
       }
@@ -34,17 +36,11 @@ module.exports = (Schema) => {
     role: {
       type: Schema.Types.ObjectId,
       ref: 'static.role'
-    },
-
-    created: {
-      type: Date,
-      default: Date.now
-    },
-
-    updated: {
-      type: Date,
-      default: Date.now
     }
+
+  }, {
+
+    timestamps: true
 
   });
 

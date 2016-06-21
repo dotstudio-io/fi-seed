@@ -9,11 +9,15 @@ module.exports = (Schema) => {
       ref: 'user'
     },
 
-    created: {
+    expires: {
       type: Date,
       expires: '1d',
       default: Date.now
     }
+
+  }, {
+
+    timestamps: true
 
   });
 

@@ -20,6 +20,10 @@ module.exports = (Schema) => {
 
     md5: String
 
+  }, {
+
+    timestamps: true
+
   });
 
 };
