@@ -15,11 +15,11 @@
     "url": "https://github.com/finaldevstudio/fi-seed.git"
   },
   "scripts": {
-    "cluster": "NODE_PATH=. NODE_ENV=production pm2 start server -i 0 --name fi-seed",
-    "fork": "NODE_PATH=. NODE_ENV=production pm2 start server --name fi-seed",
+    "cluster": "NODE_ENV=production pm2 start server -i 0 --name fi-seed",
+    "fork": "NODE_ENV=production pm2 start server --name fi-seed",
     "reinstall": "rm -Rf node_modules && npm install",
-    "dev": "NODE_PATH=. NODE_ENV=development DEBUG=app:* node server",
-    "start": "NODE_PATH=. NODE_ENV=production node server"
+    "dev": "NODE_ENV=development DEBUG=app:* node server",
+    "start": "NODE_ENV=production node server"
   },
   "dependencies": {
     "base64url": "^1.0.6",
