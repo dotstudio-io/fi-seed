@@ -98,7 +98,7 @@ connection(function (err) {
   console.log("\nInserting statics JSON into database...\n".bold);
 
   /* Read all JSONs in the statics directory */
-  fs.readdir('install/statics', function (err, files) {
+  fs.readdir('setup/statics', function (err, files) {
     files.forEach(function (file) {
       if (path.extname(file) === '.json') {
         jsons.push(file);
