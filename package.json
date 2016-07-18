@@ -3,6 +3,7 @@
   "title": "Fi Seed",
   "description": "A boilerplate for applications with Node.js + Express + MongoDB on the backend and AngularJS on the frontend (aka MEAN).",
   "version": "2.1.1",
+  "stage": "stable",
   "private": false,
   "license": "MIT",
   "author": "Final Development Studio <sorcery@finaldevstudio.com> (http://finaldevstudio.com)",
@@ -15,11 +16,10 @@
     "url": "https://github.com/finaldevstudio/fi-seed.git"
   },
   "scripts": {
-    "cluster": "NODE_ENV=production pm2 start server -i 0 --name fi-seed",
-    "fork": "NODE_ENV=production pm2 start server --name fi-seed",
-    "reinstall": "rm -Rf node_modules && npm install",
-    "dev": "NODE_ENV=development DEBUG=app:* node server",
-    "start": "NODE_ENV=production node server"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cluster": "pm2 start pm2/cluster.json --env production",
+    "fork": "pm2 start pm2/fork.json --env production",
+    "dev": "pm2 start pm2/fork.json --env development"
   },
   "dependencies": {
     "base64url": "^1.0.6",
