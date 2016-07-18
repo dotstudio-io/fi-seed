@@ -1,14 +1,32 @@
 {
   "apps": [{
-    "name": "fi-seed",
-    "script": "server",
+    "name": "fi-seed-http",
+    "script": "server/http.js",
+    "exec_mode": "cluster",
+    "instances": 0,
+    "watch": [
+      "package.json",
+      "server/http.js"
+    ],
+    "env": {
+      "NODE_ENV": "development",
+      "DEBUG": "app:*"
+    },
+    "env_production": {
+      "NODE_ENV": "production"
+    }
+  }, {
+    "name": "fi-seed-https",
+    "script": "server/https.js",
     "exec_mode": "cluster",
     "instances": 0,
     "watch": [
       "package.json",
       "server/"
     ],
-    "ignore_watch": [],
+    "ignore_watch": [
+      "server/http.js"
+    ],
     "env": {
       "NODE_ENV": "development",
       "DEBUG": "app:*"
