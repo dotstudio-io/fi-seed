@@ -1,0 +1,18 @@
+{
+  "apps": [{
+    "name": "fi-seed",
+    "script": "server",
+    "watch": [
+      "package.json",
+      "server/"
+    ],
+    "ignore_watch": [],
+    "env": {
+      "NODE_ENV": "development",
+      "DEBUG": "app:*"
+    },
+    "env_production": {
+      "NODE_ENV": "production"
+    }
+  }]
+}
