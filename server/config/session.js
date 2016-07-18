@@ -32,7 +32,7 @@ var config = {
   store: new RedisStore({
     host: 'localhost',
     port: 6379,
-    db: 8
+    db: 0
   }),
 
   cookie: {
