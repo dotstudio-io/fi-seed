@@ -1,24 +1,8 @@
 {
+  "extends": "../.eslintrc.json",
   "env": {
-    "browser": true
-  },
-  "extends": "eslint:recommended",
-  "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
+    "browser": true,
+    "es6": false,
+    "node": false
   }
 }

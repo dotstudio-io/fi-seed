@@ -2,6 +2,7 @@
   "extends": "../.eslintrc.json",
   "globals": {
     "component": false,
+    "config": false,
     "__basedir": false,
     "__serverdir": false
   }
