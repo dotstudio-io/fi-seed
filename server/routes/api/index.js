@@ -9,7 +9,7 @@ module.exports = (router) => {
 
     /* Check if there's a user in session */
     if (!req.session.user) {
-      return res.status(401).end();
+      return res.sendStatus(401);
     }
 
     res.send({
@@ -17,6 +17,7 @@ module.exports = (router) => {
       name: req.session.user.name,
       _id: req.session.user._id
     });
+
   });
 
 };

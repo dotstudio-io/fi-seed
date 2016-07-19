@@ -11,23 +11,23 @@ module.exports = (router, db) => {
    */
   router.post('/', (req, res, next) => {
 
-    User.create(req.body, (err) => {
-      if (err) {
-        /* Check for duplicated entry */
-        if (err.code && err.code === 11000) {
-          return res.status(409).end();
-        }
+    User.create(req.body)
 
-        /* Check for invalid data */
-        if (err.name && err.name === 'ValidationError') {
-          return res.status(400).end();
-        }
+    .then(() => res.sendStatus(201))
 
-        /* Unknown error */
-        return next(err);
+    .catch((err) => {
+      /* Check for duplicated entry */
+      if (err.code && err.code === 11000) {
+        return res.sendStatus(409);
       }
 
-      res.sendStatus(201);
+      /* Check for invalid data */
+      if (err.name && err.name === 'ValidationError') {
+        return res.sendStatus(400);
+      }
+
+      /* Unknown error */
+      return next(err);
     });
 
   });
@@ -40,16 +40,9 @@ module.exports = (router, db) => {
     /* Logout any previous user */
     delete req.session.user;
 
-    User.findByEmail(req.body.email).
+    User.findByEmail(req.body.email)
 
-    populate('role').
-    populate('gender').
-
-    exec((err, user) => {
-      if (err) {
-        return next(err);
-      }
-
+    .then((user) => {
       if (!user) {
         return next();
       }
@@ -57,7 +50,7 @@ module.exports = (router, db) => {
       /* Compare the passwords */
       bcrypt.compare(req.body.password, user.password, (err, matches) => {
         if (err) {
-          return next(err);
+          throw err;
         }
 
         if (!matches) {
@@ -68,13 +61,15 @@ module.exports = (router, db) => {
 
         res.send(user);
       });
-    });
+    })
+
+    .catch(next);
 
   }, (req, res) => {
+
     /* Respond unauthorized with a delay on wrong username or password */
-    setTimeout(() => {
-      res.status(401).end();
-    }, 1000);
+    setTimeout(() => res.sendStatus(401), 1000);
+
   });
 
   /**
@@ -84,7 +79,7 @@ module.exports = (router, db) => {
 
     delete req.session.user;
 
-    res.status(204).end();
+    res.sendStatus(204);
 
   });
 
