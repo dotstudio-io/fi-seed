@@ -48,7 +48,6 @@ app.set('trust proxy', 1);
 /**** Settings ****/
 app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev'));
 app.use(favicon(path.join('client', 'assets', 'favicon.png')));
-app.use(configs['health-check']);
 app.use(compression());
 app.use(configs.assets.route, express.static(configs.assets.basedir));
 app.use(configs.session.cookieParser);
