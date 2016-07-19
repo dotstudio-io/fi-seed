@@ -18,7 +18,7 @@ module.exports = (global) => {
     console.error('\x1b[31m\x1b[1m'); /* Paint it red and fat */
     console.error.apply(console, arguments);
     console.error('\x1b[0m'); /* Reset colors */
-    console.error("Exiting application...\n\n");
+    console.error('Exiting application...\n\n');
 
     /* We don't want the app to keep running if it panics */
     process.exit(1);
@@ -33,7 +33,7 @@ module.exports = (global) => {
   function include(dirpath, name) {
     var target = path.normalize(path.join(__serverdir, dirpath, name));
 
-    debug("Including --> %s:%s", dirpath, name);
+    debug('Including --> %s:%s', dirpath, name);
 
     /* Try to require the module */
     return require(target);

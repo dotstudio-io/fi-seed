@@ -14,7 +14,7 @@ const ROLE_ADMIN = CONSTS.ROLES.ADMIN;
 const ROLE_USER = CONSTS.ROLES.USER;
 
 /* Password hashing rounds */
-const ROUNDS = 8;
+const HASH_ROUNDS = 8;
 
 const PASSWORD = 'password';
 const EMAIL = 'email';
@@ -51,6 +51,8 @@ module.exports = (Schema) => {
 
     role: {
       type: String,
+      default: ROLE_USER,
+      required: true,
       enum: [
         ROLE_ADMIN, ROLE_USER
       ]
@@ -70,7 +72,7 @@ module.exports = (Schema) => {
 
     /* Hash password if changed */
     if (user.isModified(PASSWORD)) {
-      return bcrypt.hash(user.password, ROUNDS, (err, hash) => {
+      return bcrypt.hash(user.password, HASH_ROUNDS, (err, hash) => {
         if (err) {
           return next(err);
         }
