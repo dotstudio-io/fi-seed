@@ -1,7 +1,16 @@
 'use strict';
 
-var debug = require('debug')('app:globals');
-var path = require('path');
+const debug = require('debug')('app:globals');
+const path = require('path');
+
+const ERR_EXITING = '\n  Exiting application...\n\n';
+
+const CLI_RESET = '\x1b[0m';
+const CLI_RED = '\x1b[31m';
+const CLI_FAT = '\x1b[1m';
+
+const COMPONENTS = 'components';
+const CONFIG = 'config';
 
 module.exports = (global) => {
 
@@ -15,10 +24,10 @@ module.exports = (global) => {
    * Prints an error and exists the process.
    */
   function panic() {
-    console.error('\x1b[31m\x1b[1m'); /* Paint it red and fat */
+    console.error(CLI_RED + CLI_FAT); // Paint it red and fat
     console.error.apply(console, arguments);
-    console.error('\x1b[0m'); /* Reset colors */
-    console.error('Exiting application...\n\n');
+    console.error(CLI_RESET + CLI_FAT); // Reset color and make it fat
+    console.error(ERR_EXITING);
 
     /* We don't want the app to keep running if it panics */
     process.exit(1);
@@ -45,7 +54,7 @@ module.exports = (global) => {
    * @param {String} name The file name.
    */
   function config(name) {
-    return include('config', name);
+    return include(CONFIG, name);
   }
 
   /**
@@ -54,7 +63,7 @@ module.exports = (global) => {
    * @param {String} name The component name.
    */
   function component(name) {
-    return include('components', name);
+    return include(COMPONENTS, name);
   }
 
   debug('Base directory: %s', __basedir);
