@@ -1,10 +1,23 @@
 'use strict';
 
-var bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
+
+const CONSTS = component('consts');
+
+const MONGO_CODE_DUPLICATED = CONSTS.CODES.MONGO.DUPLICATED;
+const MONGO_ERR_VALIDATION = CONSTS.ERR.MONGO.VALIDATION;
+
+const HTTP_CODE_UNAUTHORIZED = CONSTS.CODES.HTTP.UNAUTHORIZED;
+const HTTP_CODE_BADREQUEST = CONSTS.CODES.HTTP.BADREQUEST;
+const HTTP_CODE_CONFLICT = CONSTS.CODES.HTTP.CONFLICT;
+const HTTP_CODE_CREATED = CONSTS.CODES.HTTP.CREATED;
+const HTTP_CODE_NOBODY = CONSTS.CODES.HTTP.NOBODY;
+
+const DELAY = 1000;
 
 module.exports = (router, db) => {
 
-  var User = db.model('user');
+  const User = db.model('user');
 
   /**
    * Creates a user.
@@ -13,17 +26,17 @@ module.exports = (router, db) => {
 
     User.create(req.body)
 
-    .then(() => res.sendStatus(201))
+    .then(() => res.sendStatus(HTTP_CODE_CREATED))
 
     .catch((err) => {
       /* Check for duplicated entry */
-      if (err.code && err.code === 11000) {
-        return res.sendStatus(409);
+      if (err.code && err.code === MONGO_CODE_DUPLICATED) {
+        return res.sendStatus(HTTP_CODE_CONFLICT);
       }
 
       /* Check for invalid data */
-      if (err.name && err.name === 'ValidationError') {
-        return res.sendStatus(400);
+      if (err.name && err.name === MONGO_ERR_VALIDATION) {
+        return res.sendStatus(HTTP_CODE_BADREQUEST);
       }
 
       /* Unknown error */
@@ -68,7 +81,7 @@ module.exports = (router, db) => {
   }, (req, res) => {
 
     /* Respond unauthorized with a delay on wrong username or password */
-    setTimeout(() => res.sendStatus(401), 1000);
+    setTimeout(() => res.sendStatus(HTTP_CODE_UNAUTHORIZED), DELAY);
 
   });
 
@@ -79,7 +92,7 @@ module.exports = (router, db) => {
 
     delete req.session.user;
 
-    res.sendStatus(204);
+    res.sendStatus(HTTP_CODE_NOBODY);
 
   });
 
