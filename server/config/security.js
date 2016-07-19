@@ -1,5 +1,7 @@
 'use strict';
 
+const SELF = '\'self\'';
+
 module.exports = {
 
   p3p: 'ABCDEF',
@@ -14,10 +16,10 @@ module.exports = {
 
   csp: {
     policy: {
-      'img-src': 'http://lorempixel.com "self"',
-      'style-src': '*.googleapis.com "self"',
-      'font-src': '*.gstatic.com "self"',
-      'default-src': '"self"'
+      'img-src': SELF + ' http://lorempixel.com',
+      'style-src': SELF + ' *.googleapis.com',
+      'font-src': SELF + ' *.gstatic.com',
+      'default-src': SELF
     }
   },
 
