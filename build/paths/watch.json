@@ -1,5 +1,5 @@
 {
-  "templates": "client/templates/**/*.jade",
+  "templates": "client/templates/**/*.pug",
   "scripts": "client/scripts/**/*.js",
   "styles": "client/styles/**/*.scss"
 }

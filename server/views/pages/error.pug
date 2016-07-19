@@ -1,0 +1,26 @@
+extends ../layout
+
+block meta
+  meta(name='theme-color' content=`${ themeColor }`)
+
+block styles
+  link(rel='stylesheet', href=`/assets/styles/styles${ suffix }.css`)
+
+block body
+  .jumbotron
+    h1 Error!
+
+  .container
+    if (error)
+      .alert.alert-danger
+        strong ${ error.status  || 500 }
+          span &ensp;${ error.message || "Server error" }
+
+      if (error.stack)
+        .well
+          pre ${ error.stack }
+
+    else
+      .alert.alert-danger
+        strong 500
+          span &ensp;Server error

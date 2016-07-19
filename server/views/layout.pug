@@ -1,0 +1,35 @@
+- var suffix = environment === 'development' ? '' : '.min';
+- var themeColor = '#B8DC3B';
+
+block vars
+
+doctype html
+
+html(
+  ng-strict-di=!development,
+  ng-app='App',
+  lang='en',
+  ng-csp)
+
+  head
+    title=title
+
+    base(href='/')
+
+    include head/meta
+    block meta
+
+    //- Manifest
+    link(rel='manifest', href='/assets/manifest.json')
+
+    include head/icons
+    block icons
+
+    block styles
+
+  body.loading(
+    ng-class='(loading && "loading " || " ") + viewClass')
+
+    block body
+
+    block scripts

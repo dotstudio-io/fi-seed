@@ -4,9 +4,9 @@
   ],
 
   "templates": [
-    "client/templates/**/*.jade",
-    "!**/_includes/**/*.jade",
-    "!**/_mixins/**/*.jade"
+    "client/templates/**/*.pug",
+    "!**/_includes/**/*.pug",
+    "!**/_mixins/**/*.pug"
   ],
 
   "styles": [
@@ -30,10 +30,8 @@
       "client/scripts/app.js",
 
       "client/scripts/modules/**/*.js",
-      "client/scripts/services/**/*.js",
       "client/scripts/controllers/**/*.js",
       "client/scripts/directives/**/*.js",
-      "client/scripts/filters/**/*.js",
       "client/scripts/routes/**/*.js",
 
       "client/scripts/main.js"

@@ -4,7 +4,7 @@ const expect = require('gulp-expect-file');
 const plumber = require('gulp-plumber');
 const htmlmin = require('gulp-htmlmin');
 const gulpif = require('gulp-if');
-const jade = require('gulp-jade');
+const pug = require('gulp-pug');
 const gulp = require('gulp');
 
 module.exports = function templates(files, min, dest) {
@@ -26,7 +26,7 @@ module.exports = function templates(files, min, dest) {
     }
   })).
 
-  pipe(jade({
+  pipe(pug({
     basedir: 'client/templates'
   })).
 

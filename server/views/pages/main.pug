@@ -1,11 +1,8 @@
 extends ../layout
 
-block vars
-  - var themeColor = '#5a616e';
-
 //- View's meta
 block meta
-  meta(property='og:image', content='#{ host }assets/images/ic-navbar.png')
+  meta(property='og:image', content=`${ host }assets/images/social.png`)
   meta(property='og:title', content='Another MEAN platform')
   meta(property='og:description', content='A boilerplate for applications with Node.js + Express + MongoDB on the backend and AngularJS on the frontend (aka MEAN).')
   meta(property='og:site_name', content='Fi Seed')
@@ -14,7 +11,7 @@ block meta
 
 //- View's styles
 block styles
-  link(rel='stylesheet', href='/assets/styles/client#{ suffix }.css' )
+  link(rel='stylesheet', href=`/assets/styles/client${ suffix }.css`)
 
 //- View's body
 block body
@@ -30,4 +27,4 @@ block body
 
 //- View's scripts
 block scripts
-  script(src='/assets/scripts/client#{ suffix }.js')
+  script(src=`/assets/scripts/client${ suffix }.js`)
