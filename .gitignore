@@ -1,6 +1,9 @@
 # Bower components directory
 bower_components/
 
+# Local session key
+server/credentials/session.key
+
 # Logs
 logs
 *.log
