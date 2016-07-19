@@ -36,7 +36,7 @@ var config = {
   }),
 
   cookie: {
-    secure: false
+    secure: process.env.NODE_ENV === 'production' // Serve secure cookies in production (requires HTTPS)
   }
 };
 

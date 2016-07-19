@@ -1,6 +1,7 @@
 'use strict';
 
-var path = require('path');
+const mongoose = require('mongoose');
+const path = require('path');
 
 module.exports = {
 
@@ -9,7 +10,7 @@ module.exports = {
   basedir: path.join(__serverdir, 'routes'),
 
   arguments: [
-    require('mongoose')
+    mongoose
   ]
 
 };

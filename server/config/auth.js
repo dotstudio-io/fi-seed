@@ -15,7 +15,7 @@ module.exports = {
   routes: [{
     method: 'GET',
     path: '/api/users/sign-out',
-    allows: ['user', 'manager', 'admin']
+    allows: ['user', 'admin']
   }]
 
 };
