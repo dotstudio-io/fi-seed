@@ -17,7 +17,6 @@
   var WARNING = 'warning';
   var DANGER = 'danger';
   var INFO = 'info';
-  var NONE = '';
 
   /* Events */
   var EVENT_FLASH_SHOW = '$flash.show';
@@ -64,7 +63,7 @@
         }
 
         /**
-         * Watched value changed.
+         * Flash show event listener callback.
          */
         function onFlashShow($event, flash) {
           if ($scope.list.length > 1) {
@@ -92,8 +91,8 @@
     /* Add a new flash message */
     function show(type, title, message) {
       $rootScope.$broadcast(EVENT_FLASH_SHOW, {
-        message: message || NONE,
-        title: title || NONE,
+        message: message,
+        title: title,
         type: type || INFO
       });
     }

@@ -57,7 +57,17 @@
     border-radius : 1000px;
     border-width  : 0;
     outline       : 0;
-    padding       : $padding-base-vertical $padding-large-horizontal;
-    @include box-shadow(0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23));
+    padding       : $padding-base-vertical $padding-large-horizontal $padding-base-vertical $padding-base-horizontal;
+    line-height   : 1.618;
+    @include box-shadow(0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23));
+
+    i {
+      padding-right: $padding-small-horizontal;
+      vertical-align: text-top;
+    }
+
+    strong {
+      padding-right: $padding-xs-horizontal;
+    }
   }
 }
