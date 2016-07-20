@@ -17,6 +17,7 @@
   var WARNING = 'warning';
   var DANGER = 'danger';
   var INFO = 'info';
+  var NONE = '';
 
   /* Events */
   var EVENT_FLASH_SHOW = '$flash.show';
@@ -70,7 +71,7 @@
             dismiss(0);
           }
 
-          // flash.timeout = $timeout(onDismiss.bind(flash), DISMISS_DELAY);
+          flash.timeout = $timeout(onDismiss.bind(flash), DISMISS_DELAY);
 
           $scope.list.push(flash);
         }
@@ -91,8 +92,8 @@
     /* Add a new flash message */
     function show(type, title, message) {
       $rootScope.$broadcast(EVENT_FLASH_SHOW, {
-        message: message || '',
-        title: title || '',
+        message: message || NONE,
+        title: title || NONE,
         type: type || INFO
       });
     }
