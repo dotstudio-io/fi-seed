@@ -1,7 +1,4 @@
-.flash(
-  ng-repeat='flash in list track by $index',
-  ng-show='flash.active')
-
+.flash(ng-repeat='flash in list')
   .alert(
     ng-class='"alert-" + flash.type',
     ng-click='dismiss($index)')

@@ -8,7 +8,6 @@
 
   /* Time to automatically dismiss a flash message */
   var DISMISS_DELAY = 5000;
-  var REMOVE_DELAY = 432;
 
   /* Directive restriction */
   var RESTRICT = 'E';
@@ -43,15 +42,6 @@
 
       link: function flashDirectiveLinkFn($scope) {
         /**
-         * Instantly removes a flash from the list.
-         *
-         * @param {Number} idx The flash index to remove.
-         */
-        function remove(idx) {
-          $scope.list.splice(idx, 1);
-        }
-
-        /**
          * Dismisses any active flash.
          *
          * @param {Number} idx The flash index to dismiss.
@@ -61,9 +51,7 @@
 
           if (flash) {
             $timeout.cancel(flash.timeout);
-            flash.active = false;
-
-            $timeout(remove.bind(null, idx), REMOVE_DELAY);
+            $scope.list.splice(idx, 1);
           }
         }
 
@@ -82,8 +70,7 @@
             dismiss(0);
           }
 
-          flash.timeout = $timeout(onDismiss.bind(flash), DISMISS_DELAY);
-          flash.active = true;
+          // flash.timeout = $timeout(onDismiss.bind(flash), DISMISS_DELAY);
 
           $scope.list.push(flash);
         }
