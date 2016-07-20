@@ -8,32 +8,34 @@
   .page-header
     h1 Flashes
 
+    p.lead Click any of the buttons to show a related flash message.
+
     p
-      button.btn.btn-lg.btn-success(
-        ng-click='$flash.success("Great!", "A success message.")',
+      button.btn.btn-success(
+        ng-click='$flash.success("Great!", "This is a success message.")',
         type='button')
 
         | Success
 
       | &ensp;
 
-      button.btn.btn-lg.btn-info(
-        ng-click='$flash.info("Look here!", "This is somewhat important information.")',
+      button.btn.btn-info(
+        ng-click='$flash.info("Look here!", "This is a very informative message.")',
         type='button')
 
         | Info
 
       | &ensp;
 
-      button.btn.btn-lg.btn-warning(
-        ng-click='$flash.warning("Watch out!", "This is a wanring!")',
+      button.btn.btn-warning(
+        ng-click='$flash.warning("Watch out!", "This is a warning message!")',
         type='button')
 
         | Warning
 
       | &ensp;
 
-      button.btn.btn-lg.btn-danger(
+      button.btn.btn-danger(
         ng-click='$flash.danger("Oh no!", "This is a bad message!")',
         type='button')
 
