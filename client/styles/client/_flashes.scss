@@ -1,20 +1,38 @@
-main-flash {
-  display: block;
+.flash-container {
+  display : block;
+  position: fixed;
+  width   : 100%;
+  bottom  : 0;
+  left    : 0;
 }
 
 .flash {
-  padding: $padding-large-horizontal;
+  padding   : $padding-large-horizontal;
   text-align: center;
-  position: fixed;
-  display: block;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  z-index: 9999;
+  display   : block;
+  overflow  : hidden;
+  width     : 100%;
+  z-index   : 9999;
+  @include transition(all 432ms ease-in-out);
+
+  &.ng-enter,
+  &.ng-move {
+    @include scaleY(0);
+
+    &.ng-enter-active,
+    &.ng-move-active {
+      @include scaleY(1);
+    }
+  }
+
+  &.ng-leave {
+    @include scaleY(0);
+  }
 
   .alert {
-    @include box-shadow(0 0 32px rgba(0, 0, 0, 0.25));
     display: inline-block;
-    margin: 0 auto;
+    margin : 0 auto;
+    cursor : pointer;
+    @include box-shadow(0 0 32px rgba(0, 0, 0, 0.25));
   }
 }

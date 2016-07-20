@@ -1,10 +1,13 @@
-.flash(ng-class='{ hidden: hidden }')
-  .alert(
-    ng-class='"alert-" + (session.flash.type && session.flash.type || "info")',
-    ng-click='dismiss()')
+.flash(
+  ng-repeat='flash in list track by $index',
+  ng-show='flash.active')
 
-    i.glyphicon(ng-class='"glyphicon-" + (icons[session.flash.type] || "info-circle")')
+  .alert(
+    ng-class='"alert-" + flash.type',
+    ng-click='dismiss($index)')
+
+    i.glyphicon(ng-class='"glyphicon-" + (icons[flash.type] || "info-circle")')
     | &ensp;
-    strong {{ session.flash.title }}
-    | &thinsp;
-    | {{ session.flash.message }}
+    strong {{ flash.title }}
+    | &ensp;
+    | {{ flash.message }}

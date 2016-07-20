@@ -1,26 +1,20 @@
-(function (ng) {
+(function (window) {
   'use strict';
 
-  ng.module('App').directive('mainFooter', [
-    '$window', '$location', '$http', '$session', '$timeout', 'APP_NAME', 'YEAR',
+  var ng = window.angular;
 
-    function ($window, $location, $http, $session, $timeout, APP_NAME, YEAR) {
+  var mainFooterDirectiveDef = {
+    templateUrl: '/assets/templates/main/footer.html',
 
-      return {
-        templateUrl: '/assets/templates/main/footer.html',
+    restrict: 'E',
 
-        restrict: 'E',
+    scope: {}
+  };
 
-        scope: {},
+  function mainFooterDirectiveFn() {
+    return mainFooterDirectiveDef;
+  }
 
-        link: function ($scope) {
-          $scope.APP_NAME = APP_NAME;
-          $scope.YEAR = YEAR;
-        }
-      };
+  ng.module('App').directive('mainFooter', mainFooterDirectiveFn);
 
-    }
-
-  ]);
-
-}(angular));
+}(window));

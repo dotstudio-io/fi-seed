@@ -39,7 +39,7 @@
                     required)
 
             button.btn.btn-block.btn-primary(
-              ng-disabled='form.$invalid',
+              ng-disabled='form.$invalid || submitting',
               type='submit')
 
               | Go to my account!

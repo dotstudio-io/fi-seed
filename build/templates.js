@@ -7,32 +7,43 @@ const gulpif = require('gulp-if');
 const pug = require('gulp-pug');
 const gulp = require('gulp');
 
+const ERR_BUILD = '\n  Error building templates!\n';
+const END = 'end';
+
+const OPTS_DIR = {
+  showHidden: true,
+  colors: true,
+  depth: 8
+};
+
+const OPTS_PLUMBER = {
+  errorHandler: function (err) {
+    console.error(ERR_BUILD);
+
+    console.dir(err, OPTS_DIR);
+
+    this.emit(END);
+  }
+};
+
+const OPTS_PUG = {
+  basedir: 'client/templates'
+};
+
+const OPTS_HTMLMIN = {
+  collapseWhitespace: true
+};
+
 module.exports = function templates(files, min, dest) {
   return gulp.src(files).
 
   pipe(expect(files)).
 
-  pipe(plumber({
-    errorHandler: function (err) {
-      console.error("\nError building templates!\n");
+  pipe(plumber(OPTS_PLUMBER)).
 
-      console.dir(err, {
-        showHidden: true,
-        colors: true,
-        depth: 8
-      });
+  pipe(pug(OPTS_PUG)).
 
-      this.emit('end');
-    }
-  })).
-
-  pipe(pug({
-    basedir: 'client/templates'
-  })).
-
-  pipe(gulpif(min, htmlmin({
-    collapseWhitespace: true
-  }))).
+  pipe(gulpif(min, htmlmin(OPTS_HTMLMIN))).
 
   pipe(gulp.dest(dest));
 };

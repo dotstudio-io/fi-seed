@@ -1,13 +1,22 @@
-(function (ng) {
+(function (window) {
   'use strict';
 
+  var ng = window.angular;
+
+  /**
+   * Pages Theme controller function.
+   */
+  function pagesThemeControllerFn($scope, $flash) {
+    $scope.$flash = $flash;
+  }
+
+  /**
+   * Define AngularJS controller.
+   */
   ng.module('App').controller('Pages:Theme', [
-    '$scope', '$log',
+    '$scope', '$flash',
 
-    function ($scope, $log) {
-      $log.log("The theme controller has been initialized!");
-    }
-
+    pagesThemeControllerFn
   ]);
 
-}(angular));
+}(window));

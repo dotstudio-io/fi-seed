@@ -27,9 +27,10 @@ html(
 
     block styles
 
-  body.loading(
-    ng-class='(loading && "loading " || " ") + viewClass')
-
+  body.loading(ng-class='(loading && "loading " || " ") + viewClass')
     block body
+
+    //- Ensure it's after all other content to avoid Z-fights and make it available application wide
+    flash.flash-container
 
     block scripts

@@ -6,6 +6,40 @@
 
 .container(role='main')
   .page-header
+    h1 Flashes
+
+    p
+      button.btn.btn-lg.btn-success(
+        ng-click='$flash.success("Great!", "A success message.")',
+        type='button')
+
+        | Success
+
+      | &ensp;
+
+      button.btn.btn-lg.btn-info(
+        ng-click='$flash.info("Look here!", "This is somewhat important information.")',
+        type='button')
+
+        | Info
+
+      | &ensp;
+
+      button.btn.btn-lg.btn-warning(
+        ng-click='$flash.warning("Watch out!", "This is a wanring!")',
+        type='button')
+
+        | Warning
+
+      | &ensp;
+
+      button.btn.btn-lg.btn-danger(
+        ng-click='$flash.danger("Oh no!", "This is a bad message!")',
+        type='button')
+
+        | Danger
+
+  .page-header
     h1 Buttons
 
   p

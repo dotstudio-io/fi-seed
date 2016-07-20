@@ -7,34 +7,46 @@ const concat = require('gulp-concat');
 const gulpif = require('gulp-if');
 const gulp = require('gulp');
 
-module.exports = function scripts(name, files, min, dest) {
+const ERR_BUILD = '\n  Error building scripts!\n';
+const DOT_MIN = '.min';
+const DOT_JS = '.js';
+const END = 'end';
+const NONE = '';
+
+const OPTS_UGLIFY = {
+  mangle: true,
+  compress: {
+    drop_console: true,
+    dead_code: true
+  }
+};
+
+const OPTS_DIR = {
+  showHidden: true,
+  colors: true,
+  depth: 8
+};
+
+const OPTS_PLUMBER = {
+  errorHandler: function (err) {
+    console.error(ERR_BUILD);
+
+    console.dir(err, OPTS_DIR);
+
+    this.emit(END);
+  }
+};
+
+module.exports = (name, files, min, dest) => {
   return gulp.src(files).
 
   pipe(expect(files)).
 
-  pipe(plumber({
-    errorHandler: function (err) {
-      console.error("\nError building scripts!\n");
+  pipe(plumber(OPTS_PLUMBER)).
 
-      console.dir(err, {
-        showHidden: true,
-        colors: true,
-        depth: 8
-      });
+  pipe(gulpif(min, uglify(OPTS_UGLIFY))).
 
-      this.emit('end');
-    }
-  })).
-
-  pipe(gulpif(min, uglify({
-    mangle: true,
-    compress: {
-      drop_console: true,
-      dead_code: true
-    }
-  }))).
-
-  pipe(concat(name + (min ? '.min' : '') + '.js')).
+  pipe(concat(name + (min ? DOT_MIN : NONE) + DOT_JS)).
 
   pipe(gulp.dest(dest));
 };

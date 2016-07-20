@@ -1,109 +1,142 @@
-/**
- * Main Navbar Directive.
- *
- * This directive controlls the main navbar's behaviour by detecting the scroll-top distance and
- * set it to be folded or unfolded. It also sets the current location's path to a scope variable
- * for the navigation links to detect if they're active.
- *
- * @type AngularJS Directive.
- */
-
-(function (ng) {
+(function (window) {
   'use strict';
 
-  ng.module('App').directive('mainNavbar', [
-    '$location', '$http', '$session', 'APP_NAME',
+  var ng = window.angular;
 
-    function ($location, $http, $session, APP_NAME) {
+  var SIGNOUT_ROUTE = '/api/users/sign-out';
 
-      return {
-        templateUrl: '/assets/templates/main/navbar.html',
+  /**
+   * Main navbar directive function.
+   */
+  function mainNavbarDirectiveFn($location, $http, $session, $timeout, $flash) {
 
-        restrict: 'E',
+    return {
+      templateUrl: '/assets/templates/main/navbar.html',
 
-        scope: {},
+      restrict: 'E',
 
-        link: function ($scope) {
-          var lastScrollTop = 0;
-          var minDiff = 60;
-          var minTop = 60;
+      scope: {},
 
-          var $collapse = ng.element(document.querySelector('.navbar-collapse'));
+      link: function ($scope) {
+        var lastScrollTop = 0;
+        var minDiff = 60;
+        var minTop = 60;
 
-          $scope.location = $location.path();
-          $scope.APP_NAME = APP_NAME;
-          $scope.signingIn = false;
-          $scope.folded = false;
+        var $collapse = ng.element(document.querySelector('.navbar-collapse'));
 
-          /**
-           * Sets the folding state of the navbar.
-           */
-          function setFolding(folded) {
-            $scope.$apply(function () {
-              $scope.folded = folded;
-            });
-          }
-
-          $scope.toggleCollapse = function () {
-            if ($collapse.hasClass('collapse')) {
-              $collapse.removeClass('collapse');
-            } else {
-              $collapse.addClass('collapse');
-            }
-          };
-
-          /**
-           * Detect scroll changes and set navbar style accordingly.
-           */
-          window.addEventListener('scroll', function () {
-            var scrollTop = this.pageYOffset;
-
-            /* Calculate only if scroll top is more than "minTop" units */
-            if (scrollTop > minTop) {
-              /* Wait for a minimum difference of "minDiff" units */
-              if (Math.abs(scrollTop - lastScrollTop) > minDiff) {
-                if (scrollTop < lastScrollTop) {
-                  if ($scope.folded) {
-                    setFolding(false);
-                  }
-                } else if (!$scope.folded) {
-                  setFolding(true);
-                }
-
-                lastScrollTop = scrollTop;
-              }
-            } else if ($scope.folded) {
-              setFolding(false);
-            }
-          }, false);
-
-          /**
-           * Sign the user out.
-           */
-          $scope.signout = function () {
-            $http.get('/api/users/sign-out').then(function success() {
-              $session.flash('success', "¡It's been a pleasure!", "Come back soon!");
-              $session.signout();
-              $location.path('/');
-            }, function error() {
-              $session.flash('danger', "Hmmmmm,", "Someone doesn't want you to leave...");
-            });
-          };
-
-          /* Collapse the navbar menu when route changes */
-          /* Clear the scope's location variable */
-          $scope.$on('$routeChangeStart', function () {
-            $collapse.addClass('collapse');
-            $scope.location = "";
-          });
-
-          /* Update the scope's location */
-          $scope.$on('$routeChangeSuccess', function () {
-            $scope.location = $location.path();
-          });
+        /**
+         * Sets the folding state of the navbar.
+         */
+        function setFolding(folded) {
+          $scope.folded = folded;
+          $timeout();
         }
-      };
-    }
+
+        /**
+         * Toggle the collapse state of the navbar.
+         */
+        function toggleCollapse() {
+          if ($collapse.hasClass('collapse')) {
+            $collapse.removeClass('collapse');
+          } else {
+            $collapse.addClass('collapse');
+          }
+        }
+
+        /**
+         * Sign out succeeded.
+         */
+        function signOutSuccess() {
+          $flash.success('¡It\'s been a pleasure!', 'Come back soon!');
+          $session.signout();
+          $location.path('/');
+        }
+
+        /**
+         * Sign out failed.
+         */
+        function signOutFailed() {
+          $flash.danger('Hmmmmm,', 'Someone doesn\'t want you to leave...');
+        }
+
+        /**
+         * Sign out complete.
+         */
+        function signOutComplete() {
+          $scope.signingOut = false;
+        }
+
+        /**
+         * Signs the user out.
+         */
+        function signout() {
+          $scope.signingOut = true;
+
+          $http.get(SIGNOUT_ROUTE)
+            .then(signOutSuccess)
+            .catch(signOutFailed)
+            .finally(signOutComplete);
+        }
+
+        /**
+         * Detect scroll changes and set navbar style accordingly.
+         */
+        function onScroll() {
+          var scrollTop = window.pageYOffset;
+
+          /* Calculate only if scroll top is more than 'minTop' units */
+          if (scrollTop > minTop) {
+            /* Wait for a minimum difference of 'minDiff' units */
+            if (Math.abs(scrollTop - lastScrollTop) > minDiff) {
+              if (scrollTop < lastScrollTop) {
+                if ($scope.folded) {
+                  setFolding(false);
+                }
+              } else if (!$scope.folded) {
+                setFolding(true);
+              }
+
+              lastScrollTop = scrollTop;
+            }
+          } else if ($scope.folded) {
+            setFolding(false);
+          }
+        }
+
+        /**
+         * On route change start listener callback.
+         */
+        function onRouteChangeStart() {
+          $collapse.addClass('collapse'); // Collapse the navbar menu when route changes
+          $scope.location = ''; // Clear the scope's location variable
+        }
+
+        /**
+         * On route change success listener callback.
+         */
+        function onRouteChangeSuccess() {
+          $scope.location = $location.path(); // Update the scope's location
+        }
+
+        window.addEventListener('scroll', onScroll, false);
+
+        $scope.$on('$routeChangeSuccess', onRouteChangeSuccess);
+        $scope.$on('$routeChangeStart', onRouteChangeStart);
+
+        $scope.toggleCollapse = toggleCollapse;
+        $scope.location = $location.path();
+        $scope.signingOut = false;
+        $scope.signout = signout;
+        $scope.signingIn = false;
+        $scope.folded = false;
+      }
+    };
+  }
+
+  ng.module('App').directive('mainNavbar', [
+    '$location', '$http', '$session', '$timeout', '$flash',
+
+    mainNavbarDirectiveFn
   ]);
 
-}(angular));
+}(window));

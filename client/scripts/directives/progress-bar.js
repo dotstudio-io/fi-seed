@@ -1,22 +1,31 @@
 (function (ng) {
   'use strict';
 
-  ng.module('App').directive('progressBar', [
+  /**
+   * Progress bar directive link function.
+   */
+  function progressBarDirectiveLinkFn($scope, $element, $attrs) {
+    $element.css({
+      width: $attrs.ariaValuenow + '%'
+    });
+  }
 
-    function () {
+  /**
+   * Progress bar directive function.
+   */
+  function progressBarDirectiveFn() {
 
-      return {
-        restrict: 'C',
+    return {
+      restrict: 'C',
 
-        link: function ($scope, $element, $attrs) {
-          $element.css({
-            width: $attrs.ariaValuenow + '%'
-          });
-        }
-      };
+      link: progressBarDirectiveLinkFn
+    };
 
-    }
+  }
 
-  ]);
+  /**
+   * Define AngularJS directive.
+   */
+  ng.module('App').directive('progressBar', progressBarDirectiveFn);
 
 }(angular));

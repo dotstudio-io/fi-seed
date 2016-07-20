@@ -1,15 +1,22 @@
-(function (ng) {
+(function (window) {
   'use strict';
 
+  var ng = window.angular;
+
+  /**
+   * Pages Home controller function.
+   */
+  function pagesHomeControllerFn($scope, $log) {
+    $log.log('The home controller has been initialized!');
+  }
+
+  /**
+   * Define AngularJS controller.
+   */
   ng.module('App').controller('Pages:Home', [
     '$scope', '$log',
 
-    function ($scope, $log) {
-      $scope.year = new Date().getFullYear();
-
-      $log.log("The home controller has been initialized!");
-    }
-
+    pagesHomeControllerFn
   ]);
 
-}(angular));
+}(window));

@@ -15,11 +15,13 @@ nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
 
       a.navbar-brand(ng-href='/')
         img(src='/assets/images/ic-navbar.png')
-        | {{ APP_NAME }}
+        | {{ $root.app.title }}
 
     #navbar.navbar-collapse.collapse
       p.navbar-text.navbar-right(ng-if='$root.session.user')
-        | Signed in as #[strong {{ $root.session.user.name }}]
+        span Signed in as&ensp;
+          strong {{ $root.session.user.name }}
+
         | &ensp;&mdash;&ensp;
 
         a.navbar-link(

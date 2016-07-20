@@ -1,39 +1,70 @@
-(function (ng) {
+(function (window) {
   'use strict';
 
-  ng.module('App').controller('Users:SignIn', [
-    '$scope', '$http', '$location', '$session',
+  var ng = window.angular;
 
-    function ($scope, $http, $location, $session) {
-      $scope.submitting = false;
+  var SIGNIN_ROUTE = '/api/users/sign-in';
 
-      $scope.submit = function () {
-        $scope.submitting = true;
-        $session.signout();
-        $session.flash();
+  /**
+   * User Sign In controller function.
+   */
+  function usersSingInControllerFn($scope, $http, $location, $session, $flash) {
+    $scope.submitting = false;
 
-        $http.post('/api/users/sign-in', $scope.data).then(function (res) {
-          $session.signin(res.data);
-          $session.flash('success', "Hi!", "It's nice to have you back.");
+    /**
+     * Submitting is successful.
+     */
+    function submitSuccess(res) {
+      $session.signin(res.data);
+      $flash.success('Hi!', 'It\'s nice to have you back.');
 
-          if ($session.get('redirect')) {
-            $location.path($session.get('redirect'));
-            $session.set('redirect', null);
-          } else {
-            $location.path('/');
-          }
-        }).catch(function (res) {
-          if (res.status === 400) {
-            $session.flash('warning', "Dammit!", "Looks like your email or password are wrong.");
-          } else {
-            $session.flash('danger', "Panic!", "Something's wrong...");
-          }
-        }).finally(function complete() {
-          $scope.submitting = false;
-        });
-      };
+      if ($session.get('redirect')) {
+        $location.path($session.get('redirect'));
+        $session.set('redirect', null);
+      } else {
+        $location.path('/');
+      }
     }
 
+    /**
+     * Submitting has failed.
+     */
+    function submitFailed(res) {
+      if (res.status === 401) {
+        $flash.warning('Dammit!', 'Looks like your email or password are wrong.');
+      } else {
+        $flash.danger('Panic!', 'Something\'s wrong...');
+      }
+    }
+
+    /**
+     * Submitting is complete.
+     */
+    function submitComplete() {
+      $scope.submitting = false;
+    }
+
+    /**
+     * Submit the form and attempt a sign in.
+     */
+    function submit() {
+      $scope.submitting = true;
+
+      $session.signout();
+
+      $http.post(SIGNIN_ROUTE, $scope.data)
+        .then(submitSuccess)
+        .catch(submitFailed)
+        .finally(submitComplete);
+    }
+
+    $scope.submit = submit;
+  }
+
+  ng.module('App').controller('Users:SignIn', [
+    '$scope', '$http', '$location', '$session', '$flash',
+
+    usersSingInControllerFn
   ]);
 
-}(angular));
+}(window));

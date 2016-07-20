@@ -1,33 +1,50 @@
-(function (ng) {
+(function (window) {
   'use strict';
 
-  ng.module('App').
+  var ng = window.angular;
 
-  config([
+  /**
+   * App run function.
+   */
+  function appRunFn($rootScope, $location, $http, $session) {
+    /* Define app object in root scope */
+    $rootScope.app = window.app;
+
+    /**
+     * Session obtained successfully.
+     */
+    function sessionSuccess(res) {
+      if (res.status === 200) {
+        $session.signin(res.data);
+      }
+    }
+
+    $http.get('/api/session')
+      .then(sessionSuccess);
+  }
+
+  /**
+   * App config function.
+   */
+  function appConfigFn($locationProvider) {
+    $locationProvider.html5Mode(true);
+  }
+
+  /**
+   * Define AngularJS module.
+   */
+  ng.module('App')
+
+  .config([
     '$locationProvider',
 
-    function ($locationProvider) {
-      $locationProvider.html5Mode(true);
-    }
-  ]).
+    appConfigFn
+  ])
 
-  constant('APP_NAME', "Fi Seed").
-  constant('YEAR', new Date().getFullYear()).
-  constant('DOMAIN', 'https://github.com/finaldevstudio/fi-seed').
+  .run([
+    '$rootScope', '$location', '$http', '$session',
 
-  run([
-    '$rootScope', '$location', '$http', '$session', 'APP_NAME', 'YEAR', 'DOMAIN',
-
-    function ($rootScope, $location, $http, $session, APP_NAME, YEAR, DOMAIN) {
-      /* Constants set */
-      $rootScope.APP_NAME = APP_NAME;
-      $rootScope.DOMAIN = DOMAIN;
-      $rootScope.YEAR = YEAR;
-
-      $http.get('/api/session').then(function success(res) {
-        $session.signin(res.data);
-      });
-    }
+    appRunFn
   ]);
 
-}(angular));
+}(window));

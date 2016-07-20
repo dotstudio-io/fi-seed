@@ -18,12 +18,16 @@
   "scripts": {
     "dev": [
       "bower_components/angular/angular.js",
-      "bower_components/angular-route/angular-route.js"
+      "bower_components/angular-route/angular-route.js",
+      "bower_components/angular-aria/angular-aria.js",
+      "bower_components/angular-animate/angular-animate.js"
     ],
 
     "min": [
       "bower_components/angular/angular.min.js",
-      "bower_components/angular-route/angular-route.min.js"
+      "bower_components/angular-route/angular-route.min.js",
+      "bower_components/angular-aria/angular-aria.min.js",
+      "bower_components/angular-animate/angular-animate.min.js"
     ],
 
     "all": [

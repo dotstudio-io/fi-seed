@@ -2,7 +2,7 @@
 
 const CONSTS = component('consts');
 
-const HTTP_CODE_NOBODY = CONSTS.CODES.HTTP.NOBIDY;
+const HTTP_CODE_NOBODY = CONSTS.CODES.HTTP.NOBODY;
 const HTTP_CODE_OK = CONSTS.CODES.HTTP.OK;
 
 module.exports = (router) => {
