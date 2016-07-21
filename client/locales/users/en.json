@@ -1,0 +1,44 @@
+{
+  "USERS": {
+    "SIGN-UP": {
+      "TITLE": "Create your account",
+      "SUBTITLE": "It's awesome! I promise!",
+      "FORM": {
+        "TITLE": "Account details",
+        "NAME": {
+          "PLACEHOLDER": "Enter your name"
+        },
+        "EMAIL": {
+          "PLACEHOLDER": "Enter your email"
+        },
+        "PASSWORD": {
+          "PLACEHOLDER": "Enter your password"
+        },
+        "GENDER": {
+          "LABEL": "Choose a gender"
+        },
+        "ROLE": {
+          "LABEL": "Choose a role"
+        },
+        "SUBMIT": "Create your account!"
+      },
+      "BACK": "I already have an account"
+    },
+
+    "SIGN-IN": {
+      "TITLE": "Sign in to your account",
+      "SUBTITLE": "You won't believe it!",
+      "FORM": {
+        "TITLE": "My account",
+        "EMAIL": {
+          "PLACEHOLDER": "Enter your email"
+        },
+        "PASSWORD": {
+          "PLACEHOLDER": "Enter your password"
+        },
+        "SUBMIT": "Go to my account!"
+      },
+      "BACK": "I don't have an account"
+    }
+  }
+}

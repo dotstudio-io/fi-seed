@@ -1,0 +1,44 @@
+{
+  "USERS": {
+    "SIGN-UP": {
+      "TITLE": "Crea tu cuenta",
+      "SUBTITLE": "¡Es increíble! ¡Lo prometo!",
+      "FORM": {
+        "TITLE": "Detalles de la cuenta",
+        "NAME": {
+          "PLACEHOLDER": "Ingresa tu nombre"
+        },
+        "EMAIL": {
+          "PLACEHOLDER": "Ingresa tu correo"
+        },
+        "PASSWORD": {
+          "PLACEHOLDER": "Ingresa una constraseña"
+        },
+        "GENDER": {
+          "LABEL": "Elige un género"
+        },
+        "ROLE": {
+          "LABEL": "Elige un rol"
+        },
+        "SUBMIT": "¡Crear tu cuenta!"
+      },
+      "BACK": "Ya tengo una cuenta"
+    },
+
+    "SIGN-IN": {
+      "TITLE": "Inicia sesión a tu cuenta",
+      "SUBTITLE": "¡No lo creerás!",
+      "FORM": {
+        "TITLE": "Mi cuenta",
+        "EMAIL": {
+          "PLACEHOLDER": "Ingresa tu email"
+        },
+        "PASSWORD": {
+          "PLACEHOLDER": "Ingresa tu contraseña"
+        },
+        "SUBMIT": "¡Ir a mi cuenta!"
+      },
+      "BACK": "No tengo una cuenta"
+    }
+  }
+}
