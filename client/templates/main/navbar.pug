@@ -1,6 +1,7 @@
 nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
   ng-class='{ "navbar-folded": folded }')
 
+
   .container
     .navbar-header
       button.navbar-toggle.collapsed(
@@ -20,7 +21,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
     #navbar.navbar-collapse.collapse
       p.navbar-text.navbar-right(ng-if='$root.session.user')
         span(translate='SIGNED-IN-AS')
-          strong &ensp;{{ $root.session.user.name }}
+        strong &ensp;{{ $root.session.user.name }}
 
         | &ensp;&mdash;&ensp;
 
