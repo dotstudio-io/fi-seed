@@ -9,8 +9,8 @@ const GENDER_FEMALE = CONSTS.GENDERS.FEMALE;
 const GENDER_MALE = CONSTS.GENDERS.MALE;
 
 /* Roles */
-const ROLE_ADMIN = CONSTS.ROLES.ADMIN.NAME;
-const ROLE_USER = CONSTS.ROLES.USER.NAME;
+const ROLE_ADMIN = CONSTS.ROLES.ADMIN;
+const ROLE_USER = CONSTS.ROLES.USER;
 
 /* Password hashing rounds */
 const HASH_ROUNDS = 8;
@@ -33,7 +33,7 @@ module.exports = (Schema) => {
       required: true,
       unique: true,
       index: true,
-      validate: validator.isEmail
+      validate: (val) => validator.isEmail(val)
     },
 
     password: {

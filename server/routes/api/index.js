@@ -2,7 +2,7 @@
 
 const CONSTS = require('fi-consts');
 
-const HTTP_CODE_NOBODY = CONSTS.CODES.HTTP.NO_BODY;
+const HTTP_CODE_NO_BODY = CONSTS.CODES.HTTP.NO_BODY;
 const HTTP_CODE_OK = CONSTS.CODES.HTTP.OK;
 
 module.exports = (router) => {
@@ -25,13 +25,13 @@ module.exports = (router) => {
 
     /* Check if there's a user in session */
     if (!req.session.user) {
-      return res.sendStatus(HTTP_CODE_NOBODY);
+      return res.sendStatus(HTTP_CODE_NO_BODY);
     }
 
     res.send({
-      role: CONSTS.ROLES[req.session.user.role].SLUG,
       gender: req.session.user.gender,
       name: req.session.user.name,
+      role: req.session.user.role,
       _id: req.session.user._id
     });
 

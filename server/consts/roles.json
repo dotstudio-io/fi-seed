@@ -1,13 +1,4 @@
 {
-  "ADMIN": {
-    "VALUE": "CAEDDAYPAA0MDgYFBA4CDw",
-    "SLUG": "ROLE.ADMIN",
-    "NAME": "ADMIN"
-  },
-
-  "USER": {
-    "VALUE": "DQcBDAMKDQALBAcGBAsLAw",
-    "SLUG": "ROLE.USER",
-    "NAME": "USER"
-  }
+  "ADMIN": "ROLE.ADMIN",
+  "USER": "ROLE.USER"
 }

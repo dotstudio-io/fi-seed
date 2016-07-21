@@ -4,8 +4,8 @@ const CONSTS = require('fi-consts');
 const debug = require('debug');
 
 const HTTP_METHOD_GET = CONSTS.METHODS.HTTP.GET;
-const ROLE_ADMIN = CONSTS.ROLES.ADMIN.VALUE;
-const ROLE_USER = CONSTS.ROLES.USER.VALUE;
+const ROLE_ADMIN = CONSTS.ROLES.ADMIN;
+const ROLE_USER = CONSTS.ROLES.USER;
 
 const ROUTE_API_USERS_SIGNOUT = '/api/users/sign-out';
 
@@ -15,7 +15,7 @@ module.exports = {
 
   authorizer: (req) => {
     if (req.session.user && req.session.user.role) {
-      return CONSTS.ROLES[req.session.user.role].VALUE;
+      return req.session.user.role;
     }
 
     return null;

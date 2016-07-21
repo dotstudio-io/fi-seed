@@ -27,19 +27,11 @@ module.exports = (router) => {
 
       switch (NAME) {
       case ROLES:
-        results.roles = [];
-
-        for (prop in CONSTS.ROLES) {
-          results.roles.push(CONSTS.ROLES[prop].SLUG);
-        }
-
-        break;
-
       case GENDERS:
-        results.genders = [];
+        results[name] = [];
 
-        for (prop in CONSTS.GENDERS) {
-          results.genders.push(CONSTS.GENDERS[prop]);
+        for (prop in CONSTS[NAME]) {
+          results[name].push(CONSTS[NAME][prop]);
         }
 
         break;

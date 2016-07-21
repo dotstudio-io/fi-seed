@@ -7,10 +7,10 @@ const MONGO_CODE_DUPLICATED = CONSTS.CODES.MONGO.DUPLICATED;
 const MONGO_ERR_VALIDATION = CONSTS.ERRORS.MONGO.VALIDATION;
 
 const HTTP_CODE_UNAUTHORIZED = CONSTS.CODES.HTTP.UNAUTHORIZED;
-const HTTP_CODE_BADREQUEST = CONSTS.CODES.HTTP.BAD_REQUEST;
+const HTTP_CODE_BAD_REQUEST = CONSTS.CODES.HTTP.BAD_REQUEST;
 const HTTP_CODE_CONFLICT = CONSTS.CODES.HTTP.CONFLICT;
 const HTTP_CODE_CREATED = CONSTS.CODES.HTTP.CREATED;
-const HTTP_CODE_NOBODY = CONSTS.CODES.HTTP.NO_BODY;
+const HTTP_CODE_NO_BODY = CONSTS.CODES.HTTP.NO_BODY;
 
 const DELAY = 1000;
 
@@ -25,7 +25,9 @@ module.exports = (router, db) => {
 
     User.create(req.body)
 
-    .then(() => res.sendStatus(HTTP_CODE_CREATED))
+    .then(() => {
+      res.sendStatus(HTTP_CODE_CREATED);
+    })
 
     .catch((err) => {
       /* Check for duplicated entry */
@@ -35,11 +37,11 @@ module.exports = (router, db) => {
 
       /* Check for invalid data */
       if (err.name && err.name === MONGO_ERR_VALIDATION) {
-        return res.sendStatus(HTTP_CODE_BADREQUEST);
+        return res.sendStatus(HTTP_CODE_BAD_REQUEST);
       }
 
       /* Unknown error */
-      return next(err);
+      next(err);
     });
 
   });
@@ -91,7 +93,7 @@ module.exports = (router, db) => {
 
     delete req.session.user;
 
-    res.sendStatus(HTTP_CODE_NOBODY);
+    res.sendStatus(HTTP_CODE_NO_BODY);
 
   });
 
