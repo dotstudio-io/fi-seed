@@ -1,48 +1,47 @@
 .jumbotron.bg-cover
   .container
-    h1 Sign in to your account
-    p You won't believe it!
+    h1(translate='USERS.SIGN-IN.TITLE')
+    p(translate='USERS.SIGN-IN.SUBTITLE')
 
 .container.container-pad-bottom
   .row
     .col-sm-6.col-sm-offset-3
-      .panel.panel-default
+      form.panel.panel-default(
+        ng-submit='form.$valid && submit()',
+        name='form')
         .panel-heading
-          .panel-title My account
+          h3.panel-title(translate='USERS.SIGN-IN.FORM.TITLE')
 
         .panel-body
-          form(
-            ng-submit='form.$valid && submit()',
-            name='form')
+          fieldset
+            .form-group
+              .input-group
+                .input-group-addon
+                  i.glyphicon.glyphicon-envelope
 
-            fieldset
-              .form-group
-                .input-group
-                  .input-group-addon
-                    i.glyphicon.glyphicon-envelope
+                input.form-control(
+                  ng-attr-placeholder='{{ "USERS.SIGN-IN.FORM.EMAIL.PLACEHOLDER" | translate }}',
+                  ng-model='data.email',
+                  type='email',
+                  required)
 
-                  input.form-control(
-                    placeholder='Enter your email',
-                    ng-model='data.email',
-                    type='email',
-                    required)
+            .input-group
+              .input-group-addon
+                i.glyphicon.glyphicon-asterisk
 
-              .form-group
-                .input-group
-                  .input-group-addon
-                    i.glyphicon.glyphicon-asterisk
-
-                  input.form-control(
-                    placeholder='Enter your password',
-                    ng-model='data.password',
-                    type='password',
-                    required)
-
-            button.btn.btn-block.btn-primary(
-              ng-disabled='form.$invalid || submitting',
-              type='submit')
-
-              | Go to my account!
+              input.form-control(
+                ng-attr-placeholder='{{ "USERS.SIGN-IN.FORM.PASSWORD.PLACEHOLDER" | translate }}',
+                ng-model='data.password',
+                type='password',
+                required)
 
         .panel-footer.text-center
-          a.btn.btn-link(ng-href='/users/sign-up') I don't have an account
+          button.btn.btn-block.btn-primary(
+            ng-disabled='form.$invalid || submitting',
+            type='submit')
+
+            span(translate='USERS.SIGN-IN.FORM.SUBMIT')
+
+      .text-center
+        a.btn.btn-link(ng-href='/users/sign-up')
+          span(translate='USERS.SIGN-IN.BACK')

@@ -19,8 +19,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
 
     #navbar.navbar-collapse.collapse
       p.navbar-text.navbar-right(ng-if='$root.session.user')
-        span Signed in as&ensp;
-          strong {{ $root.session.user.name }}
+        span(translate='SIGNED-IN-AS')
+          strong &ensp;{{ $root.session.user.name }}
 
         | &ensp;&mdash;&ensp;
 
@@ -29,8 +29,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
           role='button',
           href='')
 
-          | Sign out
+          span(translate='SIGN-OUT')
 
       p.navbar-text.navbar-right(ng-if='!$root.session.user')
         a.navbar-link(ng-href='/users/sign-in')
-          | Sign in
+          span(translate='SIGN-IN')

@@ -1,111 +1,187 @@
 // Main jumbotron for a primary marketing message or call to action
 .jumbotron
   .container
-    h1 Theme example
-    p This is a template showcasing the theme stylesheet included in Bootstrap. Use it as a starting point to create something more unique by building on or modifying it and reviewing the changes here.
+    h1(translate='PAGES.THEME.TITLE')
+    p(translate='PAGES.THEME.SUBTITLE')
 
 .container(role='main')
   .page-header
-    h1 Flashes
+    h1(translate='PAGES.THEME.FLASHES.TITLE')
 
-    p.lead Click any of the buttons to show a related flash message.
+    p.lead(translate='PAGES.THEME.FLASHES.SUBTITLE')
 
     p
       button.btn.btn-success(
-        ng-click='$flash.success("Great!", "This is a success message.")',
+        ng-click='$flash.success("PAGES.THEME.FLASHES.SUCCESS.TITLE", "PAGES.THEME.FLASHES.SUCCESS.MESSAGE")',
         type='button')
 
-        | Success
+        span(translate='PAGES.THEME.SUCCESS')
 
       | &ensp;
 
       button.btn.btn-info(
-        ng-click='$flash.info("Look here!", "This is a very informative message.")',
+        ng-click='$flash.info("PAGES.THEME.FLASHES.INFO.TITLE", "PAGES.THEME.FLASHES.INFO.MESSAGE")',
         type='button')
 
-        | Info
+        span(translate='PAGES.THEME.INFO')
 
       | &ensp;
 
       button.btn.btn-warning(
-        ng-click='$flash.warning("Watch out!", "This is a warning message!")',
+        ng-click='$flash.warning("PAGES.THEME.FLASHES.SUCCESS.TITLE", "PAGES.THEME.FLASHES.SUCCESS.MESSAGE")',
         type='button')
 
-        | Warning
+        span(translate='PAGES.THEME.WARNING')
 
       | &ensp;
 
       button.btn.btn-danger(
-        ng-click='$flash.danger("Oh no!", "This is a bad message!")',
+        ng-click='$flash.danger("PAGES.THEME.FLASHES.DANGER.TITLE", "PAGES.THEME.FLASHES.DANGER.MESSAGE")',
         type='button')
 
-        | Danger
+        span(translate='PAGES.THEME.DANGER')
 
   .page-header
-    h1 Buttons
+    h1(translate='PAGES.THEME.BUTTONS.TITLE')
 
   p
-    button.btn.btn-lg.btn-default(type='button') Default
+    button.btn.btn-lg.btn-default(type='button')
+      span(translate='PAGES.THEME.DEFAULT')
+
     | &ensp;
-    button.btn.btn-lg.btn-primary(type='button') Primary
+
+    button.btn.btn-lg.btn-primary(type='button')
+      span(translate='PAGES.THEME.PRIMARY')
+
     | &ensp;
-    button.btn.btn-lg.btn-success(type='button') Success
+
+    button.btn.btn-lg.btn-success(type='button')
+      span(translate='PAGES.THEME.SUCCESS')
+
     | &ensp;
-    button.btn.btn-lg.btn-info(type='button') Info
+
+    button.btn.btn-lg.btn-info(type='button')
+      span(translate='PAGES.THEME.INFO')
+
     | &ensp;
-    button.btn.btn-lg.btn-warning(type='button') Warning
+
+    button.btn.btn-lg.btn-warning(type='button')
+      span(translate='PAGES.THEME.WARNING')
+
     | &ensp;
-    button.btn.btn-lg.btn-danger(type='button') Danger
+
+    button.btn.btn-lg.btn-danger(type='button')
+      span(translate='PAGES.THEME.DANGER')
+
     | &ensp;
-    button.btn.btn-lg.btn-link(type='button') Link
+
+    button.btn.btn-lg.btn-link(type='button')
+      span(translate='PAGES.THEME.LINK')
 
   p
-    button.btn.btn-default(type='button') Default
+    button.btn.btn-default(type='button')
+      span(translate='PAGES.THEME.DEFAULT')
+
     | &ensp;
-    button.btn.btn-primary(type='button') Primary
+
+    button.btn.btn-primary(type='button')
+      span(translate='PAGES.THEME.PRIMARY')
+
     | &ensp;
-    button.btn.btn-success(type='button') Success
+
+    button.btn.btn-success(type='button')
+      span(translate='PAGES.THEME.SUCCESS')
+
     | &ensp;
-    button.btn.btn-info(type='button') Info
+
+    button.btn.btn-info(type='button')
+      span(translate='PAGES.THEME.INFO')
+
     | &ensp;
-    button.btn.btn-warning(type='button') Warning
+
+    button.btn.btn-warning(type='button')
+      span(translate='PAGES.THEME.WARNING')
+
     | &ensp;
-    button.btn.btn-danger(type='button') Danger
+
+    button.btn.btn-danger(type='button')
+      span(translate='PAGES.THEME.DANGER')
+
     | &ensp;
-    button.btn.btn-link(type='button') Link
+
+    button.btn.btn-link(type='button')
+      span(translate='PAGES.THEME.LINK')
 
   p
-    button.btn.btn-sm.btn-default(type='button') Default
+    button.btn.btn-sm.btn-default(type='button')
+      span(translate='PAGES.THEME.DEFAULT')
+
     | &ensp;
-    button.btn.btn-sm.btn-primary(type='button') Primary
+
+    button.btn.btn-sm.btn-primary(type='button')
+      span(translate='PAGES.THEME.PRIMARY')
+
     | &ensp;
-    button.btn.btn-sm.btn-success(type='button') Success
+
+    button.btn.btn-sm.btn-success(type='button')
+      span(translate='PAGES.THEME.SUCCESS')
+
     | &ensp;
-    button.btn.btn-sm.btn-info(type='button') Info
+
+    button.btn.btn-sm.btn-info(type='button')
+      span(translate='PAGES.THEME.INFO')
+
     | &ensp;
-    button.btn.btn-sm.btn-warning(type='button') Warning
+
+    button.btn.btn-sm.btn-warning(type='button')
+      span(translate='PAGES.THEME.WARNING')
+
     | &ensp;
-    button.btn.btn-sm.btn-danger(type='button') Danger
+
+    button.btn.btn-sm.btn-danger(type='button')
+      span(translate='PAGES.THEME.DANGER')
+
     | &ensp;
-    button.btn.btn-sm.btn-link(type='button') Link
+
+    button.btn.btn-sm.btn-link(type='button')
+      span(translate='PAGES.THEME.LINK')
 
   p
-    button.btn.btn-xs.btn-default(type='button') Default
+    button.btn.btn-xs.btn-default(type='button')
+      span(translate='PAGES.THEME.DEFAULT')
+
     | &ensp;
-    button.btn.btn-xs.btn-primary(type='button') Primary
+
+    button.btn.btn-xs.btn-primary(type='button')
+      span(translate='PAGES.THEME.PRIMARY')
+
     | &ensp;
-    button.btn.btn-xs.btn-success(type='button') Success
+
+    button.btn.btn-xs.btn-success(type='button')
+      span(translate='PAGES.THEME.SUCCESS')
+
     | &ensp;
-    button.btn.btn-xs.btn-info(type='button') Info
+
+    button.btn.btn-xs.btn-info(type='button')
+      span(translate='PAGES.THEME.INFO')
+
     | &ensp;
-    button.btn.btn-xs.btn-warning(type='button') Warning
+
+    button.btn.btn-xs.btn-warning(type='button')
+      span(translate='PAGES.THEME.WARNING')
+
     | &ensp;
-    button.btn.btn-xs.btn-danger(type='button') Danger
+
+    button.btn.btn-xs.btn-danger(type='button')
+      span(translate='PAGES.THEME.DANGER')
+
     | &ensp;
-    button.btn.btn-xs.btn-link(type='button') Link
+
+    button.btn.btn-xs.btn-link(type='button')
+      span(translate='PAGES.THEME.LINK')
 
   .page-header
-    h1 Tables
+    h1(translate='PAGES.THEME.TABLES.TITLE')
 
   .row
     .col-md-6
