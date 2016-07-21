@@ -1,5 +1,6 @@
 {
   "templates": "client/assets/templates",
+  "locales": "client/assets/locales",
   "scripts": "client/assets/scripts",
   "styles": "client/assets/styles",
   "fonts": "client/assets/fonts"

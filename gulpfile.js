@@ -65,6 +65,21 @@ gulp.task('styles:compile', ['styles:clean'], () => {
   return styles(outfiles.styles, files, false, paths.dest.styles);
 });
 
+/**** LOCALES ***/
+const locales = require('./build/locales');
+
+gulp.task('locales:clean', () => {
+  del.sync(paths.dest.locales);
+});
+
+gulp.task('locales:minify', ['locales:clean'], () => {
+  return locales(paths.source.locales, true, paths.dest.locales);
+});
+
+gulp.task('locales:compile', ['locales:clean'], () => {
+  return locales(paths.source.locales, false, paths.dest.locales);
+});
+
 /**** FONTS ****/
 gulp.task('fonts:copy', () => {
   return gulp.src(paths.source.fonts).
@@ -73,14 +88,15 @@ gulp.task('fonts:copy', () => {
 
 /**** TASKS ****/
 /* Compile all without minification */
-gulp.task('compile', ['scripts:compile', 'styles:compile', 'templates:compile', 'fonts:copy']);
+gulp.task('compile', ['scripts:compile', 'styles:compile', 'templates:compile', 'locales:compile', 'fonts:copy']);
 
 /* Compile and minify all */
-gulp.task('default', ['scripts:minify', 'styles:minify', 'templates:minify', 'fonts:copy']);
+gulp.task('default', ['scripts:minify', 'styles:minify', 'templates:minify', 'locales:minify', 'fonts:copy']);
 
 /* Watch for file changes */
 gulp.task('watch', ['compile'], () => {
   gulp.watch(paths.watch.templates, ['templates:compile']);
+  gulp.watch(paths.watch.locales, ['locales:compile']);
   gulp.watch(paths.watch.scripts, ['scripts:compile']);
   gulp.watch(paths.watch.styles, ['styles:compile']);
 });
