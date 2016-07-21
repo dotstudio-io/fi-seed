@@ -8,7 +8,8 @@
   /**
    * User Sign Up controller function.
    */
-  function usersSignUpControllerFn($scope, $http, $location, $session, $flash) {
+  function usersSignUpControllerFn($scope, $http, $location, $session, $flash, consts) {
+    $scope.consts = consts.data;
     $scope.submitting = false;
 
     /**
@@ -77,7 +78,7 @@
   }
 
   ng.module('App').controller('Users:SignUp', [
-    '$scope', '$http', '$location', '$session', '$flash',
+    '$scope', '$http', '$location', '$session', '$flash', 'consts',
 
     usersSignUpControllerFn
   ]);

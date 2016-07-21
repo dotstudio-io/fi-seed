@@ -55,9 +55,8 @@
                     i.glyphicon.glyphicon-heart
 
                   select.form-control(
-                    ng-options='gender._id as gender.name for gender in statics.genders',
+                    ng-options='gender as gender for gender in consts.genders',
                     ng-model='data.gender',
-                    type='password',
                     required)
 
                     option(
@@ -71,9 +70,8 @@
                     i.glyphicon.glyphicon-pawn
 
                   select.form-control(
-                    ng-options='role._id as role.name for role in statics.roles',
+                    ng-options='role as role for role in consts.roles',
                     ng-model='data.role',
-                    type='password',
                     required)
 
                     option(

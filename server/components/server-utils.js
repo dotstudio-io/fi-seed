@@ -1,10 +1,11 @@
 'use strict';
 
+const CONSTS = require('fi-consts');
 const is = require('fi-is');
 
-const UNKNOWN_BIND = 'UNKNOWN_BIND';
-const EADDRINUSE = 'EADDRINUSE';
-const EACCES = 'EACCES';
+const UNKNOWN_BIND = CONSTS.ERRORS.SERVER.UNKNOWN_BIND;
+const EADDRINUSE = CONSTS.ERRORS.SERVER.EADDRINUSE;
+const EACCES = CONSTS.ERRORS.SERVER.EACCES;
 const LISTEN = 'listen';
 const PIPE_SP = 'pipe ';
 const PORT_SP = 'port ';

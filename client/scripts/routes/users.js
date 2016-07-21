@@ -3,6 +3,10 @@
 
   var ng = window.angular;
 
+  function constsResolveFn($consts) {
+    return $consts.get(['roles', 'genders']);
+  }
+
   /**
    * Users routes configuration.
    */
@@ -12,7 +16,11 @@
 
     when('/users/sign-up', {
       templateUrl: '/assets/templates/users/sign-up.html',
-      controller: 'Users:SignUp'
+      controller: 'Users:SignUp',
+
+      resolve: {
+        consts: ['$consts', constsResolveFn]
+      }
     }).
 
     when('/users/sign-in', {

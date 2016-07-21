@@ -21,8 +21,7 @@ const https = require('https');
 const auth = require('fi-auth');
 const path = require('path');
 
-const serverUtils = component('server-utils');
-const errors = component('errors');
+CONSTS.load(config('consts'));
 
 /**** Application ****/
 const app = express();
@@ -32,8 +31,6 @@ app.disable('x-powered-by');
 
 /**** Configuration ****/
 const configs = requireDir(__serverdir + '/config');
-
-CONSTS.load(configs.consts);
 
 /**** Setup ****/
 mongoose.Promise = Promise;
@@ -59,6 +56,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded(configs['body-parser'].urlencoded));
 
 /**** Initialization ****/
+const serverUtils = component('server-utils');
+const errors = component('errors');
 
 /* Configure database (mongoose) */
 configs.database(() => {

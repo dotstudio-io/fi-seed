@@ -34,6 +34,7 @@
       "client/scripts/app.js",
 
       "client/scripts/modules/**/*.js",
+      "client/scripts/services/**/*.js",
       "client/scripts/controllers/**/*.js",
       "client/scripts/directives/**/*.js",
       "client/scripts/routes/**/*.js",
