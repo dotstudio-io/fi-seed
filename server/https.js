@@ -14,6 +14,7 @@ const security = require('fi-security');
 const schemas = require('fi-schemas');
 const mongoose = require('mongoose');
 const routes = require('fi-routes');
+const CONSTS = require('fi-consts');
 const express = require('express');
 const logger = require('morgan');
 const https = require('https');
@@ -31,6 +32,8 @@ app.disable('x-powered-by');
 
 /**** Configuration ****/
 const configs = requireDir(__serverdir + '/config');
+
+CONSTS.load(configs.consts);
 
 /**** Setup ****/
 mongoose.Promise = Promise;

@@ -1,9 +1,9 @@
 'use strict';
 
-const CONSTS = component('consts');
+const CONSTS = require('fi-consts');
 
 const HTTP_CODE_NOTFOUND = CONSTS.CODES.HTTP.NOTFOUND;
-const HTTP_CODE_ERR = CONSTS.CODES.HTTP.ERR;
+const HTTP_CODE_ERR = CONSTS.CODES.HTTP.ERROR;
 
 const ASSETS_OR_API_REGEXP = /^\/(assets|api)\//i;
 const ERR_NOT_FOUND = 'ERR.RESOURCE-NOT-FOUND';

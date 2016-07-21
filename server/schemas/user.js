@@ -1,9 +1,8 @@
 'use strict';
 
 const validator = require('validator');
+const CONSTS = require('fi-consts');
 const bcrypt = require('bcrypt');
-
-const CONSTS = component('consts');
 
 /* Genders */
 const GENDER_FEMALE = CONSTS.GENDERS.FEMALE;

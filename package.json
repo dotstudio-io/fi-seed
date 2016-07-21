@@ -33,6 +33,7 @@
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "fi-auth": "^1.0.9",
+    "fi-consts": "^1.0.0",
     "fi-is": "^1.1.1",
     "fi-routes": "^1.0.3",
     "fi-schemas": "^1.0.2",

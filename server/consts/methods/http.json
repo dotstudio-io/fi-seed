@@ -1,0 +1,9 @@
+{
+  "HTTP": {
+    "DELETE": "DELETE",
+    "HEAD": "HEAD",
+    "POST": "POST",
+    "GET": "GET",
+    "PUT": "PUT"
+  }
+}

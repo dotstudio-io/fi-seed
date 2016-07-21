@@ -1,0 +1,11 @@
+{
+  "ADMIN": {
+    "VALUE": "CAEDDAYPAA0MDgYFBA4CDw",
+    "SLUG": "ROLE.ADMIN"
+  },
+
+  "USER": {
+    "VALUE": "DQcBDAMKDQALBAcGBAsLAw",
+    "SLUG": "ROLE.USER"
+  }
+}

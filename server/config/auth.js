@@ -1,8 +1,7 @@
 'use strict';
 
+const CONSTS = require('fi-consts');
 const debug = require('debug');
-
-const CONSTS = component('consts');
 
 const HTTP_METHOD_GET = CONSTS.METHODS.HTTP.GET;
 const ROLE_ADMIN = CONSTS.ROLES.ADMIN;
