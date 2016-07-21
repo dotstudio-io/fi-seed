@@ -7,7 +7,7 @@
    * Pages Lost controller function.
    */
   function pagesLostControllerFn($scope, $location) {
-    $scope.path = $location.search().path;
+    $scope.url = $location.search().url;
   }
 
   /**

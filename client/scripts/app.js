@@ -3,12 +3,22 @@
 
   var ng = window.angular;
 
+  var SELECTOR = 'meta[name="%s"]';
+  var CONTENT = 'content';
+  var REPLACE = '%s';
+
+  function getMetaContent(name) {
+    return document.querySelector(SELECTOR.replace(REPLACE, name))
+      .getAttribute(CONTENT);
+  }
+
   /* Application info */
   window.app = {
-    environment: document.querySelector('meta[name="environment"]').getAttribute('content'),
-    version: document.querySelector('meta[name="version"]').getAttribute('content'),
-    stage: document.querySelector('meta[name="stage"]').getAttribute('content'),
-    name: document.querySelector('meta[name="name"]').getAttribute('content')
+    environment: getMetaContent('environment'),
+    version: getMetaContent('version'),
+    stage: getMetaContent('stage'),
+    title: getMetaContent('title'),
+    name: getMetaContent('name')
   };
 
   var APP_DEF = [
@@ -19,7 +29,10 @@
 
     /** Custom Modules **/
     'Session',
-    'Flash'
+    'Flash',
+
+    /* 3rd party modules */
+    'pascalprecht.translate' // Angular translate (great module naming btw ¬¬)
   ];
 
   ng.module('App', APP_DEF);
