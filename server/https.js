@@ -40,6 +40,7 @@ app.locals.basedir = configs.views.basedir;
 app.locals.version = PACKAGE.version;
 app.locals.title = PACKAGE.title;
 app.locals.stage = PACKAGE.stage;
+app.locals.name = PACKAGE.name;
 
 app.set('view engine', configs.views.engine);
 app.set('views', configs.views.basedir);
