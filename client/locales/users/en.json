@@ -3,6 +3,7 @@
     "SIGN-UP": {
       "TITLE": "Create your account",
       "SUBTITLE": "It's awesome! I promise!",
+
       "FORM": {
         "TITLE": "Account details",
         "NAME": {
@@ -22,12 +23,37 @@
         },
         "SUBMIT": "Create your account!"
       },
-      "BACK": "I already have an account"
+
+      "BACK": "I already have an account",
+
+      "FLASHES": {
+        "SUCCESS": {
+          "TITLE": "Welcome!",
+          "MESSAGE": "Please enjoy yourself."
+        },
+        "INFO": {
+          "TITLE": "One more thing...",
+          "MESSAGE": "Please sign in with your credentials."
+        },
+        "DUPLICATED": {
+          "TITLE": "Hmmmm...",
+          "MESSAGE": "Looks like that email is already registered."
+        },
+        "WARNING": {
+          "TITLE": "Please check again,",
+          "MESSAGE": "something you entered is not valid."
+        },
+        "DANGER": {
+          "TITLE": "Wooooo!",
+          "MESSAGE": "The gods are angry."
+        }
+      }
     },
 
     "SIGN-IN": {
       "TITLE": "Sign in to your account",
       "SUBTITLE": "You won't believe it!",
+
       "FORM": {
         "TITLE": "My account",
         "EMAIL": {
@@ -38,7 +64,23 @@
         },
         "SUBMIT": "Go to my account!"
       },
-      "BACK": "I don't have an account"
+
+      "BACK": "I don't have an account",
+
+      "FLASHES": {
+        "SUCCESS": {
+          "TITLE": "Hi!",
+          "MESSAGE": "It's nice to have you back."
+        },
+        "WARNING": {
+          "TITLE": "Dammit!",
+          "MESSAGE": "Looks like your email or password are wrong."
+        },
+        "DANGER": {
+          "TITLE": "Oh no!",
+          "MESSAGE": "Something didn't worked as expected."
+        }
+      }
     }
   }
 }
