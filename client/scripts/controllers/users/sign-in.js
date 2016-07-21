@@ -3,7 +3,8 @@
 
   var ng = window.angular;
 
-  var SIGNIN_ROUTE = '/api/users/sign-in';
+  var ROUTE_API_USERS_SIGN_IN = '/api/users/sign-in';
+  var ROUTE_API_SESSION = '/api/session';
 
   /**
    * User Sign In controller function.
@@ -12,11 +13,11 @@
     $scope.submitting = false;
 
     /**
-     * Submitting is successful.
+     * Session updated.
      */
-    function submitSuccess(res) {
+    function sessionSuccess(res) {
       $session.signin(res.data);
-      $flash.success('Hi!', 'It\'s nice to have you back.');
+      $flash.success('USERS.SIGN-IN.FLASHES.SUCCESS.TITLE', 'USERS.SIGN-IN.FLASHES.SUCCESS.MESSAGE');
 
       if ($session.get('redirect')) {
         $location.path($session.get('redirect'));
@@ -27,13 +28,22 @@
     }
 
     /**
+     * Submitting is successful.
+     */
+    function submitSuccess() {
+      $http.get(ROUTE_API_SESSION)
+        .then(sessionSuccess)
+        .catch(submitFailed);
+    }
+
+    /**
      * Submitting has failed.
      */
     function submitFailed(res) {
       if (res.status === 401) {
-        $flash.warning('Dammit!', 'Looks like your email or password are wrong.');
+        $flash.warning('USERS.SIGN-IN.FLASHES.WARNING.TITLE', 'USERS.SIGN-IN.FLASHES.WARNING.MESSAGE');
       } else {
-        $flash.danger('Panic!', 'Something\'s wrong...');
+        $flash.danger('USERS.SIGN-IN.FLASHES.DANGER.TITLE', 'USERS.SIGN-IN.FLASHES.DANGER.MESSAGE');
       }
     }
 
@@ -52,7 +62,7 @@
 
       $session.signout();
 
-      $http.post(SIGNIN_ROUTE, $scope.data)
+      $http.post(ROUTE_API_USERS_SIGN_IN, $scope.data)
         .then(submitSuccess)
         .catch(submitFailed)
         .finally(submitComplete);

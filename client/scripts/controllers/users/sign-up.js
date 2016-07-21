@@ -3,7 +3,8 @@
 
   var ng = window.angular;
 
-  var SIGNUP_ROUTE = '/api/users';
+  var ROUTE_API_USERS_SIGN_UP = '/api/users';
+  var ROUTE_API_SESSION = '/api/session';
 
   /**
    * User Sign Up controller function.
@@ -13,19 +14,28 @@
     $scope.submitting = false;
 
     /**
+     * Updated session data.
+     */
+    function sessionSuccess(res) {
+      $session.signin(res.data);
+      $flash.success('USERS.SIGN-UP.FLASHES.SUCCESS.TITLE', 'USERS.SIGN-UP.FLASHES.SUCCESS.MESSAGE');
+      $location.path('/');
+    }
+
+    /**
      * Signing in is successful.
      */
-    function signInSuccess(res) {
-      $session.signin(res.data);
-      $flash.success('Welcome!', 'Please enjoy yourself!');
-      $location.path('/');
+    function signInSuccess() {
+      $http.get(ROUTE_API_SESSION)
+        .then(sessionSuccess)
+        .catch(signInFailed);
     }
 
     /**
      * Signing in has failed.
      */
     function signInFailed() {
-      $session.info('One more thing:', 'please sign in with your credentials.');
+      $session.info('USERS.SIGN-UP.FLASHES.SUCCESS.TITLE', 'USERS.SIGN-UP.FLASHES.SUCCESS.MESSAGE');
       $location.path('/users/sign-in');
     }
 
@@ -51,11 +61,11 @@
      */
     function submitFailed(res) {
       if (res.status === 409) {
-        $flash.warning('Hmmm...', 'That account is already registered.');
+        $flash.warning('USERS.SIGN-UP.FLASHES.DUPLICATED.TITLE', 'USERS.SIGN-UP.FLASHES.DUPLICATED.MESSAGE');
       } else if (res.status === 400) {
-        $flash.warning('Check your details,', 'your email or password are invalid.');
+        $flash.warning('USERS.SIGN-UP.FLASHES.WARNING.TITLE', 'USERS.SIGN-UP.FLASHES.WARNING.MESSAGE');
       } else {
-        $flash.danger('¡#Dg@a&!', 'Server is angry :/');
+        $flash.danger('USERS.SIGN-UP.FLASHES.DANGER.TITLE', 'USERS.SIGN-UP.FLASHES.DANGER.MESSAGE');
       }
 
       $scope.submitting = false;
@@ -69,7 +79,7 @@
 
       $session.signout();
 
-      $http.post(SIGNUP_ROUTE, $scope.data)
+      $http.post(ROUTE_API_USERS_SIGN_UP, $scope.data)
         .then(submitSuccess)
         .catch(submitFailed);
     }
