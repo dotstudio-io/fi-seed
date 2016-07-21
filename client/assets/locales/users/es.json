@@ -1,0 +1,86 @@
+{
+  "USERS": {
+    "SIGN-UP": {
+      "TITLE": "Crea tu cuenta",
+      "SUBTITLE": "¡Es increíble! ¡Lo prometo!",
+
+      "FORM": {
+        "TITLE": "Detalles de la cuenta",
+        "NAME": {
+          "PLACEHOLDER": "Ingresa tu nombre"
+        },
+        "EMAIL": {
+          "PLACEHOLDER": "Ingresa tu correo"
+        },
+        "PASSWORD": {
+          "PLACEHOLDER": "Ingresa una constraseña"
+        },
+        "GENDER": {
+          "LABEL": "Elige un género"
+        },
+        "ROLE": {
+          "LABEL": "Elige un rol"
+        },
+        "SUBMIT": "¡Crear tu cuenta!"
+      },
+
+      "BACK": "Ya tengo una cuenta",
+
+      "FLASHES": {
+        "SUCCESS": {
+          "TITLE": "¡Bienvenido!",
+          "MESSAGE": "Por favor disfruta."
+        },
+        "INFO": {
+          "TITLE": "Una cosa mas...",
+          "MESSAGE": "Por favor inicia sesión con tus credenciales."
+        },
+        "DUPLICATED": {
+          "TITLE": "Hmmmm...",
+          "MESSAGE": "Parece que ese correo ya está registrado."
+        },
+        "WARNING": {
+          "TITLE": "Por favor revisa otra vez,",
+          "MESSAGE": "algo de lo que ingresaste no está bien."
+        },
+        "DANGER": {
+          "TITLE": "Ooooooo!",
+          "MESSAGE": "Los dioses están enojados."
+        }
+      }
+    },
+
+    "SIGN-IN": {
+      "TITLE": "Inicia sesión a tu cuenta",
+      "SUBTITLE": "¡No lo creerás!",
+
+      "FORM": {
+        "TITLE": "Mi cuenta",
+        "EMAIL": {
+          "PLACEHOLDER": "Ingresa tu email"
+        },
+        "PASSWORD": {
+          "PLACEHOLDER": "Ingresa tu contraseña"
+        },
+        "SUBMIT": "¡Ir a mi cuenta!"
+      },
+
+      "BACK": "No tengo una cuenta",
+
+      "FLASHES": {
+        "SUCCESS": {
+          "TITLE": "¡Hola!",
+          "MESSAGE": "Es bueno verte de nuevo."
+        },
+        "WARNING": {
+          "TITLE": "¡Maldición!",
+          "MESSAGE": "Parece que tu correo o clave son inválidos."
+        },
+        "DANGER": {
+          "TITLE": "¡Oh no!",
+          "MESSAGE": "Algo no funcionó como debería."
+        }
+      }
+    }
+  }
+}

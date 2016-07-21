@@ -11686,6 +11686,7 @@ footer {
   transform: translate(0, -100%); }
 
 .flash-container {
+  pointer-events: none;
   display: block;
   position: fixed;
   width: 100%;
@@ -11693,33 +11694,66 @@ footer {
   left: 0; }
 
 .flash {
-  padding: 16px;
+  padding: 0 16px 16px 10px;
   text-align: center;
   display: block;
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
   z-index: 9999;
-  -webkit-transition: all 432ms ease-in-out;
-  -o-transition: all 432ms ease-in-out;
-  transition: all 432ms ease-in-out; }
+  max-height: 150px; }
   .flash.ng-enter, .flash.ng-move {
+    padding: 0;
+    max-height: 0;
+    opacity: 0;
+    -webkit-transition: all 432ms ease-in-out;
+    -o-transition: all 432ms ease-in-out;
+    transition: all 432ms ease-in-out;
     -webkit-transform: scaleY(0);
     -ms-transform: scaleY(0);
     -o-transform: scaleY(0);
     transform: scaleY(0); }
     .flash.ng-enter.ng-enter-active, .flash.ng-enter.ng-move-active, .flash.ng-move.ng-enter-active, .flash.ng-move.ng-move-active {
+      padding: 0 16px 16px 10px;
+      max-height: 70px;
+      opacity: 1;
       -webkit-transform: scaleY(1);
       -ms-transform: scaleY(1);
       -o-transform: scaleY(1);
       transform: scaleY(1); }
   .flash.ng-leave {
+    padding: 0 16px 16px 10px;
+    max-height: 70px;
+    opacity: 1;
+    -webkit-transition: all 432ms ease-in-out;
+    -o-transition: all 432ms ease-in-out;
+    transition: all 432ms ease-in-out;
+    -webkit-transform: scaleY(1);
+    -ms-transform: scaleY(1);
+    -o-transform: scaleY(1);
+    transform: scaleY(1); }
+  .flash.ng-leave-active {
+    max-height: 0;
+    padding: 0;
+    opacity: 0;
     -webkit-transform: scaleY(0);
     -ms-transform: scaleY(0);
     -o-transform: scaleY(0);
     transform: scaleY(0); }
   .flash .alert {
+    pointer-events: auto;
     display: inline-block;
     margin: 0 auto;
     cursor: pointer;
-    -webkit-box-shadow: 0 0 32px rgba(0, 0, 0, 0.25);
-    box-shadow: 0 0 32px rgba(0, 0, 0, 0.25); }
+    position: relative;
+    border-radius: 1000px;
+    border-width: 0;
+    outline: 0;
+    padding: 6px 16px 6px 12px;
+    line-height: 1.618;
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+    .flash .alert i {
+      padding-right: 10px;
+      vertical-align: text-top; }
+    .flash .alert strong {
+      padding-right: 5px; }

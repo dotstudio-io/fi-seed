@@ -1,0 +1,15 @@
+{
+  "ROLE": {
+    "ADMIN": "Administrator",
+    "USER": "User"
+  },
+
+  "GENDER": {
+    "FEMALE": "Female",
+    "MALE": "Male"
+  },
+
+  "SIGNED-IN-AS": "Signed in as",
+  "SIGN-OUT": "Sign out",
+  "SIGN-IN": "Sign in"
+}

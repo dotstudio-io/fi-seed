@@ -1,2 +1,1 @@
-<div class="flash" ng-repeat="flash in list track by $index" ng-show="flash.active"><div class="alert" ng-class="&quot;alert-&quot; + flash.type" ng-click="dismiss($index)"><i class="glyphicon" ng-class="&quot;glyphicon-&quot; + (icons[flash.type] || &quot;info-circle&quot;)"></i>&ensp;<strong>{{ flash.title }}</strong>&ensp;
-{{ flash.message }}</div></div>
+<div class="flash" ng-repeat="flash in list"><div class="alert" ng-class="&quot;alert-&quot; + flash.type" ng-click="dismiss($index)"><i class="glyphicon" ng-class="&quot;glyphicon-&quot; + (icons[flash.type] || &quot;info-circle&quot;)"></i><strong translate="{{ flash.title }}"></strong><span translate="{{ flash.message }}"></span></div></div>
