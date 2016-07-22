@@ -10,7 +10,7 @@
   var DISMISS_DELAY = 5000;
 
   /* Directive restriction */
-  var RESTRICT = 'E';
+  var RESTRICT = 'C';
 
   /* Flash types */
   var SUCCESS = 'success';
@@ -119,7 +119,7 @@
   ])
 
   /* Define directive */
-  .directive('flash', [
+  .directive('flashContainer', [
     '$timeout', '$session',
 
     flashDirectiveFn
