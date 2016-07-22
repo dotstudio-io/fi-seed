@@ -11746,7 +11746,6 @@ footer {
     cursor: pointer;
     position: relative;
     border-radius: 1000px;
-    border-width: 0;
     outline: 0;
     padding: 6px 16px 6px 12px;
     line-height: 1.618;
