@@ -3,12 +3,16 @@
 require('./globals')(global);
 require('colors');
 
-const DEVELOPMENT = 'development';
-const HTTPS = 'https://';
-
+const CONSTS = require('fi-consts');
 const express = require('express');
 const logger = require('morgan');
 const http = require('http');
+
+const DEVELOPMENT = 'development';
+const HTTPS = 'https://';
+
+/* Load constants before othe components */
+CONSTS.load(config('consts'));
 
 const serverUtils = component('server-utils');
 

@@ -21,6 +21,7 @@ const https = require('https');
 const auth = require('fi-auth');
 const path = require('path');
 
+/* Load constants before othe components */
 CONSTS.load(config('consts'));
 
 /**** Application ****/
