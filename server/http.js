@@ -8,8 +8,9 @@ const express = require('express');
 const logger = require('morgan');
 const http = require('http');
 
-const DEVELOPMENT = 'development';
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const HTTPS = 'https://';
+const COL = ':';
 
 /* Load constants before othe components */
 CONSTS.load(config('consts'));
@@ -19,6 +20,8 @@ const serverUtils = component('server-utils');
 const configs = {
   server: config('server')
 };
+
+const PORT = COL + configs.server.ports.https;
 
 /* Create the Express application */
 const app = express();
@@ -30,19 +33,21 @@ app.disable('x-powered-by');
 const server = http.createServer(app);
 
 /* Request logger */
-app.use(logger(app.get('env') === DEVELOPMENT ? 'dev' : 'tiny'));
+app.use(logger(DEVELOPMENT ? 'dev' : 'tiny'));
 
 /* Redirect all HTTP traffic to HTTPS */
 app.use((req, res) => {
   var url = HTTPS + req.hostname;
 
-  if (process.env.NODE_ENV === DEVELOPMENT) {
-    url += ':' + configs.server.ports.https;
+  if (DEVELOPMENT) {
+    url += PORT;
   }
 
   url += req.originalUrl;
 
   res.redirect(url);
+
+  url = null;
 });
 
 /* Initialize HTTP server */
