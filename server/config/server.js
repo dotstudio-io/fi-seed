@@ -9,9 +9,9 @@ module.exports = {
 
   https: {
     /* These are insecure, self-signed keys and you must provide your own */
-    key: fs.readFileSync(path.join(credentials, 'server.key')),
-    cert: fs.readFileSync(path.join(credentials, 'server.crt')),
-    ca: fs.readFileSync(path.join(credentials, 'server.csr'))
+    key: fs.readFileSync(path.join(credentials, 'server-key.pem')),
+    cert: fs.readFileSync(path.join(credentials, 'server-crt.pem')),
+    ca: fs.readFileSync(path.join(credentials, 'server-ca.pem'))
   },
 
   /* Server ports */
