@@ -1,8 +1,9 @@
 'use strict';
 
-const validator = require('validator');
 const CONSTS = require('fi-consts');
+
 const bcrypt = require('bcrypt');
+const is = require('fi-is');
 
 /* Genders */
 const GENDER_FEMALE = CONSTS.GENDERS.FEMALE;
@@ -33,7 +34,7 @@ module.exports = (Schema) => {
       required: true,
       unique: true,
       index: true,
-      validate: (val) => validator.isEmail(val)
+      validate: (val) => is.email(val)
     },
 
     password: {
