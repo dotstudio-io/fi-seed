@@ -12,7 +12,7 @@
 
   /*Define AngularJS controller */
   ng.module('App').controller('Pages:Theme', [
-    '$scope', '$flash',
+    '$scope', 'ngFlashes',
 
     PagesThemeController
   ]);

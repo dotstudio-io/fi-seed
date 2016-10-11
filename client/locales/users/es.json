@@ -1,6 +1,6 @@
 {
   "USERS": {
-    "SIGN-UP": {
+    "SIGN_UP": {
       "TITLE": "Crea tu cuenta",
       "SUBTITLE": "¡Es increíble! ¡Lo prometo!",
 
@@ -50,7 +50,7 @@
       }
     },
 
-    "SIGN-IN": {
+    "SIGN_IN": {
       "TITLE": "Inicia sesión a tu cuenta",
       "SUBTITLE": "¡No lo creerás!",
 
@@ -79,6 +79,20 @@
         "DANGER": {
           "TITLE": "¡Oh no!",
           "MESSAGE": "Algo no funcionó como debería."
+        }
+      }
+    },
+
+    "SIGN_OUT": {
+      "FLASHES": {
+        "SUCCESS": {
+          "TITLE": "Ha sido un gusto.",
+          "MESSAGE": "¡Vuelve pronto!"
+        },
+
+        "ERROR": {
+          "TITLE": "Hmmmmmm...",
+          "MESSAGE": "Alguien no quiere que te vayas."
         }
       }
     }

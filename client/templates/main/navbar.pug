@@ -7,7 +7,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
         ng-click='toggleCollapse()',
         type='button')
 
-        span.sr-only Toggle navigation
+        span.sr-only(translate='NAVBAR.TOGGLE_NAVIGATION')
 
         span.icon-bar
         span.icon-bar
@@ -18,19 +18,18 @@ nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
         | {{ $root.app.title }}
 
     #navbar.navbar-collapse.collapse
-      p.navbar-text.navbar-right(ng-if='$root.session.user')
-        span(translate='SIGNED-IN-AS')
-        strong &ensp;{{ $root.session.user.name }}
+      ul.nav.navbar-nav.navbar-right
+        li.navbar-text(ng-if='$root.session.user')
+          span(translate='NAVBAR.SIGNED_IN_AS')
+          strong &ensp;{{ $root.session.user.name }}
 
-        | &ensp;&mdash;&ensp;
+        li(ng-if='$root.session.user')
+          a(ng-href='/users/sign-out')
+            span(translate='NAVBAR.SIGN_OUT')
 
-        a.navbar-link(
-          ng-click='signout()',
-          role='button',
-          href='')
+        li(
+          ng-class='{ active: location === "/users/sign-in" }',
+          ng-if='!$root.session.user')
 
-          span(translate='SIGN-OUT')
-
-      p.navbar-text.navbar-right(ng-if='!$root.session.user')
-        a.navbar-link(ng-href='/users/sign-in')
-          span(translate='SIGN-IN')
+          a(ng-href='/users/sign-in')
+            span(translate='NAVBAR.SIGN_IN')

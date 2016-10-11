@@ -3,12 +3,10 @@
 
   var ng = window.angular;
 
-  var SIGNOUT_ROUTE = '/api/users/sign-out';
-
   /**
    * Main navbar directive function.
    */
-  function mainNavbarDirectiveFn($location, $http, $session, $timeout, $flash) {
+  function mainNavbarDirectiveFn($location, $http, $timeout) {
 
     /**
      * Main navbar directive link function.
@@ -37,41 +35,6 @@
         } else {
           $collapse.addClass('collapse');
         }
-      }
-
-      /**
-       * Sign out succeeded.
-       */
-      function signOutSuccess() {
-        $flash.success('¡It\'s been a pleasure!', 'Come back soon!');
-        $session.signout();
-        $location.path('/');
-      }
-
-      /**
-       * Sign out failed.
-       */
-      function signOutFailed() {
-        $flash.danger('Hmmmmm,', 'Someone doesn\'t want you to leave...');
-      }
-
-      /**
-       * Sign out complete.
-       */
-      function signOutComplete() {
-        $scope.signingOut = false;
-      }
-
-      /**
-       * Signs the user out.
-       */
-      function signout() {
-        $scope.signingOut = true;
-
-        $http.get(SIGNOUT_ROUTE)
-          .then(signOutSuccess)
-          .catch(signOutFailed)
-          .finally(signOutComplete);
       }
 
       /**
@@ -122,7 +85,6 @@
       $scope.toggleCollapse = toggleCollapse;
       $scope.location = $location.path();
       $scope.signingOut = false;
-      $scope.signout = signout;
       $scope.signingIn = false;
       $scope.folded = false;
     }
@@ -130,12 +92,9 @@
     /* Main navbar directive definition */
     var mainNavbarDirectiveDef = {
       templateUrl: '/assets/templates/main/navbar.html',
-
-      restrict: 'E',
-
-      scope: {},
-
-      link: mainNavbarDirectiveLinkFn
+      link: mainNavbarDirectiveLinkFn,
+      restrict: 'A',
+      scope: {}
     };
 
     return mainNavbarDirectiveDef;
@@ -143,7 +102,7 @@
 
   /* Define AngularJS directive */
   ng.module('App').directive('mainNavbar', [
-    '$location', '$http', '$session', '$timeout', '$flash',
+    '$location', '$http', '$timeout',
 
     mainNavbarDirectiveFn
   ]);

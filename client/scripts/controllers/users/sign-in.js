@@ -3,9 +3,6 @@
 
   var ng = window.angular;
 
-  var ROUTE_API_USERS_SIGN_IN = '/api/users/sign-in';
-  var ROUTE_API_SESSION = '/api/session';
-
   /**
    * User Sign In Controller.
    */
@@ -15,9 +12,8 @@
     /**
      * Session updated.
      */
-    function sessionSuccess(res) {
-      $session.signin(res.data);
-      $flash.success('USERS.SIGN-IN.FLASHES.SUCCESS.TITLE', 'USERS.SIGN-IN.FLASHES.SUCCESS.MESSAGE');
+    function submitSuccess() {
+      $flash.success('USERS.SIGN_IN.FLASHES.SUCCESS.TITLE', 'USERS.SIGN_IN.FLASHES.SUCCESS.MESSAGE');
 
       if ($session.get('redirect')) {
         $location.path($session.get('redirect'));
@@ -28,22 +24,13 @@
     }
 
     /**
-     * Submitting is successful.
-     */
-    function submitSuccess() {
-      $http.get(ROUTE_API_SESSION)
-        .then(sessionSuccess)
-        .catch(submitFailed);
-    }
-
-    /**
      * Submitting has failed.
      */
     function submitFailed(res) {
       if (res.status === 401) {
-        $flash.warning('USERS.SIGN-IN.FLASHES.WARNING.TITLE', 'USERS.SIGN-IN.FLASHES.WARNING.MESSAGE');
+        $flash.warning('USERS.SIGN_IN.FLASHES.WARNING.TITLE', 'USERS.SIGN_IN.FLASHES.WARNING.MESSAGE');
       } else {
-        $flash.danger('USERS.SIGN-IN.FLASHES.DANGER.TITLE', 'USERS.SIGN-IN.FLASHES.DANGER.MESSAGE');
+        $flash.danger('USERS.SIGN_IN.FLASHES.DANGER.TITLE', 'USERS.SIGN_IN.FLASHES.DANGER.MESSAGE');
       }
     }
 
@@ -60,11 +47,8 @@
     function submit() {
       $scope.submitting = true;
 
-      $session.signout();
-
-      $http.post(ROUTE_API_USERS_SIGN_IN, $scope.data)
-        .then(submitSuccess)
-        .catch(submitFailed)
+      $session.signIn($scope.data)
+        .then(submitSuccess, submitFailed)
         .finally(submitComplete);
     }
 
@@ -73,7 +57,7 @@
 
   /* Define AngularJS controller */
   ng.module('App').controller('Users:SignIn', [
-    '$scope', '$http', '$location', '$session', '$flash',
+    '$scope', '$http', '$location', 'ngSession', 'ngFlashes',
 
     UsersSingInControllerFn
   ]);

@@ -1,16 +1,13 @@
-main,
-main-footer,
-main-navbar {
-  display: block;
+body {
+  overflow-y: scroll;
 }
-
 
 main {
   background-color: $body-bg;
-  padding-top: $navbar-height;
-  padding-bottom: $navbar-height;
+  padding-top     : $navbar-height;
+  padding-bottom  : $navbar-height;
+  display         : block;
 }
-
 
 footer {
   padding-top: $padding-large-vertical;
@@ -19,10 +16,10 @@ footer {
 .navbar {
   .navbar-brand {
     img {
-      max-height: ($navbar-height - $navbar-padding-vertical);
-      display: inline-block;
+      max-height  : ($navbar-height - $navbar-padding-vertical);
+      display     : inline-block;
       margin-right: $padding-base-horizontal;
-      margin-top: -($navbar-padding-vertical / 2);
+      margin-top  : -($navbar-padding-vertical / 2);
     }
   }
 }
@@ -31,7 +28,6 @@ footer {
 .navbar-fold {
   @include transition(transform 200ms ease);
 }
-
 
 .navbar-folded {
   @include translate(0, -100%);

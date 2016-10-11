@@ -1,7 +1,7 @@
 .jumbotron.bg-cover
   .container
-    h1(translate='USERS.SIGN-IN.TITLE')
-    p(translate='USERS.SIGN-IN.SUBTITLE')
+    h1(translate='USERS.SIGN_IN.TITLE')
+    p(translate='USERS.SIGN_IN.SUBTITLE')
 
 .container.container-pad-bottom
   .row
@@ -10,7 +10,7 @@
         ng-submit='form.$valid && submit()',
         name='form')
         .panel-heading
-          h3.panel-title(translate='USERS.SIGN-IN.FORM.TITLE')
+          h3.panel-title(translate='USERS.SIGN_IN.FORM.TITLE')
 
         .panel-body
           fieldset
@@ -20,7 +20,7 @@
                   i.fa.fa-envelope
 
                 input.form-control(
-                  ng-attr-placeholder='{{ "USERS.SIGN-IN.FORM.EMAIL.PLACEHOLDER" | translate }}',
+                  ng-attr-placeholder='{{ "USERS.SIGN_IN.FORM.EMAIL.PLACEHOLDER" | translate }}',
                   ng-model='data.email',
                   type='email',
                   required)
@@ -30,7 +30,7 @@
                 i.fa.fa-asterisk
 
               input.form-control(
-                ng-attr-placeholder='{{ "USERS.SIGN-IN.FORM.PASSWORD.PLACEHOLDER" | translate }}',
+                ng-attr-placeholder='{{ "USERS.SIGN_IN.FORM.PASSWORD.PLACEHOLDER" | translate }}',
                 ng-model='data.password',
                 type='password',
                 required)
@@ -40,8 +40,8 @@
             ng-disabled='form.$invalid || submitting',
             type='submit')
 
-            span(translate='USERS.SIGN-IN.FORM.SUBMIT')
+            span(translate='USERS.SIGN_IN.FORM.SUBMIT')
 
       .text-center
         a.btn.btn-link(ng-href='/users/sign-up')
-          span(translate='USERS.SIGN-IN.BACK')
+          span(translate='USERS.SIGN_IN.BACK')

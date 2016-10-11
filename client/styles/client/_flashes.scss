@@ -2,72 +2,70 @@
   pointer-events: none;
   display       : block;
   position      : fixed;
+  z-index       : 1110;
   width         : 100%;
   bottom        : 0;
   left          : 0;
-}
 
-.flash {
-  padding   : 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
-  text-align: center;
-  display   : block;
-  overflow  : visible;
-  width     : 100%;
-  z-index   : 9999;
-  max-height: 150px;
+  .flash {
+    padding   : 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
+    text-align: center;
+    display   : block;
+    overflow  : visible;
+    width     : 100%;
+    z-index   : 9999;
+    max-height: 150px;
 
-  &.ng-enter,
-  &.ng-move {
-    padding   : 0;
-    max-height: 0;
-    opacity   : 0;
-    @include transition(all 432ms ease-in-out);
-    @include scaleY(0);
+    &.ng-enter,
+    &.ng-move {
+      @include transition(all 432ms ease-in-out);
+      @include transform(scaleY(0));
+      padding   : 0;
+      max-height: 0;
+      opacity   : 0;
 
-    &.ng-enter-active,
-    &.ng-move-active {
+      &.ng-enter-active,
+      &.ng-move-active {
+        @include transform(scaleY(1));
+        padding   : 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
+        max-height: 70px;
+        opacity   : 1;
+      }
+    }
+
+    &.ng-leave {
+      @include transition(all 432ms ease-in-out);
+      @include transform(scaleY(1));
       padding   : 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
       max-height: 70px;
       opacity   : 1;
-      @include scaleY(1);
-    }
-  }
-
-  &.ng-leave {
-    padding   : 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
-    max-height: 70px;
-    opacity   : 1;
-    @include transition(all 432ms ease-in-out);
-    @include scaleY(1);
-  }
-
-  &.ng-leave-active {
-    max-height: 0;
-    padding   : 0;
-    opacity   : 0;
-    @include scaleY(0);
-  }
-
-  .alert {
-    pointer-events: auto;
-    display       : inline-block;
-    margin        : 0 auto;
-    cursor        : pointer;
-    position      : relative;
-    border-radius : 1000px;
-    // border-width  : 0;
-    outline       : 0;
-    padding       : $padding-base-vertical $padding-large-horizontal $padding-base-vertical $padding-base-horizontal;
-    line-height   : 1.618;
-    @include box-shadow(0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23));
-
-    i {
-      padding-right: $padding-small-horizontal;
-      vertical-align: text-top;
     }
 
-    strong {
-      padding-right: $padding-xs-horizontal;
+    &.ng-leave-active {
+      @include transform(scaleY(0));
+      max-height: 0;
+      padding   : 0;
+      opacity   : 0;
+    }
+
+    .alert {
+      pointer-events: auto;
+      display       : inline-block;
+      margin        : 0 auto;
+      cursor        : pointer;
+      position      : relative;
+      // border-radius : 1000px;
+      outline       : 0;
+      padding       : $padding-base-vertical $padding-large-horizontal $padding-base-vertical $padding-base-horizontal;
+      line-height   : 1.618;
+
+      i {
+        padding-right: $padding-small-horizontal;
+      }
+
+      strong {
+        padding-right: $padding-xs-horizontal;
+      }
     }
   }
 }

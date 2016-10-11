@@ -4,45 +4,24 @@
   var ng = window.angular;
 
   var ROUTE_API_USERS_SIGN_UP = '/api/users';
-  var ROUTE_API_SESSION = '/api/session';
 
   /**
    * User Sign Up controller function.
    */
   function UsersSignUpController($scope, $http, $location, $session, $flash, consts) {
-    $scope.consts = consts.data;
-    $scope.submitting = false;
-
-    /**
-     * Updated session data.
-     */
-    function sessionSuccess(res) {
-      $session.signin(res.data);
-      $flash.success('USERS.SIGN-UP.FLASHES.SUCCESS.TITLE', 'USERS.SIGN-UP.FLASHES.SUCCESS.MESSAGE');
-      $location.path('/');
-    }
-
     /**
      * Signing in is successful.
      */
     function signInSuccess() {
-      $http.get(ROUTE_API_SESSION)
-        .then(sessionSuccess)
-        .catch(signInFailed);
+      $flash.success('USERS.SIGN_UP.FLASHES.SUCCESS.TITLE', 'USERS.SIGN_UP.FLASHES.SUCCESS.MESSAGE');
+      $location.path('/');
     }
 
     /**
-     * Signing in has failed.
+     * Signing up has failed.
      */
-    function signInFailed() {
-      $session.info('USERS.SIGN-UP.FLASHES.SUCCESS.TITLE', 'USERS.SIGN-UP.FLASHES.SUCCESS.MESSAGE');
-      $location.path('/users/sign-in');
-    }
-
-    /**
-     * signing in is complete.
-     */
-    function signInComplete() {
+    function signInError() {
+      $session.danger('USERS.SIGN_UP.FLASHES.ERROR.TITLE', 'USERS.SIGN_UP.FLASHES.ERROR.MESSAGE');
       $scope.submitting = false;
     }
 
@@ -50,10 +29,8 @@
      * Submitting is successful.
      */
     function submitSuccess() {
-      return $http.post('/api/users/sign-in', $scope.data)
-        .then(signInSuccess)
-        .catch(signInFailed)
-        .finally(signInComplete);
+      return $session.signIn($scope.data)
+        .then(signInSuccess, signInError);
     }
 
     /**
@@ -61,11 +38,11 @@
      */
     function submitFailed(res) {
       if (res.status === 409) {
-        $flash.warning('USERS.SIGN-UP.FLASHES.DUPLICATED.TITLE', 'USERS.SIGN-UP.FLASHES.DUPLICATED.MESSAGE');
+        $flash.warning('USERS.SIGN_UP.FLASHES.DUPLICATED.TITLE', 'USERS.SIGN_UP.FLASHES.DUPLICATED.MESSAGE');
       } else if (res.status === 400) {
-        $flash.warning('USERS.SIGN-UP.FLASHES.WARNING.TITLE', 'USERS.SIGN-UP.FLASHES.WARNING.MESSAGE');
+        $flash.warning('USERS.SIGN_UP.FLASHES.WARNING.TITLE', 'USERS.SIGN_UP.FLASHES.WARNING.MESSAGE');
       } else {
-        $flash.danger('USERS.SIGN-UP.FLASHES.DANGER.TITLE', 'USERS.SIGN-UP.FLASHES.DANGER.MESSAGE');
+        $flash.danger('USERS.SIGN_UP.FLASHES.DANGER.TITLE', 'USERS.SIGN_UP.FLASHES.DANGER.MESSAGE');
       }
 
       $scope.submitting = false;
@@ -77,19 +54,19 @@
     function submit() {
       $scope.submitting = true;
 
-      $session.signout();
-
       $http.post(ROUTE_API_USERS_SIGN_UP, $scope.data)
-        .then(submitSuccess)
-        .catch(submitFailed);
+        .then(submitSuccess, submitFailed);
     }
+
+    $scope.consts = consts.data;
+    $scope.submitting = false;
 
     $scope.submit = submit;
   }
 
   /* Define AngularJS controller */
   ng.module('App').controller('Users:SignUp', [
-    '$scope', '$http', '$location', '$session', '$flash', 'consts',
+    '$scope', '$http', '$location', 'ngSession', 'ngFlashes', 'consts',
 
     UsersSignUpController
   ]);

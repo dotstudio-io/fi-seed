@@ -73,6 +73,13 @@
       "SUBTITLE": "A.K.A. 404",
       "BODY": "The resource couldn't be located. Maybe we left it somewhere and we don't remember where.",
       "BACK": "Go to the home page"
+    },
+
+    "ERROR": {
+      "TITLE": "Something bad happened",
+      "SUBTITLE": "A.K.A. 500",
+      "BODY": "Something caused a server hiccup or maybe it choked on something.",
+      "BACK": "Go to the home page"
     }
   }
 }

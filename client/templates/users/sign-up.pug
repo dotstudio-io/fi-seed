@@ -1,7 +1,7 @@
 .jumbotron.bg-cover
   .container
-    h1(translate='USERS.SIGN-UP.TITLE')
-    p(translate='USERS.SIGN-UP.SUBTITLE')
+    h1(translate='USERS.SIGN_UP.TITLE')
+    p(translate='USERS.SIGN_UP.SUBTITLE')
 
 .container.container-pad-bottom
   .row
@@ -11,7 +11,7 @@
         name='form')
 
         .panel-heading
-          h3.panel-title(translate='USERS.SIGN-UP.FORM.TITLE')
+          h3.panel-title(translate='USERS.SIGN_UP.FORM.TITLE')
 
         fieldset.panel-body
           .form-group
@@ -20,7 +20,7 @@
                 i.fa.fa-fw.fa-user
 
               input.form-control(
-                placeholder='{{ "USERS.SIGN-UP.FORM.NAME.PLACEHOLDER" | translate }}',
+                placeholder='{{ "USERS.SIGN_UP.FORM.NAME.PLACEHOLDER" | translate }}',
                 ng-model='data.name',
                 type='text',
                 required)
@@ -31,7 +31,7 @@
                 i.fa.fa-fw.fa-envelope
 
               input.form-control(
-                placeholder='{{ "USERS.SIGN-UP.FORM.EMAIL.PLACEHOLDER" | translate }}',
+                placeholder='{{ "USERS.SIGN_UP.FORM.EMAIL.PLACEHOLDER" | translate }}',
                 ng-model='data.email',
                 type='email',
                 required)
@@ -42,7 +42,7 @@
                 i.fa.fa-fw.fa-asterisk
 
               input.form-control(
-                placeholder='{{ "USERS.SIGN-UP.FORM.PASSWORD.PLACEHOLDER" | translate }}',
+                placeholder='{{ "USERS.SIGN_UP.FORM.PASSWORD.PLACEHOLDER" | translate }}',
                 ng-model='data.password',
                 type='password',
                 required)
@@ -58,7 +58,7 @@
                 required)
 
                 option(
-                  label='{{ "USERS.SIGN-UP.FORM.GENDER.LABEL" | translate }}',
+                  label='{{ "USERS.SIGN_UP.FORM.GENDER.LABEL" | translate }}',
                   value='',
                   hidden)
 
@@ -72,7 +72,7 @@
               required)
 
               option(
-                label='{{ "USERS.SIGN-UP.FORM.ROLE.LABEL" | translate }}',
+                label='{{ "USERS.SIGN_UP.FORM.ROLE.LABEL" | translate }}',
                 value='',
                 hidden)
 
@@ -81,8 +81,8 @@
             ng-disabled='form.$invalid || submitting',
             type='submit')
 
-            span(translate='USERS.SIGN-UP.FORM.SUBMIT')
+            span(translate='USERS.SIGN_UP.FORM.SUBMIT')
 
       .text-center
         a.btn.btn-link(ng-href='/users/sign-in')
-          span(translate='USERS.SIGN-UP.BACK')
+          span(translate='USERS.SIGN_UP.BACK')

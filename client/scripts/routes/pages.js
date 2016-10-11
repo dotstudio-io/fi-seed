@@ -21,6 +21,12 @@
     controller: 'Pages:Lost'
   };
 
+  /* Pages Error route definition */
+  var pagesErrorRouteDef = {
+    templateUrl: '/assets/templates/pages/error.html',
+    controller: 'Pages:Error'
+  };
+
   /* Otherwise route definition */
   var otherwiseRouteDef = {
     redirectTo: '/lost'
@@ -31,6 +37,7 @@
    */
   function pagesRoutesConfigFn($routeProvider) {
     $routeProvider.when('/', pagesHomeRouteDef)
+      .when('/error', pagesErrorRouteDef)
       .when('/theme', pagesThemeRouteDef)
       .when('/lost', pagesLostRouteDef)
       .otherwise(otherwiseRouteDef);

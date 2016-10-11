@@ -4,13 +4,12 @@
   var ng = window.angular;
   var is = window.is;
 
-  var ROUTE_API_SESSION = '/api/session';
   var EN = 'en';
 
   /**
    * App run function.
    */
-  function appRunFn($rootScope, $location, $http, $session, $translate) {
+  function appRunFn($rootScope, $location, $http, $translate) {
     /* Define app object in root scope */
     $rootScope.app = window.app;
 
@@ -22,24 +21,12 @@
     }
 
     $translate.use(locale || EN);
-
-    /**
-     * Session obtained successfully.
-     */
-    function sessionSuccess(res) {
-      if (res.status === 200) {
-        $session.signin(res.data);
-      }
-    }
-
-    $http.get(ROUTE_API_SESSION)
-      .then(sessionSuccess);
   }
 
   /**
    * App config function.
    */
-  function appConfigFn($locationProvider, $translateProvider) {
+  function appConfigFn($locationProvider, $translateProvider, ngFlashesProvider) {
     $locationProvider.html5Mode(true);
 
     $translateProvider.useStaticFilesLoader({
@@ -58,6 +45,10 @@
     $translateProvider.useSanitizeValueStrategy('escape');
 
     $translateProvider.preferredLanguage(EN).fallbackLanguage(EN);
+
+    ngFlashesProvider.configure({
+      templateUrl: '/assets/templates/main/flash.html'
+    });
   }
 
   /**
@@ -66,13 +57,13 @@
   ng.module('App')
 
   .config([
-    '$locationProvider', '$translateProvider',
+    '$locationProvider', '$translateProvider', 'ngFlashesProvider',
 
     appConfigFn
   ])
 
   .run([
-    '$rootScope', '$location', '$http', '$session', '$translate',
+    '$rootScope', '$location', '$http', '$translate',
 
     appRunFn
   ]);

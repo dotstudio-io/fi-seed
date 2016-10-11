@@ -27,12 +27,10 @@
     'ngRoute',
     'ngAria',
 
-    /** Custom Modules **/
-    'Session',
-    'Flash',
-
     /* 3rd party modules */
-    'pascalprecht.translate' // Angular translate (great module naming btw ¬¬)
+    'pascalprecht.translate', // Angular translate (great module naming btw ¬¬)
+    'ngSession',
+    'ngFlashes'
   ];
 
   ng.module('App', APP_DEF);
