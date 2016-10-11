@@ -21,7 +21,7 @@ module.exports = (router) => {
 
     /* Render the base layout */
     res.render(PAGES_MAIN, {
-      host: req.headers.origin
+      host: `${ req.protocol }://${ req.get('host') }`
     });
 
   });
