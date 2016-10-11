@@ -10,22 +10,32 @@
         target='_blank')
 
         span(translate='PAGES.HOME.LEARN-MORE')
-        span &ensp;&raquo;
+        | &ensp;
+        i.fa.fa-angle-double-right
 
 .container
   .row
     .col-md-4
-      h2(translate='PAGES.HOME.COLUMNS.1.TITLE')
+      h2
+        i.fa.fa-shield
+        | &ensp;
+        span(translate='PAGES.HOME.COLUMNS.1.TITLE')
       p
         strong {{ $root.app.title }}&ensp;
         span(translate='PAGES.HOME.COLUMNS.1.BODY')
 
     .col-md-4
-      h2(translate='PAGES.HOME.COLUMNS.2.TITLE')
+      h2
+        i.fa.fa-ban
+        | &ensp;
+        span(translate='PAGES.HOME.COLUMNS.2.TITLE')
       p(translate='PAGES.HOME.COLUMNS.2.BODY')
 
     .col-md-4
-      h2(translate='PAGES.HOME.COLUMNS.3.TITLE')
+      h2
+        i.fa.fa-paint-brush
+        | &ensp;
+        span(translate='PAGES.HOME.COLUMNS.3.TITLE')
       p(translate='PAGES.HOME.COLUMNS.3.BODY')
 
       p
@@ -34,4 +44,5 @@
           role='button')
 
           span(translate='PAGES.HOME.COLUMNS.3.VIEW')
-          span &ensp;&raquo;
+          | &ensp;
+          i.fa.fa-angle-double-right

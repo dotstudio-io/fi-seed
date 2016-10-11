@@ -3,6 +3,6 @@
     ng-class='"alert-" + flash.type',
     ng-click='dismiss($index)')
 
-    i.glyphicon(ng-class='"glyphicon-" + (icons[flash.type] || "info-circle")')
+    i.fa(ng-class='"glyphicon-" + (icons[flash.type] || "info-circle")')
     strong(translate='{{ flash.title }}')
     span(translate='{{ flash.message }}')
