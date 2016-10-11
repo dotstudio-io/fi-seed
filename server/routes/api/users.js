@@ -89,7 +89,7 @@ module.exports = (router, db) => {
   /**
    * Logs a user out.
    */
-  router.get('/sign-out', (req, res) => {
+  router.post('/sign-out', (req, res) => {
 
     delete req.session.user;
 

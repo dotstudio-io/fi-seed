@@ -26,4 +26,9 @@ module.exports = (router) => {
 
   });
 
+  /* Test error pages */
+  router.get('/test/error', (req, res, next) => {
+    next(new Error('Test Error Message'));
+  });
+
 };
