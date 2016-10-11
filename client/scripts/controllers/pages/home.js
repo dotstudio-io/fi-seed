@@ -4,19 +4,17 @@
   var ng = window.angular;
 
   /**
-   * Pages Home controller function.
+   * Pages Home Controller.
    */
-  function pagesHomeControllerFn($scope, $log) {
+  function PagesHomeController($scope, $log) {
     $log.log('The home controller has been initialized!');
   }
 
-  /**
-   * Define AngularJS controller.
-   */
+  /* Define AngularJS controller */
   ng.module('App').controller('Pages:Home', [
     '$scope', '$log',
 
-    pagesHomeControllerFn
+    PagesHomeController
   ]);
 
 }(window));

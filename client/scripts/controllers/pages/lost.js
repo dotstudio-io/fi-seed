@@ -4,19 +4,17 @@
   var ng = window.angular;
 
   /**
-   * Pages Lost controller function.
+   * Pages Lost Controller.
    */
-  function pagesLostControllerFn($scope, $location) {
+  function PagesLostController($scope, $location) {
     $scope.url = $location.search().url;
   }
 
-  /**
-   * Define AngularJS controller.
-   */
+  /* Define AngularJS controller */
   ng.module('App').controller('Pages:Lost', [
     '$scope', '$location',
 
-    pagesLostControllerFn
+    PagesLostController
   ]);
 
 }(window));

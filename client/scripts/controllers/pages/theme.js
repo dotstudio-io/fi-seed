@@ -4,19 +4,17 @@
   var ng = window.angular;
 
   /**
-   * Pages Theme controller function.
+   * Pages Theme Controller.
    */
-  function pagesThemeControllerFn($scope, $flash) {
+  function PagesThemeController($scope, $flash) {
     $scope.$flash = $flash;
   }
 
-  /**
-   * Define AngularJS controller.
-   */
+  /*Define AngularJS controller */
   ng.module('App').controller('Pages:Theme', [
     '$scope', '$flash',
 
-    pagesThemeControllerFn
+    PagesThemeController
   ]);
 
 }(window));

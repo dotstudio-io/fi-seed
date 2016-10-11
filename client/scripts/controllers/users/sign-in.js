@@ -7,9 +7,9 @@
   var ROUTE_API_SESSION = '/api/session';
 
   /**
-   * User Sign In controller function.
+   * User Sign In Controller.
    */
-  function usersSingInControllerFn($scope, $http, $location, $session, $flash) {
+  function UsersSingInControllerFn($scope, $http, $location, $session, $flash) {
     $scope.submitting = false;
 
     /**
@@ -71,10 +71,11 @@
     $scope.submit = submit;
   }
 
+  /* Define AngularJS controller */
   ng.module('App').controller('Users:SignIn', [
     '$scope', '$http', '$location', '$session', '$flash',
 
-    usersSingInControllerFn
+    UsersSingInControllerFn
   ]);
 
 }(window));
