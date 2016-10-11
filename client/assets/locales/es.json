@@ -1,15 +1,1 @@
-{
-  "ROLE": {
-    "ADMIN": "Administrador",
-    "USER": "Usuario"
-  },
-
-  "GENDER": {
-    "FEMALE": "Mujer",
-    "MALE": "Hombre"
-  },
-
-  "SIGNED-IN-AS": "Iniciaste sesión como",
-  "SIGN-OUT": "Cerrar sesión",
-  "SIGN-IN": "Iniciar sesión"
-}
+{"ROLE":{"ADMIN":"Administrador","USER":"Usuario"},"GENDER":{"FEMALE":"Femenino","MALE":"Masculino"},"NAVBAR":{"SIGNED_IN_AS":"Iniciaste sesión como","SIGN_OUT":"Cerrar sesión","SIGN_IN":"Iniciar sesión"}}
