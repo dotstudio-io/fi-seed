@@ -9,11 +9,15 @@ CACHE:
 # Styles
 
 # Images
+/favicon.png
+/favicon.ico
+/assets/images/default.jpg
+/assets/images/ic-navbar.png
 
 # Components
 
 FALLBACK:
-/assets/assets/images/ /assets/images/disconnected.png
+/assets/images/ /assets/images/default.jpg
 
 NETWORK:
 *
