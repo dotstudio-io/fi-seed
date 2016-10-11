@@ -7,5 +7,6 @@
    "FORBIDDEN": 403,
    "NOT_FOUND": 404,
    "CONFLICT": 409,
+   "PRECONDITION_FAILED": 412,
    "ERROR": 500
  }
