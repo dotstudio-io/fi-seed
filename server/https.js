@@ -37,6 +37,7 @@ const configs = requireDir(__serverdir + '/config');
 mongoose.Promise = Promise;
 
 app.locals.environment = process.env.NODE_ENV;
+app.locals.description = PACKAGE.description;
 app.locals.basedir = configs.views.basedir;
 app.locals.version = PACKAGE.version;
 app.locals.title = PACKAGE.title;
