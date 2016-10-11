@@ -5,9 +5,10 @@ const CONSTS = require('fi-consts');
 const HTTP_CODE_NOTFOUND = CONSTS.CODES.HTTP.NOT_FOUND;
 const HTTP_CODE_ERR = CONSTS.CODES.HTTP.ERROR;
 
+const DEVELOPMENT = process.NODE_ENV === 'development';
 const ASSETS_OR_API_REGEXP = /^\/(assets|api)\//i;
-const ERR_NOT_FOUND = 'ERR.RESOURCE-NOT-FOUND';
 const NOT_FOUND_REDIRECT = '/lost?url=';
+const ERR_NOT_FOUND = 'NotFound';
 const ERR_REDIRECT = '/error';
 const NL = '\n';
 
@@ -39,6 +40,11 @@ module.exports = (app) => {
     console.log(NL);
     console.log(new Date());
     console.dir(err, DIR_OPTS);
+
+    if (DEVELOPMENT) {
+      console.dir(err.stack, DIR_OPTS);
+    }
+
     console.log(NL);
 
     /* If the request is an AJAX call or is for an asset or API method just end
