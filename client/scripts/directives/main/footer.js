@@ -6,9 +6,7 @@
   /* Main footer directive definition */
   var mainFooterDirectiveDef = {
     templateUrl: '/assets/templates/main/footer.html',
-
-    restrict: 'E',
-
+    restrict: 'A',
     scope: {}
   };
 
