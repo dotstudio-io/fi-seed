@@ -5,8 +5,8 @@
   },
 
   "GENDER": {
-    "FEMALE": "Mujer",
-    "MALE": "Hombre"
+    "FEMALE": "Femenino",
+    "MALE": "Masculino"
   },
 
   "NAVBAR": {
