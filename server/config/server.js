@@ -10,7 +10,7 @@ module.exports = {
   https: {
     /* These are insecure, self-signed keys and you must provide your own */
     key: fs.readFileSync(path.join(credentials, 'server-key.pem')),
-    cert: fs.readFileSync(path.join(credentials, 'server-crt.pem')),
+    cert: fs.readFileSync(path.join(credentials, 'server-cert.pem')),
     ca: fs.readFileSync(path.join(credentials, 'server-ca.pem'))
   },
 
