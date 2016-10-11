@@ -38,13 +38,14 @@
     "fi-routes": "^1.0.3",
     "fi-schemas": "^1.0.2",
     "fi-security": "^1.0.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-uglify": "^2.0.0",
     "inflection": "^1.9.0",
     "mongoose": "^4.4.11",
     "morgan": "^1.7.0",
     "pug": "^2.0.0-beta4",
     "require-dir": "^0.3.0",
-    "serve-favicon": "^2.3.0",
-    "validator": "^5.2.0"
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "del": "^2.1.0",
