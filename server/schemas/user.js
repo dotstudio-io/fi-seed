@@ -22,7 +22,7 @@ const USER = 'user';
 
 module.exports = (Schema) => {
 
-  var schema = new Schema({
+  const schema = new Schema({
 
     name: {
       type: String,
@@ -67,32 +67,62 @@ module.exports = (Schema) => {
   /**
    * Hash user's password before saving.
    */
-  schema.pre('save', function (next) {
-    var user = this;
-
-    /* Hash password if changed */
-    if (user.isModified(PASSWORD)) {
-      return bcrypt.hash(user.password, HASH_ROUNDS, (err, hash) => {
-        if (err) {
-          return next(err);
-        }
-
-        user.password = hash;
-
-        next();
-      });
+  function preSave(next) {
+    if (!this.isModified(PASSWORD)) {
+      next();
     }
 
-    next();
-  });
+    bcrypt.hash(this.password, HASH_ROUNDS, (err, hash) => {
+      if (err) {
+        return next(err);
+      }
+
+      this.password = hash;
+
+      next();
+    });
+  }
+
+  /**
+   * Hash user's password before updating.
+   */
+  function preUpdate(next) {
+    var update = this._update;
+
+    if (!update.$set || !update.$set.password) {
+      next();
+    }
+
+    bcrypt.hash(update.$set.password, HASH_ROUNDS, (err, hash) => {
+      if (err) {
+        return next(err);
+      }
+
+      this.update({}, {
+        password: hash
+      });
+
+      next();
+    });
+  }
 
   /**
    * Find a user by it's email (Promised).
+   *
+   * @param {String} email The email to filter by.
+   *
+   * @return {Promise}
    */
-  schema.static('findByEmail', function (email) {
+  function findByEmail(email) {
     return this.model(USER).findOne()
       .where(EMAIL).equals(email);
-  });
+  }
+
+  schema.pre('findOneAndUpdate', preUpdate);
+  schema.pre('update', preUpdate);
+  schema.pre('save', preSave);
+
+  schema.static('findByEmail', findByEmail);
 
   return schema;
 
