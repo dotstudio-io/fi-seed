@@ -1,6 +1,7 @@
 'use strict';
 
 const SELF = '\'self\'';
+const SP = ' ';
 
 module.exports = {
 
@@ -16,10 +17,10 @@ module.exports = {
 
   csp: {
     policy: {
-      'img-src': SELF + ' http://lorempixel.com',
-      'style-src': SELF + ' *.googleapis.com',
-      'font-src': SELF + ' *.gstatic.com',
-      'default-src': SELF
+      'img-src': [SELF, 'http://loremflickr.com'].join(SP),
+      'default-src': SELF,
+      'style-src': SELF,
+      'font-src': SELF
     }
   },
 
