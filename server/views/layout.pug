@@ -1,5 +1,4 @@
 - var suffix = environment === 'development' ? '' : '.min';
-- var themeColor = '#B8DC3B';
 
 block vars
 
@@ -31,6 +30,6 @@ html(
     block body
 
     //- Ensure it's after all other content to avoid Z-fights and make it available application wide
-    .flash-container
+    .flash-container(ng-flashes-container)
 
     block scripts

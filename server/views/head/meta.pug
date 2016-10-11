@@ -5,13 +5,15 @@ meta(name='stage', content=stage)
 meta(name='title', content=title)
 meta(name='name', content=name)
 
-//- Webapp metatags
-meta(charset='utf-8')
-meta(http-equiv='x-ua-compatible' content='IE=edge')
+//- General metatags
 meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
-meta(name='apple-mobile-web-app-capable', content='yes')
+meta(http-equiv='x-ua-compatible' content='IE=edge')
+meta(charset='utf-8')
+
+//- Webapp metatags
 meta(name='apple-mobile-web-app-status-bar-style', content='black-translucent')
-meta(name='apple-mobile-web-app-status-bar-style', content=themeColor)
+meta(name='apple-mobile-web-app-status-bar-style', content=color)
+meta(name='apple-mobile-web-app-capable', content='yes')
+meta(name='msapplication-navbutton-color', content=color)
 meta(name='mobile-web-app-capable', content='yes')
-meta(name='theme-color', content=themeColor)
-meta(name='msapplication-navbutton-color', content=themeColor)
+meta(name='theme-color', content=color)

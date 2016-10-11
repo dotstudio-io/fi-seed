@@ -2,21 +2,23 @@ extends ../layout
 
 //- View's meta
 block meta
-  meta(property='og:image', content=`${ host }assets/images/social.png`)
-  meta(property='og:title', content='Another MEAN platform')
-  meta(property='og:description', content='A boilerplate for applications with Node.js + Express + MongoDB on the backend and AngularJS on the frontend (aka MEAN).')
-  meta(property='og:site_name', content='Fi Seed')
-  meta(property='og:type', content='website')
+  meta(property='og:image', content=`${ host }assets/images/og-image.jpg`)
+  meta(property='og:description', content=description)
+  meta(property='og:site_name', content=title)
   meta(property='og:locale', content='en_US')
+  meta(property='og:type', content='website')
+  meta(property='og:title', content=title)
 
 //- View's styles
 block styles
-  link(rel='stylesheet', href=`/assets/styles/client${ suffix }.css`)
+  link(
+    href=`/assets/styles/client${ suffix }.css`,
+    rel='stylesheet')
 
 //- View's body
 block body
   //- Main navbar goes here on this layout
-  main-navbar
+  section(main-navbar)
 
   //- Angular views go here on this layout
   main(
@@ -24,7 +26,7 @@ block body
     ng-view)
 
   //- This is the main footer for this layout
-  main-footer
+  section(main-footer)
 
 //- View's scripts
 block scripts
