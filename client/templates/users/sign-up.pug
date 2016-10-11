@@ -17,7 +17,7 @@
           .form-group
             .input-group
               .input-group-addon
-                i.fa.fa-user
+                i.fa.fa-fw.fa-user
 
               input.form-control(
                 placeholder='{{ "USERS.SIGN-UP.FORM.NAME.PLACEHOLDER" | translate }}',
@@ -28,7 +28,7 @@
           .form-group
             .input-group
               .input-group-addon
-                i.fa.fa-envelope
+                i.fa.fa-fw.fa-envelope
 
               input.form-control(
                 placeholder='{{ "USERS.SIGN-UP.FORM.EMAIL.PLACEHOLDER" | translate }}',
@@ -39,7 +39,7 @@
           .form-group
             .input-group
               .input-group-addon
-                i.fa.fa-asterisk
+                i.fa.fa-fw.fa-asterisk
 
               input.form-control(
                 placeholder='{{ "USERS.SIGN-UP.FORM.PASSWORD.PLACEHOLDER" | translate }}',
@@ -50,7 +50,7 @@
           .form-group
             .input-group
               .input-group-addon
-                i.fa.fa-heart
+                i.fa.fa-fw.fa-heart
 
               select.form-control(
                 ng-options='gender as (gender | translate) for gender in consts.genders',
@@ -64,7 +64,7 @@
 
           .input-group
             .input-group-addon
-              i.fa.fa-pawn
+              i.fa.fa-fw.fa-users
 
             select.form-control(
               ng-options='role as (role | translate) for role in consts.roles',
