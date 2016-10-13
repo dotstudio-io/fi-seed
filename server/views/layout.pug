@@ -19,7 +19,9 @@ html(
     block meta
 
     //- Manifest
-    link(rel='manifest', href='/assets/manifest.json')
+    link(
+      href='/assets/manifest.json',
+      rel='manifest')
 
     include head/icons
     block icons
@@ -30,6 +32,6 @@ html(
     block body
 
     //- Ensure it's after all other content to avoid Z-fights and make it available application wide
-    .flash-container(ng-flashes-container)
+    .flashes(ng-flashes-container)
 
     block scripts
