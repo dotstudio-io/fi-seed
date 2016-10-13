@@ -3,7 +3,7 @@
   "title": "Fi Seed",
   "description": "A boilerplate for applications with Node.js + Express + MongoDB on the backend and AngularJS on the frontend (aka MEAN).",
   "color": "#b8dc3b",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "stage": "stable",
   "private": false,
   "license": "MIT",
