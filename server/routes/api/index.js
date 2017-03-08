@@ -3,20 +3,8 @@
 const CONSTS = require('fi-consts');
 
 const HTTP_CODE_NO_CONTENT = CONSTS.CODES.HTTP.NO_CONTENT;
-const HTTP_CODE_OK = CONSTS.CODES.HTTP.OK;
 
 module.exports = (router) => {
-
-  /**
-   * Provides a health check route (mainly for AWS).
-   */
-  router.get('/health', (req, res) => {
-
-    /* TODO: Perform health checks here... */
-
-    res.sendStatus(HTTP_CODE_OK);
-
-  });
 
   /**
    * Get current session's visible data.
@@ -30,8 +18,8 @@ module.exports = (router) => {
 
     res.send({
       gender: req.session.user.gender,
+      roles: req.session.user.roles,
       name: req.session.user.name,
-      role: req.session.user.role,
       _id: req.session.user._id
     });
 

@@ -12,7 +12,7 @@ module.exports = (router) => {
     '/', '/theme',
 
     /* Error routes */
-    '/lost', '/error',
+    '/forbidden', '/lost', '/error',
 
     /* Users */
     '/users/sign-up', '/users/sign-in', '/users/sign-out'
@@ -28,7 +28,9 @@ module.exports = (router) => {
 
   /* Test error pages */
   router.get('/test/error', (req, res, next) => {
+
     next(new Error('Test Error Message'));
+
   });
 
 };

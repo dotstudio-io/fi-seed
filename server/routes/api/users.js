@@ -2,6 +2,7 @@
 
 const CONSTS = require('fi-consts');
 const bcrypt = require('bcrypt');
+const is = require('fi-is');
 
 const MONGO_CODE_DUPLICATED = CONSTS.CODES.MONGO.DUPLICATED;
 const MONGO_ERR_VALIDATION = CONSTS.ERRORS.MONGO.VALIDATION;
@@ -25,24 +26,24 @@ module.exports = (router, db) => {
 
     User.create(req.body)
 
-    .then(() => {
-      res.sendStatus(HTTP_CODE_CREATED);
-    })
+      .then((user) => {
+        res.status(HTTP_CODE_CREATED).json(user._id);
+      })
 
-    .catch((err) => {
-      /* Check for duplicated entry */
-      if (err.code && err.code === MONGO_CODE_DUPLICATED) {
-        return res.sendStatus(HTTP_CODE_CONFLICT);
-      }
+      .catch((err) => {
+        /* Check for duplicated entry */
+        if (err.code && err.code === MONGO_CODE_DUPLICATED) {
+          return res.sendStatus(HTTP_CODE_CONFLICT);
+        }
 
-      /* Check for invalid data */
-      if (err.name && err.name === MONGO_ERR_VALIDATION) {
-        return res.sendStatus(HTTP_CODE_BAD_REQUEST);
-      }
+        /* Check for invalid data */
+        if (err.name && err.name === MONGO_ERR_VALIDATION) {
+          return res.sendStatus(HTTP_CODE_BAD_REQUEST);
+        }
 
-      /* Unknown error */
-      next(err);
-    });
+        /* Unknown error */
+        next(err);
+      });
 
   });
 
@@ -54,35 +55,37 @@ module.exports = (router, db) => {
     /* Logout any previous user */
     delete req.session.user;
 
+    if (is.not.email(req.body.email)) {
+      return res.sendStatus(HTTP_CODE_BAD_REQUEST);
+    }
+
     User.findByEmail(req.body.email)
 
-    .then((user) => {
-      if (!user) {
-        return next();
-      }
-
-      /* Compare the passwords */
-      bcrypt.compare(req.body.password, user.password, (err, matches) => {
-        if (err) {
-          throw err;
-        }
-
-        if (!matches) {
+      .then((user) => {
+        if (!user) {
           return next();
         }
 
-        req.session.user = user.toObject();
+        /* Compare the passwords */
+        return bcrypt.compare(req.body.password, user.password).then((matches) => {
+          if (!matches) {
+            return next();
+          }
 
-        res.send(user);
-      });
-    })
+          req.session.user = user.toObject();
 
-    .catch(next);
+          res.send(user);
+        });
+      })
+
+      .catch(next);
 
   }, (req, res) => {
 
     /* Respond unauthorized with a delay on wrong username or password */
-    setTimeout(() => res.sendStatus(HTTP_CODE_UNAUTHORIZED), DELAY);
+    setTimeout(() => {
+      res.sendStatus(HTTP_CODE_UNAUTHORIZED);
+    }, DELAY);
 
   });
 
