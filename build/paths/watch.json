@@ -1,6 +1,8 @@
 {
   "templates": "client/templates/**/*.pug",
+  "components": "bower_components/**/*.js",
   "locales": "client/locales/**/*.json",
   "scripts": "client/scripts/**/*.js",
-  "styles": "client/styles/**/*.scss"
+  "styles": "client/styles/**/*.scss",
+  "paths": "build/paths/*.json"
 }
