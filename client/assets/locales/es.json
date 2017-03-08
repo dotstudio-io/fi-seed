@@ -1,1 +1,184 @@
-{"ROLE":{"ADMIN":"Administrador","USER":"Usuario"},"GENDER":{"FEMALE":"Femenino","MALE":"Masculino"},"NAVBAR":{"SIGNED_IN_AS":"Iniciaste sesión como","SIGN_OUT":"Cerrar sesión","SIGN_IN":"Iniciar sesión"}}
+{
+	"ROLE": {
+		"ADMIN": "Administrador",
+		"USER": "Usuario"
+	},
+	"GENDER": {
+		"FEMALE": "Femenino",
+		"MALE": "Masculino"
+	},
+	"NAVBAR": {
+		"SIGNED_IN_AS": "Iniciaste sesión como",
+		"SIGN_OUT": "Cerrar sesión",
+		"SIGN_IN": "Iniciar sesión",
+		"SIGN_UP": "Registrarme"
+	},
+	"PAGES": {
+		"HOME": {
+			"TITLE": "¡Hola, Fi Seed!",
+			"SUBTITLE": "Bienvenido a la plantilla básica. Está basada en Bootstrap así que probablemente puedas usarla rápidamente.",
+			"LEARN-MORE": "Ver más",
+			"COLUMNS": {
+				"1": {
+					"TITLE": "Segura y limpia",
+					"BODY": "no es un framework, es sólo una plantilla o estructura propuesta. Con transparencia, limpieza y seguridad en mente, está construida para el desarrollador, permitiéndote crear aplicaciones rápidamente y personalizarlas cuanto quieras, siempre con el usuario final en mente para que puedan tener una excelente experiencia con tu aplicación."
+				},
+				"2": {
+					"TITLE": "Nada de cosas raras",
+					"BODY": "Nos hemos enfocado en construirlo con los estándares mayormente adoptados y no forzar una aplicación Express.js a comportarse como MVC u otra cosa mas que si misma mientras te damos a ti, el desarrolador, la libertad de hacer lo que quieras con ella."
+				},
+				"3": {
+					"TITLE": "Temas y estilos",
+					"BODY": "¿Quieres revisar tus estilos mientras los editas? Sigue el enlace de abajo para abir la página de temas y visualiza todos los elementos de Bootstrap.",
+					"VIEW": "Ver elementos del tema"
+				}
+			}
+		},
+		"THEME": {
+			"TITLE": "Ejemplo de tema",
+			"SUBTITLE": "Esta es ina plantilla que muestra el estilo visual incluido en Bootstrap. Utilizalo como un punto inicial para construir algo más único construyendo encima o modificandolo y revisa los cambios aquí.",
+			"FLASHES": {
+				"TITLE": "Flashes",
+				"SUBTITLE": "Presiona cualquiera de los botones para mostrar un mensaje flash relacionado.",
+				"SUCCESS": {
+					"TITLE": "¡Genial!",
+					"MESSAGE": "Hiciste algo bien."
+				},
+				"INFO": {
+					"TITLE": "¡Mira aquí!",
+					"MESSAGE": "Este es un mensaje muy informativo."
+				},
+				"WARNING": {
+					"TITLE": "¡Cuidado!",
+					"MESSAGE": "¡Esta es una advertencia! ¡En serio!"
+				},
+				"DANGER": {
+					"TITLE": "¡Oh no!",
+					"MESSAGE": "Este es un mal mensaje :("
+				}
+			},
+			"BUTTONS": {
+				"TITLE": "Botones"
+			},
+			"TABLES": {
+				"TITLE": "Tablas"
+			},
+			"DEFAULT": "Por defecto",
+			"PRIMARY": "Primario",
+			"SUCCESS": "Éxito",
+			"WARNING": "Advertencia",
+			"DANGER": "Peligro",
+			"INFO": "Información",
+			"LINK": "Enlace"
+		},
+		"LOST": {
+			"TITLE": "No podemos encontrar eso",
+			"SUBTITLE": "También conocido como 404",
+			"BODY": "El recurso no pudo ser ubicado. Tal vez lo dejamos en alguna parte y no recordamos donde.",
+			"BACK": "Ir a la página de inicio"
+		},
+		"ERROR": {
+			"TITLE": "Algo malo pasó",
+			"SUBTITLE": "También conocido como 500",
+			"BODY": "Algo le causó hipo al servidor o tal vez se atoró con algo.",
+			"BACK": "Ir a la página de inicio"
+		},
+		"FORBIDDEN": {
+			"TITLE": "No puedes ver eso",
+			"SUBTITLE": "También conocido como 403",
+			"BODY": "Intentaste acceder a contenido que no está disponible para ti.",
+			"BACK": "Go to the home page"
+		}
+	},
+	"USERS": {
+		"SIGN_UP": {
+			"TITLE": "Crea tu cuenta",
+			"SUBTITLE": "¡Es increíble! ¡Lo prometo!",
+			"FORM": {
+				"TITLE": "Detalles de la cuenta",
+				"NAME": {
+					"PLACEHOLDER": "Ingresa tu nombre"
+				},
+				"EMAIL": {
+					"PLACEHOLDER": "Ingresa tu correo"
+				},
+				"PASSWORD": {
+					"PLACEHOLDER": "Ingresa una constraseña"
+				},
+				"GENDER": {
+					"LABEL": "Elige un género"
+				},
+				"ROLE": {
+					"LABEL": "Elige un rol"
+				},
+				"SUBMITTING": "Creando tu cuenta...",
+				"SUBMIT": "Crear tu cuenta"
+			},
+			"BACK": "Ya tengo una cuenta",
+			"FLASHES": {
+				"SUCCESS": {
+					"TITLE": "¡Bienvenido!",
+					"MESSAGE": "Por favor disfruta."
+				},
+				"INFO": {
+					"TITLE": "Una cosa mas...",
+					"MESSAGE": "Por favor inicia sesión con tus credenciales."
+				},
+				"DUPLICATED": {
+					"TITLE": "Hmmmm...",
+					"MESSAGE": "Parece que ese correo ya está registrado."
+				},
+				"WARNING": {
+					"TITLE": "Por favor revisa otra vez,",
+					"MESSAGE": "algo de lo que ingresaste no está bien."
+				},
+				"DANGER": {
+					"TITLE": "Ooooooo!",
+					"MESSAGE": "Los dioses están enojados."
+				}
+			}
+		},
+		"SIGN_IN": {
+			"TITLE": "Inicia sesión a tu cuenta",
+			"SUBTITLE": "¡No lo creerás!",
+			"FORM": {
+				"TITLE": "Mi cuenta",
+				"EMAIL": {
+					"PLACEHOLDER": "Ingresa tu email"
+				},
+				"PASSWORD": {
+					"PLACEHOLDER": "Ingresa tu contraseña"
+				},
+				"SUBMITTING": "Ingresando...",
+				"SUBMIT": "Ir a mi cuenta"
+			},
+			"BACK": "No tengo una cuenta",
+			"FLASHES": {
+				"SUCCESS": {
+					"TITLE": "¡Hola!",
+					"MESSAGE": "Es bueno verte de nuevo."
+				},
+				"WARNING": {
+					"TITLE": "¡Maldición!",
+					"MESSAGE": "Parece que tu correo o clave son inválidos."
+				},
+				"DANGER": {
+					"TITLE": "¡Oh no!",
+					"MESSAGE": "Algo no funcionó como debería."
+				}
+			}
+		},
+		"SIGN_OUT": {
+			"FLASHES": {
+				"SUCCESS": {
+					"TITLE": "Ha sido un gusto.",
+					"MESSAGE": "¡Vuelve pronto!"
+				},
+				"ERROR": {
+					"TITLE": "Hmmmmmm...",
+					"MESSAGE": "Alguien no quiere que te vayas."
+				}
+			}
+		}
+	}
+}
