@@ -1,27 +1,10 @@
 {
   "apps": [{
-    "name": "fi-seed-http",
-    "script": "server/http.js",
+    "name": "fi-seed",
+    "script": "server",
     "watch": [
       "package.json",
-      "server/http.js"
-    ],
-    "env": {
-      "NODE_ENV": "development",
-      "DEBUG": "app:*"
-    },
-    "env_production": {
-      "NODE_ENV": "production"
-    }
-  }, {
-    "name": "fi-seed-https",
-    "script": "server/https.js",
-    "watch": [
-      "package.json",
-      "server"
-    ],
-    "ignore_watch": [
-      "server/http.js"
+      "server/**/*"
     ],
     "env": {
       "NODE_ENV": "development",
