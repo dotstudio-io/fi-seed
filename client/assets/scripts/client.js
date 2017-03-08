@@ -38625,13 +38625,25 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
     "use strict";
     var ng = window.angular;
     /**
-   * Pages Lost Controller.
+   * Pages Error Controller.
    */
     function PagesErrorController($scope, $location) {
         $scope.err = $location.search().err;
     }
     /* Define AngularJS controller */
     ng.module("App").controller("Pages:Error", [ "$scope", "$location", PagesErrorController ]);
+})(window);
+(function(window) {
+    "use strict";
+    var ng = window.angular;
+    /**
+   * Pages Forbidden Controller.
+   */
+    function PagesForbiddenController($scope, $location) {
+        $scope.err = $location.search().err;
+    }
+    /* Define AngularJS controller */
+    ng.module("App").controller("Pages:Forbidden", [ "$scope", "$location", PagesForbiddenController ]);
 })(window);
 (function(window) {
     "use strict";
@@ -38678,7 +38690,7 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
     function UsersSingInControllerFn($scope, $http, $location, $session, $flash) {
         $scope.submitting = false;
         /**
-     * Session updated.
+     * Submit successful.
      */
         function submitSuccess() {
             $flash.success("USERS.SIGN_IN.FLASHES.SUCCESS.TITLE", "USERS.SIGN_IN.FLASHES.SUCCESS.MESSAGE");
@@ -38732,7 +38744,7 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
             $location.path("/");
         }
         /**
-     * Signing up has failed.
+     * Signing in has failed.
      */
         function signInError() {
             $session.danger("USERS.SIGN_UP.FLASHES.ERROR.TITLE", "USERS.SIGN_UP.FLASHES.ERROR.MESSAGE");
@@ -38948,6 +38960,11 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
         templateUrl: "/assets/templates/pages/error.html",
         controller: "Pages:Error"
     };
+    /* Pages Error route definition */
+    var pagesForbiddenRouteDef = {
+        templateUrl: "/assets/templates/pages/forbidden.html",
+        controller: "Pages:Forbidden"
+    };
     /* Otherwise route definition */
     var otherwiseRouteDef = {
         redirectTo: "/lost"
@@ -38956,7 +38973,7 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
    * Pages routes configuration.
    */
     function pagesRoutesConfigFn($routeProvider) {
-        $routeProvider.when("/", pagesHomeRouteDef).when("/error", pagesErrorRouteDef).when("/theme", pagesThemeRouteDef).when("/lost", pagesLostRouteDef).otherwise(otherwiseRouteDef);
+        $routeProvider.when("/", pagesHomeRouteDef).when("/forbidden", pagesForbiddenRouteDef).when("/error", pagesErrorRouteDef).when("/theme", pagesThemeRouteDef).when("/lost", pagesLostRouteDef).otherwise(otherwiseRouteDef);
     }
     /* Define AngularJS configuration */
     ng.module("App").config([ "$routeProvider", pagesRoutesConfigFn ]);
