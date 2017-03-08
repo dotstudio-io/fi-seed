@@ -49,9 +49,9 @@ module.exports = (Schema) => {
       ]
     },
 
-    role: {
-      type: String,
-      default: ROLE_USER,
+    roles: {
+      type: [String],
+      default: [ROLE_USER],
       required: true,
       enum: [
         ROLE_ADMIN, ROLE_USER
@@ -67,43 +67,34 @@ module.exports = (Schema) => {
   /**
    * Hash user's password before saving.
    */
-  function preSave(next) {
+  function preSavePassword(next) {
     if (!this.isModified(PASSWORD)) {
       next();
     }
 
-    bcrypt.hash(this.password, HASH_ROUNDS, (err, hash) => {
-      if (err) {
-        return next(err);
-      }
-
+    return bcrypt.hash(this.password, HASH_ROUNDS).then((hash) => {
       this.password = hash;
-
       next();
-    });
+    }).catch(next);
   }
 
   /**
    * Hash user's password before updating.
    */
-  function preUpdate(next) {
+  function preUpdatePassword(next) {
     var update = this._update;
 
     if (!update.$set || !update.$set.password) {
-      next();
+      return next();
     }
 
-    bcrypt.hash(update.$set.password, HASH_ROUNDS, (err, hash) => {
-      if (err) {
-        return next(err);
-      }
-
+    return bcrypt.hash(update.$set.password, HASH_ROUNDS).then((hash) => {
       this.update({}, {
         password: hash
       });
 
       next();
-    });
+    }).catch(next);
   }
 
   /**
@@ -118,9 +109,9 @@ module.exports = (Schema) => {
       .where(EMAIL).equals(email);
   }
 
-  schema.pre('findOneAndUpdate', preUpdate);
-  schema.pre('update', preUpdate);
-  schema.pre('save', preSave);
+  schema.pre('findOneAndUpdate', preUpdatePassword);
+  schema.pre('update', preUpdatePassword);
+  schema.pre('save', preSavePassword);
 
   schema.static('findByEmail', findByEmail);
 
