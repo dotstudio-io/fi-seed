@@ -14,8 +14,8 @@ module.exports = {
   debug: debug('app:auth'),
 
   authorizer: (req) => {
-    if (req.session.user && req.session.user.role) {
-      return req.session.user.role;
+    if (req.session.user && req.session.user.roles) {
+      return req.session.user.roles;
     }
 
     return null;

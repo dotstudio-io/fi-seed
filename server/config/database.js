@@ -4,22 +4,23 @@ const debug = require('debug')('app:database');
 const mongoose = require('mongoose');
 
 /* This will use the 'name' property in your package.json as the database name */
-const DBNAME = require(__basedir + '/package.json').name;
-const HOST = 'localhost';
+const DB = require(__basedir + '/package.json').name;
+const SERVER = 'localhost';
 
-/* Optional mongoose configuration */
-var options = {};
+const uri = `mongodb://${ SERVER }/${ DB }`;
+const options = {
+  // db: { native_parser: true },
+  // server: { poolSize: 5 },
+  // replset: { rs_name: 'myReplicaSetName' },
+  // user: 'myUserName',
+  // pass: 'myPassword'
+};
 
-module.exports = (next) => {
-  const db = mongoose.connect('mongodb://' + HOST + '/' + DBNAME, options).connection;
-
-  db.once('open', () => {
-    debug('Mongoose successfuly connected to [%s]', DBNAME);
-    next();
-  });
-
-  db.on('error', (err) => {
-    debug(err);
-    panic('Couldn\'t connect to database [%s]!', DBNAME);
+module.exports = () => {
+  return mongoose.connect(uri, options).then(() => {
+    debug('Mongoose successfuly connected to [%s]', DB);
+  }).catch((err) => {
+    debug(err.stack);
+    panic('Couldn\'t connect to database [%s]!', DB);
   });
 };

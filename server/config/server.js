@@ -1,23 +1,23 @@
 'use strict';
 
-var path = require('path');
-var fs = require('fs');
+const path = require('path');
+const fs = require('fs');
 
-var credentials = path.join(__serverdir, 'credentials');
+const CRED_DIR = path.join(__serverdir, 'credentials');
+const CERT = 'server-cert.pem';
+const KEY = 'server-key.pem';
+const CA = 'server-ca.pem';
 
 module.exports = {
 
-  https: {
-    /* These are insecure, self-signed keys and you must provide your own */
-    key: fs.readFileSync(path.join(credentials, 'server-key.pem')),
-    cert: fs.readFileSync(path.join(credentials, 'server-cert.pem')),
-    ca: fs.readFileSync(path.join(credentials, 'server-ca.pem'))
+  credentials: {
+    /* These are insecure, self-signed keys for development only */
+    cert: fs.readFileSync(path.join(CRED_DIR, CERT)),
+    key: fs.readFileSync(path.join(CRED_DIR, KEY)),
+    ca: fs.readFileSync(path.join(CRED_DIR, CA))
   },
 
   /* Server ports */
-  ports: {
-    https: 3443,
-    http: 3080
-  }
+  port: 3080
 
 };

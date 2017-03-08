@@ -1,11 +1,10 @@
 'use strict';
 
 const SELF = '\'self\'';
-const SP = ' ';
 
 module.exports = {
 
-  p3p: 'ABCDEF',
+  // p3p: 'ABCDEF',
 
   csrf: {
     angular: true
@@ -17,10 +16,8 @@ module.exports = {
 
   csp: {
     policy: {
-      'img-src': [SELF, 'http://loremflickr.com'].join(SP),
-      'default-src': SELF,
-      'style-src': SELF,
-      'font-src': SELF
+      'img-src': `${ SELF } loremflickr.com`,
+      'default-src': SELF
     }
   },
 
