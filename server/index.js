@@ -3,6 +3,7 @@
 require('./globals')(global);
 require('colors');
 
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PACKAGE = require(__basedir + '/package.json');
 
 /**** Modules *****/
@@ -13,16 +14,23 @@ const favicon = require('serve-favicon');
 const security = require('fi-security');
 const schemas = require('fi-schemas');
 const mongoose = require('mongoose');
-const routes = require('fi-routes');
 const CONSTS = require('fi-consts');
+const routes = require('fi-routes');
 const express = require('express');
 const logger = require('morgan');
 const https = require('https');
 const auth = require('fi-auth');
+const http = require('http');
 const path = require('path');
 
 /* Load constants before othe components */
 CONSTS.load(config('consts'));
+
+/* Load components */
+const serverUtils = component('server-utils');
+const healthCheck = component('health-check');
+const redirecter = component('redirecter');
+const errors = component('errors');
 
 /**** Application ****/
 const app = express();
@@ -49,9 +57,11 @@ app.set('views', configs.views.basedir);
 app.set('trust proxy', 1);
 
 /**** Settings ****/
-app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev'));
-app.use(favicon(path.join('client', 'assets', 'favicon.png')));
 app.use(compression());
+app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev'));
+app.use(healthCheck);
+app.use(favicon(path.join('client', 'assets', 'favicon.png')));
+app.use(redirecter);
 app.use(configs.assets.route, express.static(configs.assets.basedir));
 app.use(configs.session.cookieParser);
 app.use(configs.session.middleware);
@@ -59,11 +69,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded(configs['body-parser'].urlencoded));
 
 /**** Initialization ****/
-const serverUtils = component('server-utils');
-const errors = component('errors');
 
 /* Configure database (mongoose) */
-configs.database(() => {
+configs.database().then(() => {
   /* Registers schemas (mongoose) */
   schemas(mongoose, configs.schemas);
 
@@ -79,20 +87,26 @@ configs.database(() => {
   /* Register route error handlers */
   errors(app);
 
-  /* Initalize HTTPS server */
-  const server = https.createServer(configs.server.https, app);
+  /* Initalize server */
+  var server;
 
-  server.listen(configs.server.ports.https);
+  if (DEVELOPMENT) {
+    server = https.createServer(configs.server.credentials, app);
+  } else {
+    server = http.createServer(app);
+  }
 
-  server.on('listening', () => {
-    console.log('\n  HTTPS server is listening on %s\n'.bold, serverUtils.getBind(server));
+  server.listen(configs.server.port);
+
+  server.once('listening', () => {
+    console.log(`\n  Server is listening on ${ serverUtils.getBind(server) }\n`.bold);
   });
 
   server.on('error', serverUtils.onServerError);
 });
 
 process.once('SIGINT', () => {
-  console.log('\n\n  Shutting down application...\n'.bold);
+  console.log('\n\n  Shutting down server...\n'.bold);
 
   /* You may put any cleanup script here */
 
