@@ -18,46 +18,45 @@
 
     &.ng-enter,
     &.ng-move {
-      @include transition(all 432ms ease-in-out);
-      @include transform(scaleY(0));
+      transition: all 432ms ease-in-out;
+      transform: scaleY(0);
       padding   : 0;
       max-height: 0;
       opacity   : 0;
 
       &.ng-enter-active,
       &.ng-move-active {
-        @include transform(scaleY(1));
         padding   : 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
+        transform: scaleY(1);
         max-height: 70px;
         opacity   : 1;
       }
     }
 
     &.ng-leave {
-      @include transition(all 432ms ease-in-out);
-      @include transform(scaleY(1));
       padding   : 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
+      transition: all 432ms ease-in-out;
+      transform: scaleY(1);
       max-height: 70px;
       opacity   : 1;
     }
 
     &.ng-leave-active {
-      @include transform(scaleY(0));
+      transform: scaleY(0);
       max-height: 0;
       padding   : 0;
       opacity   : 0;
     }
 
     .alert {
-      pointer-events: auto;
-      display       : inline-block;
-      margin        : 0 auto;
-      cursor        : pointer;
-      position      : relative;
-      // border-radius : 1000px;
-      outline       : 0;
       padding       : $padding-base-vertical $padding-large-horizontal $padding-base-vertical $padding-base-horizontal;
+      display       : inline-block;
+      position      : relative;
+      cursor        : pointer;
+      margin        : 0 auto;
       line-height   : 1.618;
+      pointer-events: auto;
+      outline       : 0;
 
       i {
         padding-right: $padding-small-horizontal;
