@@ -9,6 +9,7 @@
       form.panel.panel-default(
         ng-submit='form.$valid && submit()',
         name='form')
+
         .panel-heading
           h3.panel-title(translate='USERS.SIGN_IN.FORM.TITLE')
 
@@ -37,10 +38,18 @@
 
         .panel-footer.text-center
           button.btn.btn-block.btn-primary(
-            ng-disabled='form.$invalid || submitting',
+            ng-disabled='form.$pristine || form.$invalid || submitting',
             type='submit')
 
-            span(translate='USERS.SIGN_IN.FORM.SUBMIT')
+            span(ng-hide='submitting')
+              span(translate='USERS.SIGN_IN.FORM.SUBMIT')
+              | &ensp;
+              i.fa.fa-fw.fa-sign-in
+
+            span(ng-show='submitting')
+              i.fa.fa-fw.fa-spin.fa-circle-o-notch
+              | &ensp;
+              span(translate='USERS.SIGN_IN.FORM.SUBMITTING')
 
       .text-center
         a.btn.btn-link(ng-href='/users/sign-up')

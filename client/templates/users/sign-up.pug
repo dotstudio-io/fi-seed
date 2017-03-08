@@ -50,7 +50,7 @@
           .form-group
             .input-group
               .input-group-addon
-                i.fa.fa-fw.fa-heart
+                i.fa.fa-fw.fa-venus-mars
 
               select.form-control(
                 ng-options='gender as (gender | translate) for gender in consts.genders',
@@ -81,7 +81,15 @@
             ng-disabled='form.$invalid || submitting',
             type='submit')
 
-            span(translate='USERS.SIGN_UP.FORM.SUBMIT')
+            span(ng-hide='submitting')
+              span(translate='USERS.SIGN_UP.FORM.SUBMIT')
+              | &ensp;
+              i.fa.fa-fw.fa-pencil
+
+            span(ng-show='submitting')
+              i.fa.fa-fw.fa-spin.fa-circle-o-notch
+              | &ensp;
+              span(translate='USERS.SIGN_UP.FORM.SUBMITTING')
 
       .text-center
         a.btn.btn-link(ng-href='/users/sign-in')

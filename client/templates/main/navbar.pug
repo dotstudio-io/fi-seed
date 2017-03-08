@@ -1,4 +1,4 @@
-nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
+nav.navbar.navbar-default.navbar-fixed-top.navbar-fold(
   ng-class='{ "navbar-folded": folded }')
 
   .container
@@ -19,17 +19,24 @@ nav.navbar.navbar-inverse.navbar-fixed-top.navbar-fold(
 
     #navbar.navbar-collapse.collapse
       ul.nav.navbar-nav.navbar-right
-        li.navbar-text(ng-if='$root.session.user')
+        li.navbar-text(ng-show='$root.session.user')
           span(translate='NAVBAR.SIGNED_IN_AS')
           strong &ensp;{{ $root.session.user.name }}
 
-        li(ng-if='$root.session.user')
+        li(ng-show='$root.session.user')
           a(ng-href='/users/sign-out')
             span(translate='NAVBAR.SIGN_OUT')
 
         li(
           ng-class='{ active: location === "/users/sign-in" }',
-          ng-if='!$root.session.user')
+          ng-hide='$root.session.user')
 
           a(ng-href='/users/sign-in')
             span(translate='NAVBAR.SIGN_IN')
+
+        li(
+          ng-class='{ active: location === "/users/sign-up" }',
+          ng-hide='$root.session.user')
+
+          a(ng-href='/users/sign-up')
+            span(translate='NAVBAR.SIGN_UP')
