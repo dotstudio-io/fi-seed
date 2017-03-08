@@ -12,6 +12,7 @@
   "NAVBAR": {
     "SIGNED_IN_AS": "Iniciaste sesión como",
     "SIGN_OUT": "Cerrar sesión",
-    "SIGN_IN": "Iniciar sesión"
+    "SIGN_IN": "Iniciar sesión",
+    "SIGN_UP": "Registrarme"
   }
 }

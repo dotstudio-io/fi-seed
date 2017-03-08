@@ -80,6 +80,13 @@
       "SUBTITLE": "También conocido como 500",
       "BODY": "Algo le causó hipo al servidor o tal vez se atoró con algo.",
       "BACK": "Ir a la página de inicio"
+    },
+
+    "FORBIDDEN": {
+      "TITLE": "No puedes ver eso",
+      "SUBTITLE": "También conocido como 403",
+      "BODY": "Intentaste acceder a contenido que no está disponible para ti.",
+      "BACK": "Go to the home page"
     }
   }
 }

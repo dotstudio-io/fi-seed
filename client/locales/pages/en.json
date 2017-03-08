@@ -80,6 +80,13 @@
       "SUBTITLE": "A.K.A. 500",
       "BODY": "Something caused a server hiccup or maybe it choked on something.",
       "BACK": "Go to the home page"
+    },
+
+    "FORBIDDEN": {
+      "TITLE": "You can't see that",
+      "SUBTITLE": "A.K.A. 403",
+      "BODY": "You tried to access content that's not available to you.",
+      "BACK": "Go to the home page"
     }
   }
 }

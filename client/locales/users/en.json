@@ -21,7 +21,8 @@
         "ROLE": {
           "LABEL": "Choose a role"
         },
-        "SUBMIT": "Create your account!"
+        "SUBMITTING": "Createing account...",
+        "SUBMIT": "Create account"
       },
 
       "BACK": "I already have an account",
@@ -62,7 +63,8 @@
         "PASSWORD": {
           "PLACEHOLDER": "Enter your password"
         },
-        "SUBMIT": "Go to my account!"
+        "SUBMITTING": "Signing you in...",
+        "SUBMIT": "Go to my account"
       },
 
       "BACK": "I don't have an account",
