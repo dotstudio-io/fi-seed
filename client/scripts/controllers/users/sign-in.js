@@ -10,7 +10,7 @@
     $scope.submitting = false;
 
     /**
-     * Session updated.
+     * Submit successful.
      */
     function submitSuccess() {
       $flash.success('USERS.SIGN_IN.FLASHES.SUCCESS.TITLE', 'USERS.SIGN_IN.FLASHES.SUCCESS.MESSAGE');

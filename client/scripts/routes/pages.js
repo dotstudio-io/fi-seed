@@ -27,6 +27,12 @@
     controller: 'Pages:Error'
   };
 
+    /* Pages Error route definition */
+  var pagesForbiddenRouteDef = {
+    templateUrl: '/assets/templates/pages/forbidden.html',
+    controller: 'Pages:Forbidden'
+  };
+
   /* Otherwise route definition */
   var otherwiseRouteDef = {
     redirectTo: '/lost'
@@ -37,6 +43,7 @@
    */
   function pagesRoutesConfigFn($routeProvider) {
     $routeProvider.when('/', pagesHomeRouteDef)
+      .when('/forbidden', pagesForbiddenRouteDef)
       .when('/error', pagesErrorRouteDef)
       .when('/theme', pagesThemeRouteDef)
       .when('/lost', pagesLostRouteDef)

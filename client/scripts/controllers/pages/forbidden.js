@@ -4,17 +4,17 @@
   var ng = window.angular;
 
   /**
-   * Pages Error Controller.
+   * Pages Forbidden Controller.
    */
-  function PagesErrorController($scope, $location) {
+  function PagesForbiddenController($scope, $location) {
     $scope.err = $location.search().err;
   }
 
   /* Define AngularJS controller */
-  ng.module('App').controller('Pages:Error', [
+  ng.module('App').controller('Pages:Forbidden', [
     '$scope', '$location',
 
-    PagesErrorController
+    PagesForbiddenController
   ]);
 
 }(window));

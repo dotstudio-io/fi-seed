@@ -16,7 +16,7 @@
     }
 
     /**
-     * Signing up has failed.
+     * Signing in has failed.
      */
     function signInError() {
       $session.danger('USERS.SIGN_UP.FLASHES.ERROR.TITLE', 'USERS.SIGN_UP.FLASHES.ERROR.MESSAGE');
