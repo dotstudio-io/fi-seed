@@ -3,21 +3,14 @@
 
   var ng = window.angular;
 
-  var ERR_WRONG_PARAM_TYPE = 'Wrong parameter type! Must be a String or an Array.';
-  var ERR_INVALID_CONFIG = 'Config must be a valid $http config object.';
-  var ERR_NO_PARAM = 'Parameter cannot be empty!';
-
-  var ROUTE_API_CONSTS = '/api/consts';
-
-  var CONFIG = {
-    cache: true,
-    params: {}
-  };
-
   /**
    * Consts service function.
    */
   function constsServiceFn($http) {
+    var defaults = {
+      cache: true,
+      params: {}
+    };
 
     /**
      * Changes the default HTTP config.
@@ -26,14 +19,14 @@
      */
     function config(cfg) {
       if (!cfg || !ng.isObject(cfg)) {
-        throw new Error(ERR_INVALID_CONFIG);
+        throw new Error('Config must be a valid $http config object.');
       }
 
       if (!cfg.params) {
         cfg.params = {};
       }
 
-      CONFIG = cfg;
+      defaults = cfg;
     }
 
     /**
@@ -41,16 +34,16 @@
      */
     function get(consts) {
       if (!consts) {
-        throw new Error(ERR_NO_PARAM);
+        throw new Error('Parameter cannot be empty!');
       }
 
       if (!ng.isArray(consts) && !ng.isString(consts)) {
-        throw new Error(ERR_WRONG_PARAM_TYPE);
+        throw new Error('Wrong parameter type! Must be a String or an Array.');
       }
 
-      CONFIG.params.consts = consts;
+      defaults.params.consts = consts;
 
-      return $http.get(ROUTE_API_CONSTS, CONFIG);
+      return $http.get('/api/consts', defaults);
     }
 
     var constsServiceDef = {

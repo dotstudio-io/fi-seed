@@ -3,8 +3,6 @@
 
   var ng = window.angular;
 
-  var ROUTE_API_USERS_SIGN_UP = '/api/users';
-
   /**
    * User Sign Up controller function.
    */
@@ -54,7 +52,7 @@
     function submit() {
       $scope.submitting = true;
 
-      $http.post(ROUTE_API_USERS_SIGN_UP, $scope.data)
+      $http.post('/api/users', $scope.data)
         .then(submitSuccess, submitFailed);
     }
 
