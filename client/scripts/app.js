@@ -3,13 +3,9 @@
 
   var ng = window.angular;
 
-  var SELECTOR = 'meta[name="%s"]';
-  var CONTENT = 'content';
-  var REPLACE = '%s';
-
   function getMetaContent(name) {
-    return document.querySelector(SELECTOR.replace(REPLACE, name))
-      .getAttribute(CONTENT);
+    return document.querySelector('meta[name="' + name + '"]')
+      .getAttribute('content');
   }
 
   /* Application info */

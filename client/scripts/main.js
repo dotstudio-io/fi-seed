@@ -4,12 +4,42 @@
   var ng = window.angular;
   var is = window.is;
 
-  var EN = 'en';
+  /**
+   * Configure location provider.
+   */
+  function appConfigLocationFn($locationProvider) {
+    $locationProvider.html5Mode(true);
+  }
+
+  /**
+   * Configure translation provider.
+   */
+  function appConfigTranslateFn($translateProvider) {
+    $translateProvider.useStaticFilesLoader({
+      files: [{
+        prefix: '/assets/locales/',
+        suffix: '.json'
+      }]
+    });
+
+    $translateProvider.useSanitizeValueStrategy('escape');
+
+    $translateProvider.preferredLanguage('en').fallbackLanguage('en');
+  }
+
+  /**
+   * Configure flashes provider.
+   */
+  function appConfigFlashesFn(ngFlashesProvider) {
+    ngFlashesProvider.configure({
+      templateUrl: '/assets/templates/main/flash.html'
+    });
+  }
 
   /**
    * App run function.
    */
-  function appRunFn($rootScope, $location, $http, $translate) {
+  function appRunFn($rootScope, $translate) {
     /* Define app object in root scope */
     $rootScope.app = window.app;
 
@@ -20,52 +50,21 @@
       locale = locale.substring(0, 2);
     }
 
-    $translate.use(locale || EN);
-  }
-
-  /**
-   * App config function.
-   */
-  function appConfigFn($locationProvider, $translateProvider, ngFlashesProvider) {
-    $locationProvider.html5Mode(true);
-
-    $translateProvider.useStaticFilesLoader({
-      files: [{
-        prefix: '/assets/locales/',
-        suffix: '.json'
-      }, {
-        prefix: '/assets/locales/pages/',
-        suffix: '.json'
-      }, {
-        prefix: '/assets/locales/users/',
-        suffix: '.json'
-      }]
-    });
-
-    $translateProvider.useSanitizeValueStrategy('escape');
-
-    $translateProvider.preferredLanguage(EN).fallbackLanguage(EN);
-
-    ngFlashesProvider.configure({
-      templateUrl: '/assets/templates/main/flash.html'
-    });
+    $translate.use(locale || 'en');
   }
 
   /**
    * Define AngularJS module.
    */
   ng.module('App')
+    .config(['$translateProvider', appConfigTranslateFn])
+    .config(['$locationProvider', appConfigLocationFn])
+    .config(['ngFlashesProvider', appConfigFlashesFn])
 
-  .config([
-    '$locationProvider', '$translateProvider', 'ngFlashesProvider',
+    .run([
+      '$rootScope', '$translate',
 
-    appConfigFn
-  ])
-
-  .run([
-    '$rootScope', '$location', '$http', '$translate',
-
-    appRunFn
-  ]);
+      appRunFn
+    ]);
 
 }(window));
