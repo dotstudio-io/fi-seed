@@ -14,6 +14,9 @@
     },
     "env_production": {
       "NODE_ENV": "production"
+    },
+    "env_preproduction": {
+      "NODE_ENV": "preproduction"
     }
   }]
 }
