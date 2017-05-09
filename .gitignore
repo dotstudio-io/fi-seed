@@ -85,3 +85,12 @@ Temporary Items
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
+
+# Visual Studio Code preferences
+.vscode
+
+# TMP folder
+tmp
+
+# Test out folder
+test/out
