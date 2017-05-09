@@ -44,7 +44,7 @@
     "fi-routes": "^1.0.3",
     "fi-schemas": "^2.0.0",
     "fi-security": "^1.0.0",
-    "mongoose": "^4.4.1 1",
+    "mongoose": "^4.9.8",
     "morgan": "^1.7.0",
     "pug": "^2.0.0-beta6",
     "require-dir": "^0.3.0",
