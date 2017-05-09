@@ -18,12 +18,12 @@ const CONSTS = require('fi-consts');
 const routes = require('fi-routes');
 const express = require('express');
 const logger = require('morgan');
-const https = require('https');
 const auth = require('fi-auth');
+const https = require('https');
 const http = require('http');
 const path = require('path');
 
-/* Load constants before othe components */
+/* Load constants before other components */
 CONSTS.load(config('consts'));
 
 /* Load components */
@@ -54,7 +54,7 @@ app.locals.name = PACKAGE.name;
 
 app.set('view engine', configs.views.engine);
 app.set('views', configs.views.basedir);
-app.set('trust proxy', 1);
+app.set('trust proxy', 1); 
 
 /**** Settings ****/
 app.use(compression());
