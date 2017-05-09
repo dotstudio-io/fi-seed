@@ -1,0 +1,18 @@
+{
+  "extends": "../.eslintrc.json",
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "__serverdir": false,
+    "__testdir": false,
+    "__basedir": false,
+    "mongoose": false,
+    "expect": false,
+    "moment": false,
+    "config": false,
+    "utils": false,
+    "mock": false,
+    "req": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "": "setup",
+
+  "positive": {
+
+    "roles": {
+
+      "none": {
+        "": "index",
+        "api": "index"
+      }
+    }
+  }
+}
