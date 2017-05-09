@@ -1,12 +1,20 @@
 'use strict';
 
-const DEVELOPMENT = process.env.NODE_ENV === 'development';
-const TESTING = process.env.NODE_ENV === 'testing';
+const ENV = process.env.NODE_ENV;
+
+const PREPRODUCTION = ENV === 'preproduction';
+const DEVELOPMENT = ENV === 'development';
+const TESTING = ENV === 'testing';
+
 const HTTPS = 'https://';
 const WWW = 'www.';
 
 module.exports = (req, res, next) => {
-  if (DEVELOPMENT || TESTING || (req.secure && req.subdomains.length)) {
+  if (DEVELOPMENT || TESTING || PREPRODUCTION) {
+    return next();
+  }
+
+  if ((req.secure && req.subdomains.length)) {
     return next();
   }
 
