@@ -1,5 +1,5 @@
 # Fi-Seed Test Suite
-This test suite is design to test an application running a http or https server.
+This test suite is designed to test an application running a http or https server.
 
 ## Test directory structure
 
@@ -13,12 +13,13 @@ Under the files folder are found the actual test files, this should be orderer u
   3. Under the kind-of-test folder should only be folders named after the application roles, e.g: "administrator". For tests that won't require a user signed-in the role will be "none". 
   4. Under the role folder are placed: one index file to make the first call, and one api folder where the actual test folders will by finally put. 
   5. Under the api folder are as many folders as api routes that role consumes: e.g:
-      - api
-        - users
-        - tokens
-        - documents
+  ```
+  |--api
+      |--users
+      |--tokens
+      |--documents
+  ```
   6. Finally, under those folder the actual test files will be placed. Name the acording their function, e.g: "password.js"
-
 
 #### Setup.js
 This should always be the first test to be run. Is the appropiate place to do test preparations like saving and loading database constants.
