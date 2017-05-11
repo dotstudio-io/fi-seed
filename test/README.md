@@ -20,6 +20,10 @@ Under the files folder are found the actual test files, this should be orderer u
   6. Finally, under those folder the actual test files will be placed. Name the acording their function, e.g: "password.js"
 
 
+#### Setup.js
+This should always be the first test to be run. Is the appropiate place to do test preparations like saving and loading database constants.
+
+
 ### Data
 
 #### tests.json
@@ -44,6 +48,3 @@ The script that bootstraps the test suite. Is called from run.sh
 
 #### utils.js 
 This script containts utilitary functions as broad as loadTests(), randomName() and parseCSRF()· These functions are exposed globally and are called using the keyword "utils".
-
-### Setup.js
-This should always be the first test to be run. Is the appropiate place to do test preparations like saving and loading database constants.
