@@ -9,6 +9,7 @@ const CLI_RESET = '\x1b[0m';
 const CLI_RED = '\x1b[31m';
 const CLI_FAT = '\x1b[1m';
 
+const PARTIALS = path.join('schemas', 'partials');
 const COMPONENTS = 'components';
 const CONFIG = 'config';
 
@@ -66,11 +67,19 @@ module.exports = (global) => {
     return include(COMPONENTS, name);
   }
 
+  function partial(name) {
+    var dirname = path.dirname(name);
+    var basename = path.basename(name);
+
+    return include(PARTIALS, path.join(dirname, `_${basename}.js`));
+  }
+
   debug('Base directory: %s', __basedir);
   debug('Server directory: %s', __serverdir);
 
   global.component = component;
   global.include = include;
+  global.partial = partial;
   global.config = config;
   global.panic = panic;
 
