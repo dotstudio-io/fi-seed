@@ -1,35 +1,27 @@
 'use strict';
 
-const CONSTS = require('fi-consts');
+const HTTP_CODE_INTERNAL_ERR = 500;
+const HTTP_CODE_NOTFOUND_ERR = 404;
 
-const HTTP_CODE_NOTFOUND = CONSTS.CODES.HTTP.NOT_FOUND;
-const HTTP_CODE_ERR = CONSTS.CODES.HTTP.ERROR;
+const GLOBAL_NAME_ATTRIBUTE = 'Errors';
 
 const ASSETS_OR_API_REGEXP = /^\/(assets|api)\//i;
-const NOT_FOUND_REDIRECT = '/lost?url=';
-const ERR_REDIRECT = '/error?err=';
 const NL = '\n';
 
 /**
- * Every custom error function
+ * The component configuration.
+ */
+const config = {};
+
+/**
+ * Every custom error function.
  */
 const errors = {};
 
 /**
- * Register every application registered error for global usage.
- * 
- * @param {any} global The application global object.
+ * Every redirect url.
  */
-
-/**
- * Registers every error function in the application global object.
- * 
- * @param {any} errors The custom errors object.
- * @param {any} global The application global object.
- */
-function _registerGlobalErrors(errors, global) {
-  global.Errors = errors;
-}
+const redirect = {};
 
 /**
  * Builds an error function.
@@ -68,7 +60,7 @@ function buildError(options) {
  * @param {Function} next The following middleware.
  */
 function _notFound(req, res, next) {
-  next(new Errors.NotFoundError());
+  next(new errors.NotFoundError());
 }
 
 /**
@@ -82,7 +74,7 @@ function _notFound(req, res, next) {
 function _customErrorHandler(err, req, res, next) { // eslint-disable-line
   err = err || {};
 
-  res.status(err.code || HTTP_CODE_ERR);
+  res.status(err.code || HTTP_CODE_INTERNAL_ERR);
 
   if (!err.code) {
     /* Log the error */
@@ -99,11 +91,11 @@ function _customErrorHandler(err, req, res, next) { // eslint-disable-line
   }
 
   /* If it's a 404 render the lost page */
-  if (err.status === HTTP_CODE_NOTFOUND) {
-    return res.redirect(NOT_FOUND_REDIRECT + encodeURIComponent(req.originalUrl));
+  if (err.code === HTTP_CODE_NOTFOUND_ERR) {
+    return res.redirect(redirect.lost + encodeURIComponent(req.originalUrl));
   }
 
-  res.redirect(ERR_REDIRECT);
+  res.redirect(redirect.error);
 }
 
 module.exports = {
@@ -111,28 +103,55 @@ module.exports = {
   /**
    * Initialize and configure the errors component
    * 
-   * @param {Array} _errors The custom errors configuration array file.
-   * @param {Object} global The application global object. If true will store
-   * the custom errors in global.Errors.
+   * @param {Object} cfg The errors configuration object.
+   * @param {Array} cfg.errors The custom errors configuration array file.
+   * @param {Object} cfg.redirect The default redirect urls.
    * 
    * @returns The errors component.
    */
-  configure: function configure(_errors, global) {
-    if (!_errors) {
+
+  configure: function configure(cfg) {
+    if (!cfg || !cfg.errors || !cfg.redirect) {
       throw new Error('Missing errors configuration file');
+    }
+
+    /**
+     * Register each redirection url.
+     */
+    for (var url in cfg.redirect) {
+      redirect[url] = cfg.redirect[url];
     }
 
     /**
      * Builds each custom error.
      */
-    _errors.forEach((options) => {
+    cfg.errors.forEach((options) => {
       let error = buildError(options);
       errors[options.name] = error;
     });
 
-    if (global) {
-      _registerGlobalErrors(errors, global);
+    config.initialized = true;
+
+    return this;
+  },
+
+  /**
+   * Register the errors list in the application global object.
+   * 
+   * @param {Object} global The application global object. If true will store
+   * @param {String} name An optional name to register in the globals object.
+   * Defaults to Errors.
+   * 
+   * @returns The errors component.
+   */
+  register: function register(global, name) {
+    if (!config.initialized) {
+      throw new Error('Configure this package before usage');
     }
+
+    name = name || GLOBAL_NAME_ATTRIBUTE;
+
+    global[name] = errors;
 
     return this;
   },
@@ -141,14 +160,28 @@ module.exports = {
    * Bind the errors component to the express aplication.
    * 
    * @param {Express} app The express application.
+   * @returns The errors component.
    */
   bind: function bind(app) {
-    if (!errors) {
+    if (!config.initialized) {
       throw new Error('Configure this package before usage');
     }
 
     app.use(_notFound);
     app.use(_customErrorHandler);
+
+    return this;
+  },
+
+  /**
+   * @returns Every registered error.
+   */
+  list: function list() {
+    if (!config.initialized) {
+      throw new Error('Configure this package before usage');
+    }
+
+    return errors;
   }
 
 };

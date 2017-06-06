@@ -85,7 +85,9 @@ configs.database().then(() => {
   routes(app, configs.routes);
 
   /* Register route error handlers */
-  errors.configure(configs.errors, global).bind(app);
+  errors.configure(configs.errors)
+    .register(global)
+    .bind(app);
 
   /* Initalize server */
   var server;
