@@ -5,6 +5,12 @@
     "config": false,
     "panic": false,
     "__basedir": false,
-    "__serverdir": false
+    "__serverdir": false,
+
+    "NotFoundError": false,
+    "BadRequestError": false,
+    "AccessLevelError": false,
+    "MongoDuplicatedError": false,
+    "MissingPreconditionError": false
   }
 }
