@@ -13,27 +13,6 @@ const NL = '\n';
 var errors;
 
 /**
- * Initialize and configure the erros component
- * 
- * @param {Object} _errors The custom errors object.
- * @param {Object} global The application global object.
- * @returns 
- */
-function configure(_errors) {
-  if (!_errors) {
-    throw new Error('Missing errors configuration file');
-  }
-
-  if (!global) {
-    throw new Error('Missing application global');
-  }
-
-  errors = Object.assign({}, _errors);
-
-  return component;
-}
-
-/**
  * Catches 404s and forwards them to the error handler.
  * 
  * @param {Object} req The request object. 
@@ -79,23 +58,36 @@ function _customErrorHandler(err, req, res, next) { // eslint-disable-line
   res.redirect(ERR_REDIRECT);
 }
 
-/**
- * Bind the errors component to the express aplication.
- * 
- * @param {any} app The express application.
- */
-function bind(app) {
-  if (!errors) {
-    throw new Error('Configure this package before usage');
+module.exports = {
+
+  /**
+   * Initialize and configure the errors component
+   * 
+   * @param {Object} _errors The custom errors object.
+   * @returns The errors component.
+   */
+  configure: function configure(_errors) {
+    if (!_errors) {
+      throw new Error('Missing errors configuration file');
+    }
+
+    errors = Object.assign({}, _errors);
+
+    return this;
+  },
+
+  /**
+   * Bind the errors component to the express aplication.
+   * 
+   * @param {Express} app The express application.
+   */
+  bind: function bind(app) {
+    if (!errors) {
+      throw new Error('Configure this package before usage');
+    }
+
+    app.use(_notFound);
+    app.use(_customErrorHandler);
   }
 
-  app.use(_notFound);
-  app.use(_customErrorHandler);
-}
-
-var component = {
-  configure,
-  bind
 };
-
-module.exports = component;
