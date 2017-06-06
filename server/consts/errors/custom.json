@@ -21,6 +21,11 @@
     "name": "MongoDuplicatedError",
     "message": "This document is already registered.",
     "code": "409"
-  }
+  },
 
+  "NOT_FOUND" : {
+     "name": "NotFoundError",
+    "message": "The HTTP route was not found.",
+    "code": "404"
+  }
 }
