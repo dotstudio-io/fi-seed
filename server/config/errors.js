@@ -37,11 +37,12 @@ function buildError(options) {
     throw new Error('Malformed custom error');
   }
 
-  var error = new Function();
-
-  error.name = options.name;
-  error.message = error.arguments[0] || options.message;
-  error.stack = (new Error()).stack;
+  var error = new Function(
+    `return function ${options.name}(message) { 
+      this.name = "${options.name}";
+      this.message = message || "${options.message}";
+      this.stack = (new Error()).stack;
+    };`)();
 
   // Chain object constructor
   error.prototype = Object.create(Error.prototype);
@@ -59,9 +60,12 @@ module.exports = (global) => {
   /**
    * Builds each custom error.
    */
-  CONSTS.ERRORS.CUSTOM.forEach((error) => {
-    errors[error.name] = buildError(error);
-  });
+
+  for (var name in CONSTS.ERRORS.CUSTOM) {
+    let options = CONSTS.ERRORS.CUSTOM[name];
+    let error = buildError(options);
+    errors[options.name] = error;
+  }
 
   if (global) {
     _registerGlobalErrors(errors, global);
