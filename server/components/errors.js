@@ -7,7 +7,6 @@ const HTTP_CODE_ERR = CONSTS.CODES.HTTP.ERROR;
 
 const ASSETS_OR_API_REGEXP = /^\/(assets|api)\//i;
 const NOT_FOUND_REDIRECT = '/lost?url=';
-const ERR_NOT_FOUND = 'NotFound';
 const ERR_REDIRECT = '/error?err=';
 const NL = '\n';
 
@@ -37,26 +36,21 @@ function configure(_errors) {
 /**
  * Catches 404s and forwards them to the error handler.
  * 
- * @param {any} req 
- * @param {any} res 
- * @param {any} next 
+ * @param {Object} req The request object. 
+ * @param {Object} res The response object.
+ * @param {Function} next The following middleware.
  */
 function _notFound(req, res, next) {
-  var err = new Error(ERR_NOT_FOUND);
-
-  err.status = HTTP_CODE_NOTFOUND;
-
-  next(err);
+  next(new NotFoundError());
 }
 
 /**
+ * Set proper HTTP status code for custom errors. 
  * 
- * 
- * @param {any} err 
- * @param {any} req 
- * @param {any} res 
- * @param {any} next 
- * @returns 
+ * @param {Error} err The generated error.
+ * @param {Object} req The request object. 
+ * @param {Object} res The response object.
+ * @param {Function} next The following middleware. Must be declared to access error
  */
 function _customErrorHandler(err, req, res, next) { // eslint-disable-line
   err = err || {};
