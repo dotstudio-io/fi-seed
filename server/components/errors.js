@@ -20,7 +20,7 @@ var errors;
  * @param {Function} next The following middleware.
  */
 function _notFound(req, res, next) {
-  next(new NotFoundError());
+  next(new Errors.NotFoundError());
 }
 
 /**
@@ -58,7 +58,7 @@ function _customErrorHandler(err, req, res, next) { // eslint-disable-line
   res.redirect(ERR_REDIRECT);
 }
 
-module.exports = {
+module.exports = { 
 
   /**
    * Initialize and configure the errors component

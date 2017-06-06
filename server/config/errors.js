@@ -20,9 +20,7 @@ const errors = {};
  * @param {any} global The application global object.
  */
 function _registerGlobalErrors(errors, global) {
-  for (var error in errors) {
-    global[error] = errors[error];
-  }
+  global.Errors = errors;
 }
 
 /**
@@ -40,6 +38,7 @@ function buildError(options) {
   var error = new Function(
     `return function ${options.name}(message) { 
       this.name = "${options.name}";
+      this.code = "${options.code}";
       this.message = message || "${options.message}";
       this.stack = (new Error()).stack;
     };`)();
