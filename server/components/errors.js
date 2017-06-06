@@ -5,60 +5,103 @@ const CONSTS = require('fi-consts');
 const HTTP_CODE_NOTFOUND = CONSTS.CODES.HTTP.NOT_FOUND;
 const HTTP_CODE_ERR = CONSTS.CODES.HTTP.ERROR;
 
-const DEVELOPMENT = process.NODE_ENV === 'development';
 const ASSETS_OR_API_REGEXP = /^\/(assets|api)\//i;
 const NOT_FOUND_REDIRECT = '/lost?url=';
 const ERR_NOT_FOUND = 'NotFound';
 const ERR_REDIRECT = '/error?err=';
 const NL = '\n';
 
-const DIR_OPTS = {
-  colors: true,
-  depth: 2
-};
+var errors;
 
-module.exports = (app) => {
+/**
+ * Initialize and configure the erros component
+ * 
+ * @param {Object} _errors The custom errors object.
+ * @param {Object} global The application global object.
+ * @returns 
+ */
+function configure(_errors) {
+  if (!_errors) {
+    throw new Error('Missing errors configuration file');
+  }
 
-  /**
-   * Catches 404s and forwards them to the error handler.
-   */
-  app.use((req, res, next) => {
-    var err = new Error(ERR_NOT_FOUND);
+  if (!global) {
+    throw new Error('Missing application global');
+  }
 
-    err.status = HTTP_CODE_NOTFOUND;
+  errors = Object.assign({}, _errors);
 
-    next(err);
-  });
+  return component;
+}
 
-  /**
-   * Error handler.
-   */
-  app.use((err, req, res, next) => { // eslint-disable-line
-    res.status(err.status || HTTP_CODE_ERR);
+/**
+ * Catches 404s and forwards them to the error handler.
+ * 
+ * @param {any} req 
+ * @param {any} res 
+ * @param {any} next 
+ */
+function _notFound(req, res, next) {
+  var err = new Error(ERR_NOT_FOUND);
 
+  err.status = HTTP_CODE_NOTFOUND;
+
+  next(err);
+}
+
+/**
+ * 
+ * 
+ * @param {any} err 
+ * @param {any} req 
+ * @param {any} res 
+ * @param {any} next 
+ * @returns 
+ */
+function _customErrorHandler(err, req, res, next) { // eslint-disable-line
+  err = err || {};
+
+  res.status(err.code || HTTP_CODE_ERR);
+
+  if (!err.code) {
     /* Log the error */
     console.log(NL);
     console.log(new Date());
-    console.dir(err, DIR_OPTS);
-
-    if (DEVELOPMENT) {
-      console.dir(err.stack, DIR_OPTS);
-    }
-
+    console.error(err.stack);
     console.log(NL);
+  }
 
-    /* If the request is an AJAX call or is for an asset or API method just end
-     * the response */
-    if (req.xhr || ASSETS_OR_API_REGEXP.test(req.path)) {
-      return res.end();
-    }
+  /* If the request is an AJAX call or is for an asset or API method just end
+   * the response */
+  if (req.xhr || ASSETS_OR_API_REGEXP.test(req.path)) {
+    return res.end();
+  }
 
-    /* If it's a 404 render the lost page */
-    if (err.status === HTTP_CODE_NOTFOUND) {
-      return res.redirect(NOT_FOUND_REDIRECT + encodeURIComponent(req.originalUrl));
-    }
+  /* If it's a 404 render the lost page */
+  if (err.status === HTTP_CODE_NOTFOUND) {
+    return res.redirect(NOT_FOUND_REDIRECT + encodeURIComponent(req.originalUrl));
+  }
 
-    res.redirect(ERR_REDIRECT + encodeURIComponent(err));
-  });
+  res.redirect(ERR_REDIRECT);
+}
 
+/**
+ * Bind the errors component to the express aplication.
+ * 
+ * @param {any} app The express application.
+ */
+function bind(app) {
+  if (!errors) {
+    throw new Error('Configure this package before usage');
+  }
+
+  app.use(_notFound);
+  app.use(_customErrorHandler);
+}
+
+var component = {
+  configure,
+  bind
 };
+
+module.exports = component;
