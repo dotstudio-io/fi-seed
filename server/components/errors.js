@@ -10,7 +10,55 @@ const NOT_FOUND_REDIRECT = '/lost?url=';
 const ERR_REDIRECT = '/error?err=';
 const NL = '\n';
 
-var errors;
+/**
+ * Every custom error function
+ */
+const errors = {};
+
+/**
+ * Register every application registered error for global usage.
+ * 
+ * @param {any} global The application global object.
+ */
+
+/**
+ * Registers every error function in the application global object.
+ * 
+ * @param {any} errors The custom errors object.
+ * @param {any} global The application global object.
+ */
+function _registerGlobalErrors(errors, global) {
+  global.Errors = errors;
+}
+
+/**
+ * Builds an error function.
+ * 
+ * @param {Object} options The error definition.
+ * @returns An error function.
+ */
+function buildError(options) {
+  if (!options || !options.name || !options.message || !options.code) {
+    throw new Error('Malformed custom error');
+  }
+
+  /**
+   * Create function dinamically
+   */
+  var error = new Function(
+    `return function ${options.name}(message) { 
+      this.name = "${options.name}";
+      this.code = "${options.code}";
+      this.message = message || "${options.message}";
+      this.stack = (new Error()).stack;
+    };`)();
+
+  // Chain object constructor
+  error.prototype = Object.create(Error.prototype);
+  error.prototype.constructor = error;
+
+  return error;
+}
 
 /**
  * Catches 404s and forwards them to the error handler.
@@ -58,20 +106,33 @@ function _customErrorHandler(err, req, res, next) { // eslint-disable-line
   res.redirect(ERR_REDIRECT);
 }
 
-module.exports = { 
+module.exports = {
 
   /**
    * Initialize and configure the errors component
    * 
-   * @param {Object} _errors The custom errors object.
+   * @param {Array} _errors The custom errors configuration array file.
+   * @param {Object} global The application global object. If true will store
+   * the custom errors in global.Errors.
+   * 
    * @returns The errors component.
    */
-  configure: function configure(_errors) {
+  configure: function configure(_errors, global) {
     if (!_errors) {
       throw new Error('Missing errors configuration file');
     }
 
-    errors = Object.assign({}, _errors);
+    /**
+     * Builds each custom error.
+     */
+    _errors.forEach((options) => {
+      let error = buildError(options);
+      errors[options.name] = error;
+    });
+
+    if (global) {
+      _registerGlobalErrors(errors, global);
+    }
 
     return this;
   },

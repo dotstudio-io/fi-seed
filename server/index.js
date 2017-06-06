@@ -54,7 +54,7 @@ app.locals.name = PACKAGE.name;
 
 app.set('view engine', configs.views.engine);
 app.set('views', configs.views.basedir);
-app.set('trust proxy', 1); 
+app.set('trust proxy', 1);
 
 /**** Settings ****/
 app.use(compression());
@@ -85,7 +85,7 @@ configs.database().then(() => {
   routes(app, configs.routes);
 
   /* Register route error handlers */
-  errors.configure(configs.errors(global)).bind(app);
+  errors.configure(configs.errors, global).bind(app);
 
   /* Initalize server */
   var server;

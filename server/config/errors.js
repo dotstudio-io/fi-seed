@@ -1,74 +1,38 @@
 'use strict';
 
-const CONSTS = require('fi-consts');
-
 /**
- * Every custom error function
+ * Custom application errors
  */
-const errors = {};
+module.exports = [
 
-/**
- * Register every application registered error for global usage.
- * 
- * @param {any} global The application global object.
- */
+  {
+    name: 'BadRequestError',
+    message: 'Query malformed.',
+    code: 400
+  },
 
-/**
- * Registers every error function in the application global object.
- * 
- * @param {any} errors The custom errors object.
- * @param {any} global The application global object.
- */
-function _registerGlobalErrors(errors, global) {
-  global.Errors = errors;
-}
+  {
+    name: 'AccessLevelError',
+    message: 'Invalid access level for this operation.',
+    code: 403
+  },
 
-/**
- * Builds an error function.
- * 
- * @param {Object} options The error definition.
- * @returns An error function.
- */
+  {
+    name: 'MissingPreconditionError',
+    message: 'There is a failed precondition with this request.',
+    code: 412
+  },
 
-function buildError(options) {
-  if (!options || !options.name || !options.message || !options.code) {
-    throw new Error('Malformed custom error');
+  {
+    name: 'MongoDuplicatedError',
+    message: 'This document is already registered.',
+    code: 409
+  },
+
+  {
+    name: 'NotFoundError',
+    message: 'The HTTP route was not found.',
+    code: 404
   }
 
-  var error = new Function(
-    `return function ${options.name}(message) { 
-      this.name = "${options.name}";
-      this.code = "${options.code}";
-      this.message = message || "${options.message}";
-      this.stack = (new Error()).stack;
-    };`)();
-
-  // Chain object constructor
-  error.prototype = Object.create(Error.prototype);
-  error.prototype.constructor = error;
-
-  return error;
-}
-
-/**
- * Returns the builded custom errors.
- * If the global object is passed, every error is registered inside.
- */
-module.exports = (global) => {
-
-  /**
-   * Builds each custom error.
-   */
-
-  for (var name in CONSTS.ERRORS.CUSTOM) {
-    let options = CONSTS.ERRORS.CUSTOM[name];
-    let error = buildError(options);
-    errors[options.name] = error;
-  }
-
-  if (global) {
-    _registerGlobalErrors(errors, global);
-  }
-
-  return errors;
-};
+];
