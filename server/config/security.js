@@ -7,7 +7,8 @@ module.exports = {
   // p3p: 'ABCDEF',
 
   csrf: {
-    angular: true
+    header: '6nUJKF-fN1sy-JPbez',
+    cookie: 'BvUR4IgEfeAp0WR2'
   },
 
   xframe: 'DENY',
