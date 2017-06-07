@@ -38,11 +38,10 @@ describe('FI-SEED API USERS as USER', () => {
         url: '/api/users/sign-in',
         body: mock.user,
         json: true
-      }, (err, res, body) => {
+      }, (err, res) => {
         expect(err).to.be.null;
         expect(res.statusCode).to.be.a('number');
-        expect(res.statusCode).to.equal(204);
-        expect(body).to.to.be.empty;
+        expect(res.statusCode).to.equal(200);
 
         done();
       });

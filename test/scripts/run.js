@@ -37,7 +37,7 @@ utils.database(mongoose, () => {
 
     req = req.defaults({
       headers: {
-        'XSRF-TOKEN': utils.parseCSRF(res),
+        '6nUJKF-fN1sy-JPbez': utils.parseCSRF(res),
         'origin': config.url + config.port
       }
     });
