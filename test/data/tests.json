@@ -16,5 +16,19 @@
         }
       }
     }
+  },
+
+  "negative": {
+
+    "roles": {
+
+      "user": {
+        
+        "api": {
+
+          "users": ["index"]
+        }
+      }
+    }
   }
 }
