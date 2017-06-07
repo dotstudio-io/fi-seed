@@ -24,6 +24,13 @@ const PARAGRAPH = {
 module.exports = (config) => {
 
   /**
+   * @returns A random mailinator email. 
+   */
+  function randomEmail() {
+    return randomAlpha() + '@mailinator.com';
+  }
+
+  /**
    * Recicle data from a mock object
    * 
    * @param {any} mock 
@@ -39,7 +46,7 @@ module.exports = (config) => {
 
     var REPLACER = {
       rut: randomRut(),
-      email: randomAlpha() + '@mailinator.com',
+      email: randomEmail(),
       code: randomNumber()
     };
 
@@ -67,13 +74,13 @@ module.exports = (config) => {
     return mocks;
   }
 
- /**
-  * Return a random person name. 
-  * 
-  * @param {any} gender 
-  * @param {any} middle 
-  * @returns 
-  */
+  /**
+   * Return a random person name. 
+   * 
+   * @param {any} gender 
+   * @param {any} middle 
+   * @returns 
+   */
   function randomName(gender, middle) {
 
     return chance.name({
@@ -102,12 +109,12 @@ module.exports = (config) => {
     return chance.word(WORD);
   }
 
-/**
- * Return a random sentence
- * 
- * @param {any} words 
- * @returns 
- */
+  /**
+   * Return a random sentence
+   * 
+   * @param {any} words 
+   * @returns 
+   */
   function randomSentence(words) {
     SENTENCE.words = words || WORD.words;
     return chance.sentence(SENTENCE);
@@ -157,7 +164,7 @@ module.exports = (config) => {
 
     return _rut;
   }
-  
+
   /**
    * Creates a new read stream of the file for each call and returns it
    * in formData format.
@@ -177,13 +184,13 @@ module.exports = (config) => {
     return formData;
 
   }
- 
- /**
-  * Extracts CSRF token from a HTTP response. 
-  * 
-  * @param {any} res 
-  * @returns 
-  */
+
+  /**
+   * Extracts CSRF token from a HTTP response. 
+   * 
+   * @param {any} res 
+   * @returns 
+   */
   function parseCSRF(res) {
     let csrf;
 
@@ -200,7 +207,7 @@ module.exports = (config) => {
    * 
    * @param {*} mongoose 
    * @param {*} cb 
-   */  
+   */
   function database(mongoose, cb) {
     const db = mongoose.connect('mongodb://' + config.host + '/' + config.database).connection;
 
@@ -214,12 +221,12 @@ module.exports = (config) => {
     });
   }
 
-   /**
-    * Creates a new Date object from every stringified date property in an object 
-    * 
-    * @param {any} _object 
-    * @returns 
-    */
+  /**
+   * Creates a new Date object from every stringified date property in an object 
+   * 
+   * @param {any} _object 
+   * @returns 
+   */
   function formatDates(_object) {
     var date = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/;
     var object = Object.assign({}, _object);
@@ -236,13 +243,13 @@ module.exports = (config) => {
     return object;
   }
 
-   /**
-    * Concatenate tests paths from a JSON object
-    * 
-    * @param {any} root 
-    * @param {any} tests 
-    * @returns 
-    */
+  /**
+   * Concatenate tests paths from a JSON object
+   * 
+   * @param {any} root 
+   * @param {any} tests 
+   * @returns 
+   */
   function expandTestsJSON(root, tests) {
     var testFiles = [];
 
@@ -319,7 +326,7 @@ module.exports = (config) => {
         file: (root, stats) => {
           var filename = stats.name.replace('.js', '');
           var filepath = path.join(root, stats.name);
-          var file = require(filepath)(config, this);
+          var file = require(filepath)(this);
 
           mock[filename] = file;
 
@@ -344,16 +351,17 @@ module.exports = (config) => {
     randomSentence,
     randomNumber,
     randomAlpha,
+    randomEmail,
     randomName,
     randomCity,
     randomRut,
-    
+
     // Test format utils
     formDataFile,
     recicleMock,
     formatDates,
     parseCSRF,
-    
+
     // Bootstraping functions
     loadMockData,
     loadSchemas,
