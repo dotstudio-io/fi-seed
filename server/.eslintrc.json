@@ -5,7 +5,6 @@
     "config": false,
     "panic": false,
     "__basedir": false,
-    "__serverdir": false,
-    "Errors" :false
+    "__serverdir": false
   }
 }

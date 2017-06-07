@@ -14,6 +14,7 @@ const favicon = require('serve-favicon');
 const security = require('fi-security');
 const schemas = require('fi-schemas');
 const mongoose = require('mongoose');
+const errors = require('fi-errors');
 const CONSTS = require('fi-consts');
 const routes = require('fi-routes');
 const express = require('express');
@@ -25,12 +26,12 @@ const path = require('path');
 
 /* Load constants before other components */
 CONSTS.load(config('consts'));
+errors.configure(config('errors'));
 
 /* Load components */
 const serverUtils = component('server-utils');
 const healthCheck = component('health-check');
 const redirecter = component('redirecter');
-const errors = component('errors');
 
 /**** Application ****/
 const app = express();
@@ -85,9 +86,7 @@ configs.database().then(() => {
   routes(app, configs.routes);
 
   /* Register route error handlers */
-  errors.configure(configs.errors)
-    .register(global)
-    .bind(app);
+  errors.bind(app);
 
   /* Initalize server */
   var server;

@@ -1,14 +1,23 @@
 'use strict';
 
 const CONSTS = require('fi-consts');
+const errors = require('fi-errors');
 const bcrypt = require('bcrypt');
 const is = require('fi-is');
 
-const HTTP_CODE_UNAUTHORIZED = CONSTS.CODES.HTTP.UNAUTHORIZED;
+const MONGO_CODE_DUPLICATED = CONSTS.CODES.MONGO.DUPLICATED;
 const HTTP_CODE_NO_CONTENT = CONSTS.CODES.HTTP.NO_CONTENT;
 const HTTP_CODE_CREATED = CONSTS.CODES.HTTP.CREATED;
 
 const DELAY = 1000;
+
+const {
+
+  BadRequestError,
+  UnauthorizedError,
+  MongoDuplicatedError
+
+} = errors.list();
 
 module.exports = (router, db) => {
 
@@ -23,18 +32,26 @@ module.exports = (router, db) => {
 
       .then((user) => {
         if (!user) {
-          throw new Errors.BadRequestError();
+          throw new BadRequestError();
         }
 
         res.status(HTTP_CODE_CREATED).json(user._id);
       })
 
-      .catch(next);
+      .catch((err) => {
+       /* Check for duplicated entry */
+        if (err.code && err.code === MONGO_CODE_DUPLICATED) {
+          return next(new MongoDuplicatedError());
+        }
+
+        next(err);
+
+      });
 
   });
 
   /**
-   * Logs a user in.
+   * Logs a user in. 
    */
   router.post('/sign-in', (req, res, next) => {
 
@@ -42,7 +59,7 @@ module.exports = (router, db) => {
     delete req.session.user;
 
     if (is.not.email(req.body.email)) {
-      throw new Errors.BadRequestError();
+      throw new BadRequestError();
     }
 
     User.findByEmail(req.body.email)
@@ -66,11 +83,11 @@ module.exports = (router, db) => {
 
       .catch(next);
 
-  }, (req, res) => {
+  }, () => {
 
     /* Respond unauthorized with a delay on wrong username or password */
     setTimeout(() => {
-      res.sendStatus(HTTP_CODE_UNAUTHORIZED);
+      throw new UnauthorizedError();
     }, DELAY);
 
   });

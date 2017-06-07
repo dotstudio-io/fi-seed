@@ -1,9 +1,14 @@
 'use strict';
 
 const CONSTS = require('fi-consts');
+const errors = require('fi-errors');
 const is = require('fi-is');
 
-const HTTP_CODE_BAD_REQUEST = CONSTS.CODES.HTTP.BAD_REQUEST;
+const {
+
+  BadRequestError
+
+} = errors.list();
 
 module.exports = (router) => {
 
@@ -14,7 +19,7 @@ module.exports = (router) => {
    * @returns {Boolean}
    */
   function isConstsFolder(dirname) {
-  
+
     // To be a const file every value must be an string.
     for (let key in dirname) {
       if (!is.string(dirname[key])) {
@@ -75,7 +80,7 @@ module.exports = (router) => {
 
     // Query malformed
     if (is.not.array(req.query.consts) || is.empty(req.query.consts)) {
-      return res.sendStatus(HTTP_CODE_BAD_REQUEST);
+      throw new BadRequestError();
     }
 
     var results = {};
