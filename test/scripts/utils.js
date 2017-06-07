@@ -9,6 +9,9 @@ const fs = require('fs');
 const Chance = require('chance');
 const chance = new Chance();
 
+const UNDER = '_';
+const JS = '.js';
+
 const WORD = {
   length: 8
 };
@@ -299,11 +302,16 @@ module.exports = (config) => {
     walk.walkSync(config.paths.schemas, {
       listeners: {
         file: (root, stats) => {
-          var filename = stats.name.replace('.js', '');
-          var filepath = path.join(root, stats.name);
-          let schema = require(filepath).apply(this, [mongoose.Schema]);
+          var isPartial = is.startWith(stats.name, UNDER);
+          var isJs = path.extname(stats.name) === JS;
 
-          mongoose.model(filename, schema);
+          if (!isPartial && isJs) {
+            var filename = stats.name.replace('.js', '');
+            var filepath = path.join(root, stats.name);
+            let schema = require(filepath).apply(this, [mongoose.Schema]);
+
+            mongoose.model(filename, schema);
+          }
         },
         errors: (root, stats) => {
           console.error(root, stats);

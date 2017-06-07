@@ -12,7 +12,7 @@ const path = require('path');
 CONSTS.load(config('consts'));
 
 const PORT = config('server.js').port;
-const URL = 'http://localhost:';
+const URL = 'https://localhost:';
 const DATABASE = 'fi-seed';
 const HOST = 'localhost';
 
