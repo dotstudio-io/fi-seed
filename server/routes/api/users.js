@@ -5,7 +5,6 @@ const errors = require('fi-errors');
 const bcrypt = require('bcrypt');
 const is = require('fi-is');
 
-const MONGO_CODE_DUPLICATED = CONSTS.CODES.MONGO.DUPLICATED;
 const HTTP_CODE_NO_CONTENT = CONSTS.CODES.HTTP.NO_CONTENT;
 const HTTP_CODE_CREATED = CONSTS.CODES.HTTP.CREATED;
 
@@ -14,10 +13,9 @@ const DELAY = 1000;
 const {
 
   BadRequestError,
-  UnauthorizedError,
-  MongoDuplicatedError
+  UnauthorizedError
 
-} = errors.list();
+} = errors;
 
 module.exports = (router, db) => {
 
@@ -38,15 +36,7 @@ module.exports = (router, db) => {
         res.status(HTTP_CODE_CREATED).json(user._id);
       })
 
-      .catch((err) => {
-       /* Check for duplicated entry */
-        if (err.code && err.code === MONGO_CODE_DUPLICATED) {
-          return next(new MongoDuplicatedError());
-        }
-
-        next(err);
-
-      });
+      .catch(next);
 
   });
 

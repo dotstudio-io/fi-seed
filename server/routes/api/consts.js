@@ -8,7 +8,7 @@ const {
 
   BadRequestError
 
-} = errors.list();
+} = errors;
 
 module.exports = (router) => {
 

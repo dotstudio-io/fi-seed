@@ -26,7 +26,7 @@ const path = require('path');
 
 /* Load constants before other components */
 CONSTS.load(config('consts'));
-errors.configure(config('errors'));
+errors.config(config('errors'));
 
 /* Load components */
 const serverUtils = component('server-utils');
@@ -86,7 +86,8 @@ configs.database().then(() => {
   routes(app, configs.routes);
 
   /* Register route error handlers */
-  errors.bind(app);
+  app.use(errors.notFoundMiddleware);
+  app.use(errors.handler);
 
   /* Initalize server */
   var server;

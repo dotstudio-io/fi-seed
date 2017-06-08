@@ -39,7 +39,7 @@
     "express-session": "^1.13.0",
     "fi-auth": "^1.0.9",
     "fi-consts": "^1.0.0",
-    "fi-errors": "^1.0.1",
+    "fi-errors": "^2.0.0",
     "fi-gridfs": "^1.1.1",
     "fi-is": "^1.1.1",
     "fi-routes": "^1.0.3",
