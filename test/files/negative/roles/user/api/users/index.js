@@ -2,7 +2,7 @@
 
 describe('[NEGATIVE] FI-SEED API USERS as USER', () => {
   describe('[POST /users]', () => {
-    it('should respond a 201 status code and the created user ID', (done) => {
+    it('should respond a 409 error status code', (done) => {
       req.post({
         url: '/api/users',
         body: mock.user,
