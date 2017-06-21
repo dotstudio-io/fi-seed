@@ -23,5 +23,12 @@ module.exports = {
 
     // Handle errors with code 11000 with MongoDuplicatedError
     '11000': 'MongoDuplicatedError'
-  }
+  },
+  
+  // Whether to use console.log, a custom debug method or none
+  debug: true,
+
+  // Condition to debug an error
+  shouldDebug: () => true
+
 };
