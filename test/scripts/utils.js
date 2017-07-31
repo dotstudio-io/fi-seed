@@ -27,7 +27,7 @@ const PARAGRAPH = {
 module.exports = (config) => {
 
   /**
-   * @returns A random mailinator email. 
+   * @returns A random mailinator email.
    */
   function randomEmail() {
     return randomAlpha() + '@mailinator.com';
@@ -35,10 +35,10 @@ module.exports = (config) => {
 
   /**
    * Recicle data from a mock object
-   * 
-   * @param {any} mock 
-   * @param {any} many 
-   * @returns 
+   *
+   * @param {any} mock
+   * @param {any} many
+   * @returns
    */
   function recicleMock(mock, many) {
     if (is.number(many) && many > 0) {
@@ -62,10 +62,10 @@ module.exports = (config) => {
 
   /**
    * Perform a mock recicle several times
-   * 
-   * @param {any} mock 
-   * @param {any} arraySize 
-   * @returns 
+   *
+   * @param {any} mock
+   * @param {any} arraySize
+   * @returns
    */
   function createMultipleMocks(mock, arraySize) {
     var mocks = [];
@@ -78,11 +78,11 @@ module.exports = (config) => {
   }
 
   /**
-   * Return a random person name. 
-   * 
-   * @param {any} gender 
-   * @param {any} middle 
-   * @returns 
+   * Return a random person name.
+   *
+   * @param {any} gender
+   * @param {any} middle
+   * @returns
    */
   function randomName(gender, middle) {
 
@@ -94,8 +94,8 @@ module.exports = (config) => {
 
   /**
    * Return a random city name.
-   * 
-   * @returns 
+   *
+   * @returns
    */
   function randomCity() {
     return chance.city();
@@ -103,9 +103,9 @@ module.exports = (config) => {
 
   /**
    * Return a random word.
-   * 
-   * @param {any} length 
-   * @returns 
+   *
+   * @param {any} length
+   * @returns
    */
   function randomAlpha(length) {
     WORD.length = length || WORD.length;
@@ -114,9 +114,9 @@ module.exports = (config) => {
 
   /**
    * Return a random sentence
-   * 
-   * @param {any} words 
-   * @returns 
+   *
+   * @param {any} words
+   * @returns
    */
   function randomSentence(words) {
     SENTENCE.words = words || WORD.words;
@@ -124,10 +124,10 @@ module.exports = (config) => {
   }
 
   /**
-   *  Return a random paragraph 
-   * 
-   * @param {any} sentences 
-   * @returns 
+   *  Return a random paragraph
+   *
+   * @param {any} sentences
+   * @returns
    */
   function randomParagraph(sentences) {
     PARAGRAPH.sentences = sentences || WORD.sentences;
@@ -135,11 +135,11 @@ module.exports = (config) => {
   }
 
   /**
-   * 
-   * 
-   * @param {any} max 
-   * @param {any} min 
-   * @returns 
+   *
+   *
+   * @param {any} max
+   * @param {any} min
+   * @returns
    */
   function randomNumber(max, min) {
     // True / False Random
@@ -156,8 +156,8 @@ module.exports = (config) => {
 
   /**
    * Generates a valid random rut
-   * 
-   * @returns 
+   *
+   * @returns
    */
   function randomRut() {
     var _rut = randomNumber(10000000, 1000000);
@@ -171,9 +171,9 @@ module.exports = (config) => {
   /**
    * Creates a new read stream of the file for each call and returns it
    * in formData format.
-   * 
-   * @param {any} file 
-   * @returns 
+   *
+   * @param {any} file
+   * @returns
    */
   function formDataFile(file) {
 
@@ -189,10 +189,10 @@ module.exports = (config) => {
   }
 
   /**
-   * Extracts CSRF token from a HTTP response. 
-   * 
-   * @param {any} res 
-   * @returns 
+   * Extracts CSRF token from a HTTP response.
+   *
+   * @param {any} res
+   * @returns
    */
   function parseCSRF(res) {
     let csrf;
@@ -207,28 +207,26 @@ module.exports = (config) => {
 
   /**
    * Connects to mongoose test database
-   * 
-   * @param {*} mongoose 
-   * @param {*} cb 
+   *
+   * @param {*} mongoose
+   * @param {*} cb
    */
   function database(mongoose, cb) {
-    const db = mongoose.connect('mongodb://' + config.host + '/' + config.database).connection;
+    mongoose.Promise = Promise;
 
-    db.once('open', () => {
-      cb();
-    });
-
-    db.on('error', (err) => {
+    mongoose.connect('mongodb://' + config.host + '/' + config.database, {
+      useMongoClient: true
+    }).then(() => cb).catch(err => {
       console.log(err);
       process.exit(1);
     });
   }
 
   /**
-   * Creates a new Date object from every stringified date property in an object 
-   * 
-   * @param {any} _object 
-   * @returns 
+   * Creates a new Date object from every stringified date property in an object
+   *
+   * @param {any} _object
+   * @returns
    */
   function formatDates(_object) {
     var date = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/;
@@ -248,10 +246,10 @@ module.exports = (config) => {
 
   /**
    * Concatenate tests paths from a JSON object
-   * 
-   * @param {any} root 
-   * @param {any} tests 
-   * @returns 
+   *
+   * @param {any} root
+   * @param {any} tests
+   * @returns
    */
   function expandTestsJSON(root, tests) {
     var testFiles = [];
@@ -279,8 +277,8 @@ module.exports = (config) => {
 
   /**
    * Loads test files into mocha
-   * 
-   * @param {any} mocha 
+   *
+   * @param {any} mocha
    */
   function loadTests(mocha) {
     var tests = require(config.data.tests);
@@ -293,9 +291,9 @@ module.exports = (config) => {
   }
 
   /**
-   * Loads schema files into mongoose 
-   * 
-   * @param {any} mongoose 
+   * Loads schema files into mongoose
+   *
+   * @param {any} mongoose
    */
   function loadSchemas(mongoose) {
 
@@ -323,8 +321,8 @@ module.exports = (config) => {
   }
 
   /**
-   * Loads test mock data from a js file 
-   * 
+   * Loads test mock data from a js file
+   *
    */
   function loadMockData() {
     var mock = {};
