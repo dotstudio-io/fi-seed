@@ -1,62 +1,62 @@
 .flashes {
   pointer-events: none;
-  display       : block;
-  position      : fixed;
-  z-index       : 1110;
-  width         : 100%;
-  bottom        : 0;
-  left          : 0;
+  display: block;
+  position: fixed;
+  z-index: 1110;
+  width: 100%;
+  bottom: 0;
+  left: 0;
 
   .flash {
-    padding   : 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
+    padding: 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
     text-align: center;
-    display   : block;
-    overflow  : visible;
-    width     : 100%;
-    z-index   : 9999;
+    display: block;
+    overflow: visible;
+    width: 100%;
+    z-index: 9999;
     max-height: 150px;
 
     &.ng-enter,
     &.ng-move {
       transition: all 432ms ease-in-out;
       transform: scaleY(0);
-      padding   : 0;
+      padding: 0;
       max-height: 0;
-      opacity   : 0;
+      opacity: 0;
 
       &.ng-enter-active,
       &.ng-move-active {
-        padding   : 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
+        padding: 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
         transform: scaleY(1);
         max-height: 70px;
-        opacity   : 1;
+        opacity: 1;
       }
     }
 
     &.ng-leave {
-      padding   : 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
+      padding: 0 $padding-large-horizontal $padding-large-horizontal $padding-large-vertical;
       transition: all 432ms ease-in-out;
       transform: scaleY(1);
       max-height: 70px;
-      opacity   : 1;
+      opacity: 1;
     }
 
     &.ng-leave-active {
       transform: scaleY(0);
       max-height: 0;
-      padding   : 0;
-      opacity   : 0;
+      padding: 0;
+      opacity: 0;
     }
 
     .alert {
-      padding       : $padding-base-vertical $padding-large-horizontal $padding-base-vertical $padding-base-horizontal;
-      display       : inline-block;
-      position      : relative;
-      cursor        : pointer;
-      margin        : 0 auto;
-      line-height   : 1.618;
+      padding: $padding-base-vertical $padding-large-horizontal $padding-base-vertical $padding-base-horizontal;
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      margin: 0 auto;
+      line-height: 1.618;
       pointer-events: auto;
-      outline       : 0;
+      outline: 0;
 
       i {
         padding-right: $padding-small-horizontal;

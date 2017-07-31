@@ -4,9 +4,9 @@ body {
 
 main {
   background-color: $body-bg;
-  padding-top     : $navbar-height;
-  padding-bottom  : $navbar-height;
-  display         : block;
+  padding-top: $navbar-height;
+  padding-bottom: $navbar-height;
+  display: block;
 }
 
 footer {
@@ -16,19 +16,19 @@ footer {
 .navbar {
   .navbar-brand {
     img {
-      max-height  : ($navbar-height - $navbar-padding-vertical);
-      display     : inline-block;
+      max-height: ($navbar-height - $navbar-padding-vertical);
+      display: inline-block;
       margin-right: $padding-base-horizontal;
-      margin-top  : -($navbar-padding-vertical / 2);
+      margin-top: -($navbar-padding-vertical / 2);
     }
   }
 }
 
 //- Custom navbar styles
 .navbar-fold {
-  @include transition(transform 200ms ease);
+  transition: transform 200ms ease;
 }
 
 .navbar-folded {
-  @include translate(0, -100%);
+  transform: translate(0, -100%);
 }
