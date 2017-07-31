@@ -1,7 +1,5 @@
 'use strict';
 
-const PACKAGE = require(__basedir + '/package.json');
-
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const base64url = require('base64url');
@@ -24,7 +22,7 @@ try {
 }
 
 var config = {
-  name: PACKAGE.name + '.sid',
+  name: 'QdwWfltMqNP2',
   saveUninitialized: true,
   secret: secret,
   resave: true,
@@ -36,7 +34,9 @@ var config = {
   }),
 
   cookie: {
-    secure: process.env.NODE_ENV === 'production' // Serve secure cookies in production (requires HTTPS)
+    secure: process.env.NODE_ENV === 'production', // Serve secure cookies in production (requires HTTPS)
+    httpOnly: true,
+    sameSite: true
   }
 };
 
