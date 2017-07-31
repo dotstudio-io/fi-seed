@@ -1,12 +1,19 @@
 {
   "env": {
     "browser": false,
-    "es6": true,
-    "node": true
+    "node": true,
+    "es6": true
   },
   "extends": "eslint:recommended",
   "rules": {
     "no-console": "off",
+    "require-jsdoc": "warn",
+    "valid-jsdoc": ["warn", {
+      "requireReturn": false,
+      "prefer": {
+        "return": "returns"
+      }
+    }],
     "indent": [
       "error",
       2

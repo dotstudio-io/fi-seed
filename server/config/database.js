@@ -3,24 +3,40 @@
 const debug = require('debug')('app:database');
 const mongoose = require('mongoose');
 
-/* This will use the 'name' property in your package.json as the database name */
-const DB = require(__basedir + '/package.json').name;
+const PACKAGE = require(__basedir + '/package.json');
+const TESTING = process.env.NODE_ENV == 'testing';
 const SERVER = 'localhost';
+const DB = PACKAGE.name + (TESTING ? '-test' : '');
 
-const uri = `mongodb://${ SERVER }/${ DB }`;
-const options = {
-  // db: { native_parser: true },
-  // server: { poolSize: 5 },
-  // replset: { rs_name: 'myReplicaSetName' },
-  // user: 'myUserName',
-  // pass: 'myPassword'
+const USERNAME = null;
+const PASSWORD = null;
+
+var options = {
+  useMongoClient: true
 };
 
+/* Set default mongoose promise */
+mongoose.Promise = Promise;
+
 module.exports = () => {
-  return mongoose.connect(uri, options).then(() => {
-    debug('Mongoose successfuly connected to [%s]', DB);
-  }).catch((err) => {
-    debug(err.stack);
-    panic('Couldn\'t connect to database [%s]!', DB);
-  });
+
+  var connectUri = 'mongodb://';
+
+  if (USERNAME && PASSWORD) {
+    connectUri += `${ USERNAME }:${ PASSWORD }@`;
+  }
+
+  connectUri += `${ SERVER }/${ DB }`;
+
+  return mongoose.connect(connectUri, options)
+
+    .then(() => {
+      debug('Mongoose successfuly connected to [%s]', DB);
+    })
+
+    .catch(err => {
+      debug(err);
+      panic('Couldn\'t connect to database [%s]!', DB);
+    });
+
 };

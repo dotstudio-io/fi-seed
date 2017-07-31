@@ -1,20 +1,22 @@
 {
   "apps": [{
-    "name": "savpa-public",
+    "name": "fi-seed",
     "script": "server",
     "watch": [
       "package.json",
       "server/**/*"
     ],
-    "env": {
+    "env_preproduction": {
       "NODE_ENV": "testing",
       "DEBUG": "app:*"
     },
     "env_production": {
-      "NODE_ENV": "testing"
+      "NODE_ENV": "testing",
+      "DEBUG": "app:*"
     },
-    "env_preproduction": {
-      "NODE_ENV": "preproduction"
+    "env": {
+      "NODE_ENV": "testing",
+      "DEBUG": "app:*"
     }
   }]
 }
