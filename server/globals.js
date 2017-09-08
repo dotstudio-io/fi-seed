@@ -11,9 +11,9 @@ const CLI_FAT = '\x1b[1m';
 
 const PARTIALS = path.join('schemas', 'partials');
 const COMPONENTS = 'components';
-const CONFIG = 'config';
+const CONFIGS = 'configs';
 
-module.exports = (global) => {
+module.exports = global => {
 
   /* The base application directory path */
   global.__basedir = path.normalize(path.join(__dirname, '..'));
@@ -37,36 +37,49 @@ module.exports = (global) => {
   /**
    * Requires a file relative to the server folder.
    *
-   * @param {String} dirpath The relative directory route.
+   * @param {String} relpath The relative directory route.
    * @param {String} name The file name to require.
+   *
+   * @returns {Mixed} The required file contents.
    */
-  function include(dirpath, name) {
-    var target = path.normalize(path.join(__serverdir, dirpath, name));
+  function include(relpath, name) {
+    var target = path.normalize(path.join(__serverdir, relpath, name));
 
-    debug('Including --> %s:%s', dirpath, name);
+    debug('Including --> %s:%s', relpath, name);
 
     /* Try to require the module */
     return require(target);
   }
 
   /**
-   * Requires a config file.
+   * Requiress a config file.
    *
-   * @param {String} name The file name.
+   * @param {String} name The config name.
+   *
+   * @returns {Mixed} The required file contents.
    */
   function config(name) {
-    return include(CONFIG, name);
+    return include(CONFIGS, name);
   }
 
   /**
-   * Require a component.
+   * Requires a component.
    *
    * @param {String} name The component name.
+   *
+   * @returns {Mixed} The required file contents.
    */
   function component(name) {
     return include(COMPONENTS, name);
   }
 
+  /**
+   * Requires a schema partial file.
+   *
+   * @param {String} name The partial name.
+   *
+   * @returns {Mixed} The required file contents.
+   */
   function partial(name) {
     var dirname = path.dirname(name);
     var basename = path.basename(name);

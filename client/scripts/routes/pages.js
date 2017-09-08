@@ -27,7 +27,7 @@
     controller: 'Pages:Error'
   };
 
-    /* Pages Error route definition */
+  /* Pages Error route definition */
   var pagesForbiddenRouteDef = {
     templateUrl: '/assets/templates/pages/forbidden.html',
     controller: 'Pages:Forbidden'
@@ -39,7 +39,9 @@
   };
 
   /**
-   * Pages routes configuration.
+   * Configures pages routes.
+   *
+   * @param {$RouteProvider} $routeProvider AngularJS route provider.
    */
   function pagesRoutesConfigFn($routeProvider) {
     $routeProvider.when('/', pagesHomeRouteDef)
@@ -50,7 +52,7 @@
       .otherwise(otherwiseRouteDef);
   }
 
-  /* Define AngularJS configuration */
+  /* Perform AngularJS configuration */
   ng.module('App').config([
     '$routeProvider',
 

@@ -5,89 +5,84 @@ const errors = require('fi-errors');
 const is = require('fi-is');
 
 const {
-
   BadRequestError
-
 } = errors;
 
-module.exports = (router) => {
-
-  /**
-   * Check if is a const value or folder.
-   *    
-   * @param {String} dirname This is the const value being processed.
-   * @returns {Boolean}
-   */
-  function isConstsFolder(dirname) {
-
-    // To be a const file every value must be an string.
-    for (let key in dirname) {
-      if (!is.string(dirname[key])) {
-        return true;
-      }
+/**
+ * Checks if value is an object.
+ *
+ * @param {String} value This is the const value being processed.
+ *
+ * @returns {Boolean} Whether the const is a folder.
+ */
+function isValueAnObject(value) {
+  for (let key in value) {
+    /* One of it's values must be a JSON */
+    if (!is.string(value[key])) {
+      return true;
     }
-
-    return false;
   }
 
-  /**
-   *  Walks the consts tree to process the correct consts values.
-   * 
-   * @param {String} filename This is the const value being processed.
-   * @param {Object || null} [dirname=CONSTS] This is the consts tree level. Defaults to CONSTS.
-   * 
-   * @returns The processed consts values in a { key : [values] } format.
-   */
-  function resolveConst(filename, dirname = CONSTS) {
-    var thisConst = dirname[filename];
-    var result;
+  return false;
+}
 
-    // If it's folder recurse over every file.
-    if (isConstsFolder(thisConst)) {
-      // store filenames as property keys
-      result = {};
+/**
+ *  Walks the consts tree to process the correct consts values.
+ *
+ * @param {String} key This is the const value being processed.
+ * @param {any} [obj=CONSTS] This is the consts tree level.
+ *
+ * @returns {Object|Array} The processed consts values.
+ */
+function resolve(key, obj = CONSTS) {
+  let value = obj[key];
+  let result;
 
-      for (let file in thisConst) {
-        result[file.toLowerCase()] = resolveConst(file, thisConst);
-      }
+  if (isValueAnObject(value)) {
+    /* Recurse over every file if const is a folder */
+    result = {};
 
-      // If it's not a folder store every const value in an array.      
-    } else {
-      // store consts values in an array
-      result = [];
-
-      for (let key in thisConst) {
-        result.push(thisConst[key]);
-      }
+    for (let attribute in value) {
+      result[attribute.toLowerCase()] = resolve(attribute, value);
     }
+  } else {
+    /* Store every const value in an array if const is not a folder */
+    result = [];
 
-    return result;
+    for (let key in value) {
+      result.push(value[key]);
+    }
   }
 
+  return result;
+}
+
+module.exports = router => {
+
   /**
-   * Returns consts values requested in the query.
-   * 
-   * The query must be constructed like consts=CONSTNAME 
-   * or consts=CONSTNAME1&&consts=CONSTNAME2  
-   * 
+   * @api {GET} /consts Retrieves constants by name.
+   * @apiName GetConst
+   * @apiGroup Const
+   *
+   * @apiSuccess (200) {Object} data Consts data.
+   *
+   * @apiError (400) {String} empty No const names requested.
    */
   router.get('/', (req, res) => {
 
-    // Force array
     if (is.string(req.query.consts)) {
       req.query.consts = [req.query.consts];
     }
 
-    // Query malformed
     if (is.not.array(req.query.consts) || is.empty(req.query.consts)) {
       throw new BadRequestError();
     }
 
-    var results = {};
+    const results = {};
 
-    req.query.consts.forEach((name) => {
-      var NAME = name.toUpperCase();
-      results[NAME] = resolveConst(NAME);
+    req.query.consts.forEach(name => {
+      const NAME = name.toUpperCase();
+      results[NAME] = resolve(NAME);
     });
 
     res.send(results);

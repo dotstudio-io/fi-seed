@@ -2,7 +2,7 @@
   "extends": "../.eslintrc.json",
   "env": {
     "browser": true,
-    "es6": false,
-    "node": false
+    "node": false,
+    "es6": false
   }
 }

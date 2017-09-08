@@ -12,12 +12,14 @@
 
   /**
    * Main footer directive function.
+   *
+   * @returns {Object} AngularJS Directive definition.
    */
   function mainFooterDirectiveFn() {
     return mainFooterDirectiveDef;
   }
 
-  /* Define AngularJS directive */
+  /* Declare AngularJS directive */
   ng.module('App').directive('mainFooter', mainFooterDirectiveFn);
 
 }(window));

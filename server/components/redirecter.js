@@ -2,29 +2,24 @@
 
 const ENV = process.env.NODE_ENV;
 
-const PREPRODUCTION = ENV === 'preproduction';
 const DEVELOPMENT = ENV === 'development';
 const TESTING = ENV === 'testing';
 
-const HTTPS = 'https://';
-const WWW = 'www.';
-
+/**
+ * Enforces www as sub domain if none present.
+ *
+ * @param {Object} req Express request object.
+ * @param {Object} res Express response object.
+ * @param {Object} next Express next middleware callback.
+ *
+ * @returns {void}
+ */
 module.exports = (req, res, next) => {
-  if (DEVELOPMENT || TESTING || PREPRODUCTION) {
+  if (DEVELOPMENT || TESTING || req.subdomains.length) {
     return next();
   }
 
-  if ((req.secure && req.subdomains.length)) {
-    return next();
-  }
-
-  var url = HTTPS;
-
-  if (!req.subdomains.length) {
-    url += WWW;
-  }
-
-  url += req.hostname + req.originalUrl;
+  const url = `${ req.protocol }://www.${ req.hostname }${ req.originalUrl}`;
 
   res.redirect(url);
 };

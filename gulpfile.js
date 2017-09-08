@@ -17,7 +17,10 @@ const paths = {
 
 /**** Output file names ****/
 const outfiles = {
-  scripts: 'client',
+  scripts: {
+    deps: 'deps',
+    app: 'app'
+  },
   styles: 'client'
 };
 
@@ -41,14 +44,24 @@ gulp.task('scripts:clean', () => {
   del.sync(paths.dest.scripts);
 });
 
-gulp.task('scripts:minify', ['scripts:clean'], () => {
-  var files = paths.source.scripts.min.concat(paths.source.scripts.all);
-  return scripts(outfiles.scripts, files, true, paths.dest.scripts);
+gulp.task('scripts:minify:deps', () => {
+  const files = paths.source.scripts.min;
+  return scripts(outfiles.scripts.deps, files, true, paths.dest.scripts);
 });
 
-gulp.task('scripts:compile', () => {
-  var files = paths.source.scripts.dev.concat(paths.source.scripts.all);
-  return scripts(outfiles.scripts, files, false, paths.dest.scripts);
+gulp.task('scripts:minify:app', () => {
+  const files = paths.source.scripts.app;
+  return scripts(outfiles.scripts.app, files, true, paths.dest.scripts);
+});
+
+gulp.task('scripts:compile:deps', () => {
+  const files = paths.source.scripts.dev;
+  return scripts(outfiles.scripts.deps, files, false, paths.dest.scripts);
+});
+
+gulp.task('scripts:compile:app', () => {
+  const files = paths.source.scripts.app;
+  return scripts(outfiles.scripts.app, files, false, paths.dest.scripts);
 });
 
 /**** TEMPLATES ****/
@@ -58,7 +71,7 @@ gulp.task('templates:clean', () => {
   del.sync(paths.dest.templates);
 });
 
-gulp.task('templates:minify', ['templates:clean'], () => {
+gulp.task('templates:minify', () => {
   return templates(paths.source.templates, true, paths.dest.templates);
 });
 
@@ -73,13 +86,13 @@ gulp.task('styles:clean', () => {
   del.sync(paths.dest.styles);
 });
 
-gulp.task('styles:minify', ['styles:clean'], () => {
-  var files = paths.source.styles;
+gulp.task('styles:minify', () => {
+  const files = paths.source.styles;
   return styles(outfiles.styles, files, true, paths.dest.styles);
 });
 
 gulp.task('styles:compile', () => {
-  var files = paths.source.styles;
+  const files = paths.source.styles;
   return styles(outfiles.styles, files, false, paths.dest.styles);
 });
 
@@ -90,7 +103,7 @@ gulp.task('locales:clean', () => {
   del.sync(paths.dest.locales);
 });
 
-gulp.task('locales:minify', ['locales:clean'], () => {
+gulp.task('locales:minify', () => {
   return locales(paths.source.locales, true, paths.dest.locales);
 });
 
@@ -99,46 +112,55 @@ gulp.task('locales:compile', () => {
 });
 
 /**** FONTS ****/
+const fonts = require('./build/fonts');
+
 gulp.task('fonts:clean', () => {
-  del.sync(paths.dest.fonts);
+  // NOTE: DON'T! Will delete custom fonts too.
+  // del.sync(paths.dest.fonts);
 });
 
 gulp.task('fonts:copy', () => {
-  return gulp.src(paths.source.fonts).
-  pipe(gulp.dest(paths.dest.fonts)).on('error', console.log.bind(console));
+  return fonts(paths.source.fonts, paths.dest.fonts);
 });
 
 /**** TASKS ****/
 /* Clean dest folders only */
-gulp.task('clean', ['scripts:clean', 'styles:clean', 'templates:clean', 'locales:clean', 'fonts:clean']);
+gulp.task('clean', [
+  'scripts:clean', 'styles:clean', 'templates:clean', 'locales:clean',
+  'fonts:clean'
+]);
 
 /* Compile all without minification */
-gulp.task('compile', ['scripts:compile', 'styles:compile', 'templates:compile', 'locales:compile', 'fonts:copy']);
+gulp.task('compile', [
+  'scripts:compile:deps', 'scripts:compile:app', 'styles:compile',
+  'templates:compile', 'locales:compile', 'fonts:copy'
+]);
 
 /* Compile and minify all */
-gulp.task('default', ['scripts:minify', 'styles:minify', 'templates:minify', 'locales:minify', 'fonts:copy']);
+gulp.task('default', [
+  'clean', 'scripts:minify:deps', 'scripts:minify:app', 'styles:minify',
+  'templates:minify', 'locales:minify', 'fonts:copy'
+]);
 
 /**** WATCH ****/
 
 /* Watcher tasks */
 const watchers = [
-  [paths.watch.components, ['reload:paths', 'compile']],
-  [paths.watch.paths, ['reload:paths', 'compile']],
+  [paths.watch.components, ['reload:paths', 'clean', 'compile']],
+  [paths.watch.paths, ['reload:paths', 'clean', 'compile']],
+  [paths.watch.scripts.deps, ['scripts:compile:deps']],
+  [paths.watch.scripts.app, ['scripts:compile:app']],
   [paths.watch.templates, ['templates:compile']],
   [paths.watch.locales, ['locales:compile']],
-  [paths.watch.scripts, ['scripts:compile']],
   [paths.watch.styles, ['styles:compile']]
 ];
 
-/* Watch error handler */
-function errorHandler(err) {
-  console.error(err);
-}
-
 /* Watch for file changes */
-gulp.task('watch', ['compile'], () => {
+gulp.task('watch', ['clean', 'compile'], () => {
+  global.isWatching = true;
+
   /* Load watchers */
   for (let i = 0, l = watchers.length; i < l; i++) {
-    gulp.watch.apply(gulp, watchers[i]).on(ERROR, errorHandler);
+    gulp.watch.apply(gulp, watchers[i]).on(ERROR, console.error.bind(console));
   }
 });

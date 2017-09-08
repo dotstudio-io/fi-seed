@@ -1,40 +1,39 @@
 'use strict';
 
 const CONSTS = require('fi-consts');
-
 const bcrypt = require('bcrypt');
 const is = require('fi-is');
 
-/* Genders */
 const GENDER_FEMALE = CONSTS.GENDERS.FEMALE;
 const GENDER_MALE = CONSTS.GENDERS.MALE;
-
-/* Roles */
 const ROLE_ADMIN = CONSTS.ROLES.ADMIN;
 const ROLE_USER = CONSTS.ROLES.USER;
 
-/* Password hashing rounds */
 const HASH_ROUNDS = 8;
 
 const PASSWORD = 'password';
 const EMAIL = 'email';
 const USER = 'user';
 
-module.exports = (Schema) => {
+module.exports = Schema => {
+
+  const OPTIONS = partial('options');
 
   const schema = new Schema({
 
     name: {
       type: String,
-      required: true
+      required: true,
+      trim: true
     },
 
     email: {
       type: String,
       required: true,
       unique: true,
-      index: true,
-      validate: (val) => is.email(val)
+      trim: true,
+      lowercase: true,
+      validate: is.email
     },
 
     password: {
@@ -58,51 +57,63 @@ module.exports = (Schema) => {
       ]
     }
 
-  }, {
-
-    timestamps: true
-
-  });
+  }, OPTIONS);
 
   /**
-   * Hash user's password before saving.
+   * Hashes user's password before saving.
+   *
+   * @param {Function} next Mongoose next middleware callback.
+   *
+   * @returns {void}
    */
   function preSavePassword(next) {
     if (!this.isModified(PASSWORD)) {
-      next();
+      return next();
     }
 
-    return bcrypt.hash(this.password, HASH_ROUNDS).then((hash) => {
-      this.password = hash;
-      next();
-    }).catch(next);
+    return bcrypt.hash(this.password, HASH_ROUNDS)
+
+      .then(hash => {
+        this.password = hash;
+        next();
+      })
+
+      .catch(next);
   }
 
   /**
-   * Hash user's password before updating.
+   * Hashes user's password before updating.
+   *
+   * @param {Function} next Mongoose next middleware callback.
+   *
+   * @returns {void}
    */
   function preUpdatePassword(next) {
-    var update = this._update;
+    const update = this._update;
 
     if (!update.$set || !update.$set.password) {
       return next();
     }
 
-    return bcrypt.hash(update.$set.password, HASH_ROUNDS).then((hash) => {
-      this.update({}, {
-        password: hash
-      });
+    return bcrypt.hash(update.$set.password, HASH_ROUNDS)
 
-      next();
-    }).catch(next);
+      .then(hash => {
+        this.update({}, {
+          password: hash
+        });
+
+        next();
+      })
+
+      .catch(next);
   }
 
   /**
-   * Find a user by it's email (Promised).
+   * Creates a find User by email query promise.
    *
    * @param {String} email The email to filter by.
    *
-   * @return {Promise}
+   * @returns {Promise} The find promise.
    */
   function findByEmail(email) {
     return this.model(USER).findOne()

@@ -3,7 +3,7 @@
     "HOME": {
       "TITLE": "¡Hola, Fi Seed!",
       "SUBTITLE": "Bienvenido a la plantilla básica. Está basada en Bootstrap así que probablemente puedas usarla rápidamente.",
-      "LEARN-MORE": "Ver más",
+      "LEARN_MORE": "Ver más",
 
       "COLUMNS": {
         "1": {

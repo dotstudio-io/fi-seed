@@ -10,12 +10,12 @@
 
   "templates": [
     "client/templates/**/*.pug",
-    "!**/_includes/**/*.pug",
-    "!**/_mixins/**/*.pug"
+    "!client/templates/_mixins/**/*.pug"
   ],
 
   "styles": [
-    "bower_components/font-awesome/scss/font-awesome.scss",
+    "bower_components/angular-loading-bar/build/loading-bar.css",
+    "bower_components/font-awesome/css/font-awesome.css",
     "bower_components/angular/angular-csp.css",
     "client/styles/client.scss"
   ],
@@ -31,7 +31,9 @@
       "bower_components/ng-session/dist/ng-session.js",
       "bower_components/ng-flashes/dist/ng-flashes.js",
       "bower_components/angular-translate/angular-translate.js",
-      "bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"
+      "bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js",
+      "bower_components/angular-loading-bar/build/loading-bar.js",
+      "bower_components/ng-authorize/dist/ng-authorize.min.js"
     ],
 
     "min": [
@@ -44,10 +46,12 @@
       "bower_components/ng-session/dist/ng-session.min.js",
       "bower_components/ng-flashes/dist/ng-flashes.min.js",
       "bower_components/angular-translate/angular-translate.min.js",
-      "bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"
+      "bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
+      "bower_components/angular-loading-bar/build/loading-bar.min.js",
+      "bower_components/ng-authorize/dist/ng-authorize.min.js"
     ],
 
-    "all": [
+    "app": [
       "client/scripts/app.js",
 
       "client/scripts/services/**/*.js",

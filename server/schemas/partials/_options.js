@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+
   timestamps: true,
 
   toObject: {
@@ -10,4 +11,5 @@ module.exports = {
   toJSON: {
     virtuals: true
   }
+
 };

@@ -3,13 +3,11 @@
 require('./globals')(global);
 require('colors');
 
-const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PACKAGE = require(__basedir + '/package.json');
 
-/**** Modules *****/
+const credentials = require('fi-credentials');
 const compression = require('compression');
 const bodyParser = require('body-parser');
-const requireDir = require('require-dir');
 const favicon = require('serve-favicon');
 const security = require('fi-security');
 const schemas = require('fi-schemas');
@@ -20,97 +18,86 @@ const routes = require('fi-routes');
 const express = require('express');
 const logger = require('morgan');
 const auth = require('fi-auth');
-const https = require('https');
 const http = require('http');
 const path = require('path');
 
-/* Load constants before other components */
-CONSTS.load(config('consts'));
-errors.config(config('errors'));
-
-/* Load components */
-const serverUtils = component('server-utils');
-const healthCheck = component('health-check');
-const redirecter = component('redirecter');
-
-/**** Application ****/
 const app = express();
 
-/* Disable Powered By Express header */
 app.disable('x-powered-by');
 
-/**** Configuration ****/
-const configs = requireDir(__serverdir + '/config');
+credentials.load(config('credentials'))
 
-/**** Setup ****/
-mongoose.Promise = Promise;
+  .then(() => {
+    CONSTS.load(config('consts'));
 
-app.locals.environment = process.env.NODE_ENV;
-app.locals.description = PACKAGE.description;
-app.locals.basedir = configs.views.basedir;
-app.locals.version = PACKAGE.version;
-app.locals.title = PACKAGE.title;
-app.locals.stage = PACKAGE.stage;
-app.locals.name = PACKAGE.name;
+    app.locals.environment = process.env.NODE_ENV;
+    app.locals.description = PACKAGE.description;
+    app.locals.basedir = config('views').basedir;
+    app.locals.version = PACKAGE.version;
+    app.locals.title = PACKAGE.title;
+    app.locals.stage = PACKAGE.stage;
+    app.locals.name = PACKAGE.name;
 
-app.set('view engine', configs.views.engine);
-app.set('views', configs.views.basedir);
-app.set('trust proxy', 1);
+    app.set('view engine', config('views').engine);
+    app.set('views', config('views').basedir);
+    app.set('trust proxy', 1);
 
-/**** Settings ****/
-app.use(compression());
-app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev'));
-app.use(healthCheck);
-app.use(favicon(path.join('client', 'assets', 'favicon.png')));
-app.use(redirecter);
-app.use(configs.assets.route, express.static(configs.assets.basedir));
-app.use(configs.session.cookieParser);
-app.use(configs.session.middleware);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded(configs['body-parser'].urlencoded));
+    app.use(compression());
+    app.use(favicon(path.join('client', 'assets', 'favicon.ico')));
+    app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev'));
+    app.use(component('health-check'));
+    app.use(component('redirecter'));
+    app.use(config('assets').route, express.static(config('assets').basedir));
+    app.use(config('session').cookieParser);
+    app.use(config('session').middleware);
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded(config('body-parser').urlencoded));
 
-/**** Initialization ****/
+    errors.config(config('errors'));
 
-/* Configure database (mongoose) */
-configs.database().then(() => {
-  /* Registers schemas (mongoose) */
-  schemas(mongoose, configs.schemas);
+    /* Connect to database */
+    return component('database')();
+  })
 
-  /* Setup application security */
-  security(app, configs.security);
+  .then(() => schemas(config('schemas')))
 
-  /* Set routes auth */
-  auth(app, configs.auth);
+  .then(() => {
+    /* Setup application security */
+    security(app, config('security'));
 
-  /* Register application  routes */
-  routes(app, configs.routes);
+    /* Set routes auth */
+    auth(app, config('auth'));
 
-  /* Register route error handlers */
-  app.use(errors.notFoundMiddleware);
-  app.use(errors.handler);
+    /* Register application  routes */
+    routes(app, config('routes'));
 
-  /* Initalize server */
-  var server;
+    /* Register route error handlers */
+    app.use(errors.notFoundMiddleware);
+    app.use(errors.handler);
 
-  if (DEVELOPMENT) {
-    server = https.createServer(configs.server.credentials, app);
-  } else {
-    server = http.createServer(app);
-  }
+    /* Initalize server */
+    const serverUtils = component('server-utils');
+    const server = http.createServer(app);
 
-  server.listen(configs.server.port);
+    server.listen(config('server').port);
 
-  server.once('listening', () => {
-    console.log(`\n  Server is listening on ${ serverUtils.getBind(server) }\n`.bold);
+    server.once('listening', () => {
+      console.log(`\n  Server is listening on ${ serverUtils.getBind(server) }\n`.bold);
+    });
+
+    server.on('error', serverUtils.onServerError);
   });
-
-  server.on('error', serverUtils.onServerError);
-});
 
 process.once('SIGINT', () => {
   console.log('\n\n  Shutting down server...\n'.bold);
 
-  /* You may put any cleanup script here */
+  mongoose.disconnect().then(() => {
+    console.log('  Disconnected from database!\n'.bold);
+    process.exit();
+  }).catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
 
-  process.exit();
+  /* You may put any other cleanup scripts here */
 });

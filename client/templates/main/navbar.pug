@@ -1,5 +1,7 @@
 nav.navbar.navbar-default.navbar-fixed-top.navbar-fold(
-  ng-class='{ "navbar-folded": folded }')
+  ng-class=`{
+    'navbar-folded': folded
+  }`)
 
   .container
     .navbar-header
@@ -28,15 +30,19 @@ nav.navbar.navbar-default.navbar-fixed-top.navbar-fold(
             span(translate='NAVBAR.SIGN_OUT')
 
         li(
-          ng-class='{ active: location === "/users/sign-in" }',
-          ng-hide='$root.session.user')
+          ng-hide='$root.session.user',
+          ng-class=`{
+            active: location === '/users/sign-in'
+          }`)
 
           a(ng-href='/users/sign-in')
             span(translate='NAVBAR.SIGN_IN')
 
         li(
-          ng-class='{ active: location === "/users/sign-up" }',
-          ng-hide='$root.session.user')
+          ng-hide='$root.session.user',
+          ng-class=`{
+            active: location === '/users/sign-up'
+          }`)
 
           a(ng-href='/users/sign-up')
             span(translate='NAVBAR.SIGN_UP')

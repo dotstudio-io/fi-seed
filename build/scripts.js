@@ -1,19 +1,18 @@
 'use strict';
 
+const expect = require('gulp-expect-file');
+const remember = require('gulp-remember');
 const plumber = require('gulp-plumber');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
+const cache = require('gulp-cached');
+const gulpif = require('gulp-if');
 const gulp = require('gulp');
 
-const ERR_BUILD = '\n  Error building scripts!\n';
+const OPTIONS = require('./options');
+const CACHE_NAME = 'scripts';
 
-const SCRIPTS = 'scripts';
-const DOT_MIN = '.min';
-const DOT_JS = '.js';
-const END = 'end';
-const NONE = '';
-
-const OPTS_UGLIFY_MIN = {
+const OPTS_UGLIFY = {
   mangle: true,
   compress: {
     drop_console: true,
@@ -21,35 +20,11 @@ const OPTS_UGLIFY_MIN = {
   }
 };
 
-const OPTS_UGLIFY_DEV = {
-  compress: false,
-  mangle: false,
-  output: {
-    beautify: true,
-    comments: true
-  }
-};
-
-const OPTS_DIR = {
-  showHidden: true,
-  colors: true,
-  depth: 8
-};
-
-const OPTS_PLUMBER = {
-  errorHandler: function (err) {
-    console.error(ERR_BUILD);
-    console.dir(err, OPTS_DIR);
-
-    this.emit(END);
-  }
-};
-
-module.exports = (name, files, min, dest) => {
-  return gulp.src(files)
-    .pipe(plumber(OPTS_PLUMBER))
-    .pipe(uglify(min ? OPTS_UGLIFY_MIN : OPTS_UGLIFY_DEV))
-    .pipe(concat(name + (min ? DOT_MIN : NONE) + DOT_JS))
-    .pipe(gulp.dest(dest))
-    .on('error', console.log.bind(console));
-};
+module.exports = (name, files, min, dest) => gulp.src(files)
+  .pipe(plumber(OPTIONS.PLUMBER))
+  .pipe(expect.real(files))
+  .pipe(gulpif(global.isWatching, cache(CACHE_NAME, OPTIONS.CACHE)))
+  .pipe(gulpif(global.isWatching, remember(CACHE_NAME)))
+  .pipe(gulpif(min, uglify(OPTS_UGLIFY)))
+  .pipe(concat(`${ name }${ min ? '.min' : '' }.js`))
+  .pipe(gulp.dest(dest));

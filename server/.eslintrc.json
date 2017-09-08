@@ -1,10 +1,12 @@
 {
   "extends": "../.eslintrc.json",
   "globals": {
-    "component": false,
-    "config": false,
-    "panic": false,
+    "__serverdir": false,
     "__basedir": false,
-    "__serverdir": false
+
+    "component": false,
+    "partial": false,
+    "config": false,
+    "panic": false
   }
 }

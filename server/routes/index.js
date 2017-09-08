@@ -2,10 +2,14 @@
 
 const PAGES_MAIN = 'pages/main';
 
-module.exports = (router) => {
+module.exports = router => {
 
   /**
-   * Define all public routes here.
+   * @api {GET} / Loads default app view for front-end views.
+   * @apiName GetApp
+   * @apiGroup App
+   *
+   * @apiSuccess (200) {String} html App base template.
    */
   router.get([
     /* Pages */
@@ -23,13 +27,6 @@ module.exports = (router) => {
     res.render(PAGES_MAIN, {
       host: `${ req.protocol }://${ req.get('host') }`
     });
-
-  });
-
-  /* Test error pages */
-  router.get('/test/error', (req, res, next) => {
-
-    next(new Error('Test Error Message'));
 
   });
 

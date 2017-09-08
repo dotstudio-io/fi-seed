@@ -4,12 +4,18 @@
   var ng = window.angular;
 
   /**
-   * Main navbar directive function.
+   * Main Navbar Directive function.
+   *
+   * @param {Function} $location AngularJS Location service.
+   * @param {Function} $timeout AngularJS Timeout service.
+   *
+   * @returns {Object} AngularJS Directive definition.
    */
-  function mainNavbarDirectiveFn($location, $http, $timeout) {
-
+  function mainNavbarDirectiveFn($location, $timeout) {
     /**
      * Main navbar directive link function.
+     *
+     * @param {Object} $scope Directive scope.
      */
     function mainNavbarDirectiveLinkFn($scope) {
       var lastScrollTop = 0;
@@ -20,6 +26,8 @@
 
       /**
        * Sets the folding state of the navbar.
+       *
+       * @param {Boolean} folded Whether the navbar is folded.
        */
       function setFolding(folded) {
         $scope.folded = folded;
@@ -102,7 +110,7 @@
 
   /* Define AngularJS directive */
   ng.module('App').directive('mainNavbar', [
-    '$location', '$http', '$timeout',
+    '$location', '$timeout',
 
     mainNavbarDirectiveFn
   ]);

@@ -13,34 +13,50 @@ const PORT_SP = 'port ';
 const ERR_EADDRINUSE = '\n  Bind [%s:%s] is already in use!\n'.bold.red;
 const ERR_EACCES = '\n  Bind [%s:%s] requires elevated privileges!\n'.bold.red;
 
+/**
+ * Retrieves the server binding.
+ *
+ * @param {Object} server The server.
+ *
+ * @returns {String} The binding string.
+ */
 function getBind(server) {
-  var addr = server.address();
+  const addr = server.address();
 
   if (addr) {
-    return is.string(addr) ? PIPE_SP + addr : PORT_SP + addr.port;
+    if (is.string(addr)) {
+      return PIPE_SP + addr;
+    }
+
+    return PORT_SP + addr.port;
   }
 
   return UNKNOWN_BIND;
 }
 
-function onServerError(error) {
-  if (error.syscall !== LISTEN) {
-    throw error;
+/**
+ * Handles a server listen error.
+ *
+ * @param {Error} err The error object.
+ */
+function onServerError(err) {
+  if (err.syscall !== LISTEN) {
+    throw err;
   }
 
-  switch (error.code) {
+  switch (err.code) {
   case EACCES:
-    console.error(ERR_EACCES, error.address, error.port);
+    console.error(ERR_EACCES, err.address, err.port);
     process.exit(1);
     break;
 
   case EADDRINUSE:
-    console.error(ERR_EADDRINUSE, error.address, error.port);
+    console.error(ERR_EADDRINUSE, err.address, err.port);
     process.exit(1);
     break;
 
   default:
-    throw error;
+    throw err;
   }
 }
 

@@ -4,30 +4,32 @@
   var ng = window.angular;
 
   /**
-   * Sign out resolve.
+   * Sign out resolve function. Signs the user out or reloads current page
+   * if failed.
+   *
+   * @param {Object} $location AngularJS Location service.
+   * @param {Object} $window AngularJS Window service.
+   * @param {Object} $session Session service.
+   * @param {Object} $flash Flashes service.
+   *
+   * @returns {Promise} The session sign out promise.
    */
   function usersSignOutResolveFn($location, $window, $session, $flash) {
-    /**
-     * Sign out succeeded.
-     */
-    function signOutSuccess() {
+    return $session.signOut().then(function signOutSuccess() {
       $flash.success('USERS.SIGN_OUT.FLASHES.SUCCESS.TITLE', 'USERS.SIGN_OUT.FLASHES.SUCCESS.MESSAGE');
-      $location.path('/');
-    }
-
-    /**
-     * Sign out failed.
-     */
-    function signOutFailed() {
+      $location.path('/users/sign-in');
+    }, function signOutError() {
       $flash.danger('USERS.SIGN_OUT.FLASHES.ERROR.TITLE', 'USERS.SIGN_OUT.FLASHES.ERROR.MESSAGE');
       $window.history.back();
-    }
-
-    return $session.signOut().then(signOutSuccess, signOutFailed);
+    });
   }
 
   /**
    * Consts resolve function.
+   *
+   * @param {Object} $consts Consts service.
+   *
+   * @returns {Promise} Consts HTTP promise.
    */
   function constsResolveFn($consts) {
     return $consts.get(['roles', 'genders']);
@@ -42,7 +44,11 @@
 
   /* Users sign up route resolve definition */
   var usersSignUpResolveDef = {
-    consts: ['$consts', constsResolveFn]
+    consts: [
+      '$consts',
+
+      constsResolveFn
+    ]
   };
 
   /* Users sign up route definition */
@@ -67,7 +73,9 @@
   };
 
   /**
-   * Users routes configuration.
+   * Configures users routes.
+   *
+   * @param {$RouteProvider} $routeProvider AngularJS route provider.
    */
   function usersRoutesConfigFn($routeProvider) {
     $routeProvider.when('/users/sign-up', usersSignUpRouteDef)
@@ -75,7 +83,7 @@
       .when('/users/sign-in', usersSignInRouteDef);
   }
 
-  /* Define AngularJS configuration */
+  /* Perform AngularJS configuration */
   ng.module('App').config([
     '$routeProvider',
 

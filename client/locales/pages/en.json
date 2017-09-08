@@ -3,7 +3,7 @@
     "HOME": {
       "TITLE": "Hello, Fi Seed!",
       "SUBTITLE": "Welcome to the base template. It's based on Bootstrap so you might find you way around quickly.",
-      "LEARN-MORE": "Learn more",
+      "LEARN_MORE": "Learn more",
 
       "COLUMNS": {
         "1": {

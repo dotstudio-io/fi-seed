@@ -4,11 +4,18 @@
   var ng = window.angular;
 
   /**
-   * User Sign Up controller function.
+   * User Sign Up Controller.
+   *
+   * @param {Object} $scope Controller scope.
+   * @param {Function} $http AngularJS HTTP service.
+   * @param {Object} $location AngularJS Location service.
+   * @param {Object} $session Session service.
+   * @param {Object} $flash Flashes service.
+   * @param {Object} consts Consts resolved data.
    */
   function UsersSignUpController($scope, $http, $location, $session, $flash, consts) {
     /**
-     * Signing in is successful.
+     * Signing In success callback.
      */
     function signInSuccess() {
       $flash.success('USERS.SIGN_UP.FLASHES.SUCCESS.TITLE', 'USERS.SIGN_UP.FLASHES.SUCCESS.MESSAGE');
@@ -16,15 +23,17 @@
     }
 
     /**
-     * Signing in has failed.
+     * Signing In error callback.
      */
     function signInError() {
-      $session.danger('USERS.SIGN_UP.FLASHES.ERROR.TITLE', 'USERS.SIGN_UP.FLASHES.ERROR.MESSAGE');
+      $flash.danger('USERS.SIGN_UP.FLASHES.ERROR.TITLE', 'USERS.SIGN_UP.FLASHES.ERROR.MESSAGE');
       $scope.submitting = false;
     }
 
     /**
-     * Submitting is successful.
+     * Submit success callback.
+     *
+     * @returns {Promise} Sign In HTTP promise.
      */
     function submitSuccess() {
       return $session.signIn($scope.data)
@@ -32,7 +41,9 @@
     }
 
     /**
-     * Submitting has failed.
+     * Submit error callback.
+     *
+     * @param {Object} res AngularJS HTTP response object.
      */
     function submitFailed(res) {
       if (res.status === 409) {
@@ -47,7 +58,7 @@
     }
 
     /**
-     * Submit the form and attempt a sign up.
+     * Submits the form data and signs the user in.
      */
     function submit() {
       $scope.submitting = true;
@@ -62,7 +73,7 @@
     $scope.submit = submit;
   }
 
-  /* Define AngularJS controller */
+  /* Declare AngularJS Controller */
   ng.module('App').controller('Users:SignUp', [
     '$scope', '$http', '$location', 'ngSession', 'ngFlashes', 'consts',
 

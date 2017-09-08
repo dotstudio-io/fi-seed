@@ -11,7 +11,7 @@
 
     p
       button.btn.btn-success(
-        ng-click='$flash.success("PAGES.THEME.FLASHES.SUCCESS.TITLE", "PAGES.THEME.FLASHES.SUCCESS.MESSAGE")',
+        ng-click=`$flash.success('PAGES.THEME.FLASHES.SUCCESS.TITLE', 'PAGES.THEME.FLASHES.SUCCESS.MESSAGE')`,
         type='button')
 
         span(translate='PAGES.THEME.SUCCESS')
@@ -19,7 +19,7 @@
       | &ensp;
 
       button.btn.btn-info(
-        ng-click='$flash.info("PAGES.THEME.FLASHES.INFO.TITLE", "PAGES.THEME.FLASHES.INFO.MESSAGE")',
+        ng-click=`$flash.info('PAGES.THEME.FLASHES.INFO.TITLE', 'PAGES.THEME.FLASHES.INFO.MESSAGE')`,
         type='button')
 
         span(translate='PAGES.THEME.INFO')
@@ -27,7 +27,7 @@
       | &ensp;
 
       button.btn.btn-warning(
-        ng-click='$flash.warning("PAGES.THEME.FLASHES.SUCCESS.TITLE", "PAGES.THEME.FLASHES.SUCCESS.MESSAGE")',
+        ng-click=`$flash.warning('PAGES.THEME.FLASHES.SUCCESS.TITLE', 'PAGES.THEME.FLASHES.SUCCESS.MESSAGE')`,
         type='button')
 
         span(translate='PAGES.THEME.WARNING')
@@ -35,7 +35,7 @@
       | &ensp;
 
       button.btn.btn-danger(
-        ng-click='$flash.danger("PAGES.THEME.FLASHES.DANGER.TITLE", "PAGES.THEME.FLASHES.DANGER.MESSAGE")',
+        ng-click=`$flash.danger('PAGES.THEME.FLASHES.DANGER.TITLE', 'PAGES.THEME.FLASHES.DANGER.MESSAGE')`,
         type='button')
 
         span(translate='PAGES.THEME.DANGER')
@@ -324,14 +324,16 @@
 
         .form-group
           label Picture
-          label.btn.btn-default.btn-block(for='input-file-a') Select your picture
+          label.btn.btn-default.btn-block(for='input-file-a')
+            | Select your picture
+
           input.hidden#input-file-a(type='file')
           p.help-block Upload your best looking picture.
 
         .checkbox
           label
             input(type='checkbox')
-            |&thinsp;
+            | &#32;
             | Check me out
 
         button.btn.btn-primary(type='button')
@@ -340,21 +342,27 @@
     .col-sm-6
       form.form-horizontal
         .form-group
-          label.col-sm-2.control-label(for='input-email-b') Email
+          label.col-sm-2.control-label(for='input-email-b')
+            | Email
+
           .col-sm-10
             input#input-email-b.form-control(
               placeholder='Email',
               type='email')
 
         .form-group
-          label.col-sm-2.control-label(for='input-password-b') Password
+          label.col-sm-2.control-label(for='input-password-b')
+            | Password
+
           .col-sm-10
             input#input-password-b.form-control(
               placeholder='Password',
               type='password')
 
         .form-group
-          label.col-sm-2.control-label(for='input-options-b') Options
+          label.col-sm-2.control-label(for='input-options-b')
+            | Options
+
           .col-sm-10
             select#input-options-b.form-control
               option(value='', hidden) Select an option
@@ -367,7 +375,7 @@
             .checkbox
               label
                 input(type='checkbox')
-                |&thinsp;
+                | &#32;
                 | Remember me
 
         .form-group
@@ -505,15 +513,13 @@
 
   p
     a(href='#')
-      | Inbox
-      |&thinsp;
+      | Inbox&#32;
       span.badge 42
 
   ul.nav.nav-pills(role='tablist')
     li.active(role='presentation')
       a(href='#')
-        | Home
-        |&thinsp;
+        | Home &#32;
         span.badge 42
 
     li(role='presentation')
@@ -521,8 +527,7 @@
 
     li(role='presentation')
       a(href='#')
-        | Messages
-        |&thinsp;
+        | Messages&#32;
         span.badge 3
 
   .page-header
@@ -534,8 +539,7 @@
       aria-haspopup='true',
       type='button')
 
-      | Dropdown
-      | &thinsp;
+      | Dropdown&#32;
       i.fa.fa-caret-down
 
     ul.dropdown-menu(aria-labelledby='dropdown-menu-one')
@@ -614,8 +618,7 @@
               role='button',
               href='')
 
-              | Dropdown
-              | &thinsp;
+              | Dropdown&#32;
               i.fa.fa-caret-down
 
             ul.dropdown-menu
@@ -669,8 +672,7 @@
               role='button',
               href='')
 
-              | Dropdown
-              | &thinsp;
+              | Dropdown&#32;
               i.fa.fa-caret-down
 
             ul.dropdown-menu
@@ -698,19 +700,19 @@
 
   .alert.alert-success(role='alert')
     strong Well done!
-    |&ensp;You successfully read this important alert message.
+    | &ensp;You successfully read this important alert message.
 
   .alert.alert-info(role='alert')
     strong Heads up!
-    |&ensp;This alert needs your attention, but it&apos;s not super important.
+    | &ensp;This alert needs your attention, but it&apos;s not super important.
 
   .alert.alert-warning(role='alert')
     strong Warning!
-    |&ensp;Best check yo self, you&apos;re not looking too good.
+    | &ensp;Best check yo self, you&apos;re not looking too good.
 
   .alert.alert-danger(role='alert')
     strong Oh snap!
-    |&ensp;Change a few things up and try submitting again.
+    | &ensp;Change a few things up and try submitting again.
 
   .page-header
     h1 Progress bars

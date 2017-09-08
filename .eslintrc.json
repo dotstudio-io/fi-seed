@@ -1,11 +1,15 @@
 {
   "env": {
     "browser": false,
-    "node": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
   "extends": "eslint:recommended",
   "rules": {
+    "no-unused-vars": ["error", {
+      "argsIgnorePattern": "^_",
+      "args": "all"
+    }],
     "no-console": "off",
     "require-jsdoc": "warn",
     "valid-jsdoc": ["warn", {

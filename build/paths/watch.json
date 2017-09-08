@@ -1,8 +1,14 @@
 {
-  "components": "bower_components/**/bower.json",
+  "components": [
+    "bower_components/**/.bower.json",
+    "bower_components/**/bower.json"
+  ],
   "templates": "client/templates/**/*.pug",
   "locales": "client/locales/**/*.json",
-  "scripts": "client/scripts/**/*.js",
+  "scripts": {
+    "deps": "bower_components/**/*.js",
+    "app": "client/scripts/**/*.js"
+  },
   "styles": "client/styles/**/*.scss",
   "paths": "build/paths/*.json"
 }
