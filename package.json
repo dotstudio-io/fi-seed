@@ -54,8 +54,9 @@
     "development": "pm2 start ecosystem.config.js --env development",
     "production": "pm2 start ecosystem.config.js --env production",
     "staging": "pm2 start ecosystem.config.js --env staging",
-    "test": "bash test/scripts/run.sh $npm_package_name",
+    "testdev": "NODE_ENV=development npm test",
     "postdev": "pm2 logs $npm_package_name",
+    "test": "node_modules/.bin/mocha",
     "start": "npm run production",
     "dev": "npm run development"
   },
