@@ -50,17 +50,19 @@ credentials.load(config('credentials'))
     app.use(component('health-check'));
     app.use(component('redirecter'));
     app.use(config('assets').route, express.static(config('assets').basedir));
-    app.use(cookieParser(config('session')).secret);
+    app.use(cookieParser(config('session').secret));
     app.use(session(config('session')));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded(config('body-parser').urlencoded));
 
+    /* Configure errors module */
     errors.config(config('errors'));
 
     /* Connect to database */
     return component('database')();
   })
 
+  /* Load schemas */
   .then(() => schemas(config('schemas')))
 
   .then(() => {
