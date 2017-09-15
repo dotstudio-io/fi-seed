@@ -10,8 +10,8 @@ const LISTEN = 'listen';
 const PIPE_SP = 'pipe ';
 const PORT_SP = 'port ';
 
-const ERR_EADDRINUSE = '\n  Bind [%s:%s] is already in use!\n'.bold.red;
-const ERR_EACCES = '\n  Bind [%s:%s] requires elevated privileges!\n'.bold.red;
+const ERR_EADDRINUSE = 'Bind [%s:%s] is already in use!'.bold.red;
+const ERR_EACCES = 'Bind [%s:%s] requires elevated privileges!'.bold.red;
 
 /**
  * Retrieves the server binding.

@@ -86,17 +86,17 @@ credentials.load(config('credentials'))
     server.listen(config('server').port);
 
     server.once('listening', () => {
-      console.log(`\n  Server is listening on ${ serverUtils.getBind(server) }\n`.bold);
+      console.log(`[${ process.env.NODE_ENV }] Server is listening on ${ serverUtils.getBind(server) }`.bold);
     });
 
     server.on('error', serverUtils.onServerError);
   });
 
 process.once('SIGINT', () => {
-  console.log('\n\n  Shutting down server...\n'.bold);
+  console.log('Shutting down server...\n'.bold);
 
   mongoose.disconnect().then(() => {
-    console.log('  Disconnected from database!\n'.bold);
+    console.log('Disconnected from database!\n'.bold);
     process.exit();
   }).catch(err => {
     console.error(err);
