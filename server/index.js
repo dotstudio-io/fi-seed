@@ -6,6 +6,8 @@ require('colors');
 const PACKAGE = require(__basedir + '/package.json');
 
 const credentials = require('fi-credentials');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const compression = require('compression');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
@@ -48,8 +50,8 @@ credentials.load(config('credentials'))
     app.use(component('health-check'));
     app.use(component('redirecter'));
     app.use(config('assets').route, express.static(config('assets').basedir));
-    app.use(config('session').cookieParser);
-    app.use(config('session').middleware);
+    app.use(cookieParser(config('session')).secret);
+    app.use(session(config('session')));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded(config('body-parser').urlencoded));
 

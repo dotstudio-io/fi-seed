@@ -1,13 +1,12 @@
 'use strict';
 
 const credentials = require('fi-credentials').get('session');
-const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
-const config = {
+module.exports = {
   secret: credentials.secret,
   saveUninitialized: true,
   name: 'Session',
@@ -24,7 +23,3 @@ const config = {
     secure: PRODUCTION
   }
 };
-
-module.exports.cookieParser = cookieParser(credentials.secret);
-module.exports.middleware = session(config);
-module.exports.config = config;
