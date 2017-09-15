@@ -5,14 +5,11 @@
   },
   "globals": {
     "__serverdir": false,
-    "__testdir": false,
     "__basedir": false,
-    "mongoose": false,
-    "expect": false,
-    "moment": false,
+
+    "component": false,
+    "partial": false,
     "config": false,
-    "utils": false,
-    "mock": false,
-    "req": false
+    "panic": false
   }
 }
