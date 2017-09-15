@@ -4,7 +4,7 @@
   "main": "server/index.js",
   "description": "A boilerplate for applications with Node.js + Express + MongoDB on the backend and AngularJS on the frontend (aka MEAN).",
   "color": "#b8dc3b",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "private": false,
   "license": "MIT",
   "author": "Final Development Studio <sorcery@finaldevstudio.com> (https://finaldevstudio.com)",
