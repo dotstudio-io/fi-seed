@@ -8,7 +8,7 @@ const request = require('request');
 
 const PORT = config('server').port;
 
-describe('Business Chat: Managers', function () {
+describe('Fi Seed', function () {
 
   before(function (done) {
     credentials.load(config('credentials'))
