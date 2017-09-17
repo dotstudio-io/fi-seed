@@ -52,15 +52,8 @@ module.exports = () => {
 
   debug('Mongoose connecting to [%s]...', connectUri);
 
-  return mongoose.connect(connectUri, options)
-
-    .then(() => {
-      debug('Mongoose successfuly connected to [%s]', dbname);
-    })
-
-    .catch(err => {
-      debug(err);
-      panic('Couldn\'t connect to database [%s]!', dbname);
-    });
+  return mongoose.connect(connectUri, options).then(() => {
+    debug('Mongoose successfuly connected to [%s]', dbname);
+  });
 
 };

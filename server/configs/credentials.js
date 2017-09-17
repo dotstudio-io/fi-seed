@@ -1,5 +1,6 @@
 'use strict';
 
+const fi = require('fi-utils');
 const path = require('path');
 
 const ENVIRONMENT = process.env.NODE_ENV;
@@ -20,7 +21,7 @@ module.exports = {
   },
 
   local: {
-    path: path.normalize(path.join(__basedir, FILENAME))
+    path: path.normalize(path.join(fi.basedir(), FILENAME))
   }
 
 };

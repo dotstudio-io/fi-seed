@@ -1,3 +1,0 @@
-// Can't link to the bower components path directly in the build sources path
-// since it's filename is underscored and it will be ignored by gulp-sass
-@import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
