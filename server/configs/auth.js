@@ -10,7 +10,7 @@ module.exports = {
 
   debug: require('debug')('app:auth'),
 
-  authorizer: req => {
+  authorizer: (req) => {
     if (req.session.user && req.session.user.roles) {
       return req.session.user.roles;
     }

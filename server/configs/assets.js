@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
 
-  basedir: path.join('client', 'assets'),
+  basedir: path.join('client', 'dist'),
 
   route: '/assets'
 

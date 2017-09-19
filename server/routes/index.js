@@ -2,7 +2,7 @@
 
 const PAGES_MAIN = 'pages/main';
 
-module.exports = router => {
+module.exports = (router) => {
 
   /**
    * @api {GET} / Loads default app view for front-end views.

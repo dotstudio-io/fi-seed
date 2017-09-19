@@ -33,7 +33,7 @@ module.exports = {
     '11000': 'ConflictError'
   },
 
-  shouldDebug: err => !err.code || err.code > 399,
+  shouldDebug: (err) => !err.code || err.code > 399,
 
   debug: require('debug')('app:errors')
 

@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const security = require('fi-security');
 const schemas = require('fi-schemas');
-const mongoose = require('mongoose');
 const errors = require('fi-errors');
 const CONSTS = require('fi-consts');
 const routes = require('fi-routes');
@@ -19,7 +18,11 @@ const fi = require('fi-utils');
 const http = require('http');
 const path = require('path');
 
-fi.init();
+fi.init({
+  basedir: path.resolve(path.join(__dirname, '..')),
+  serverdir: path.resolve(__dirname),
+  debug: require('debug')('app:fi')
+});
 
 const PACKAGE = require(fi.basedir() + '/package.json');
 
@@ -44,9 +47,10 @@ credentials.load(fi.config('credentials'))
     app.set('views', fi.config('views').basedir);
     app.set('trust proxy', 1);
 
+    /* App middlewares */
     app.use(compression());
-    app.use(favicon(path.join('client', 'assets', 'favicon.ico')));
-    app.use(logger(app.get('env') === 'production' ? 'tiny' : 'dev'));
+    app.use(favicon(fi.config('favicon')));
+    app.use(logger(fi.config('logger')));
     app.use(fi.component('health-check'));
     app.use(fi.component('redirecter'));
     app.use(fi.config('assets').route, express.static(fi.config('assets').basedir));
@@ -59,11 +63,11 @@ credentials.load(fi.config('credentials'))
     errors.config(fi.config('errors'));
 
     /* Connect to database */
-    return fi.component('database')();
+    return fi.component('database').connect();
   })
 
   /* Load schemas */
-  .then(() => schemas(fi.config('schemas')))
+  .then(() => schemas.load(fi.config('schemas')))
 
   .then(() => {
     /* Setup application security */
@@ -86,7 +90,7 @@ credentials.load(fi.config('credentials'))
     server.listen(fi.config('server').port);
 
     server.once('listening', () => {
-      console.log(`[${ process.env.NODE_ENV }] Server is listening on ${ serverUtils.getBind(server) }`.bold);
+      console.log(`[${ process.env.NODE_ENV }] Server is listening on ${ serverUtils.getBind(server) }`);
     });
 
     server.on('error', serverUtils.onServerError);
@@ -96,12 +100,12 @@ credentials.load(fi.config('credentials'))
  * SIGINT listener.
  */
 process.once('SIGINT', () => {
-  console.log('Shutting down server...\n'.bold);
+  console.log('Shutting down server...\n');
 
-  mongoose.disconnect().then(() => {
-    console.log('Disconnected from database!\n'.bold);
+  fi.component('database').disconnect().then(() => {
+    console.log('Disconnected from database!\n');
     process.exit();
-  }).catch(err => {
+  }).catch((err) => {
     console.error(err);
     process.exit(1);
   });

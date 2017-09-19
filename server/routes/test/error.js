@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = router => {
+module.exports = (router) => {
 
   /**
    * @api {GET} /test/error Test the error page.

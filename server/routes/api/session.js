@@ -67,7 +67,7 @@ module.exports = (router, db) => {
       .where(ID).equals(req.session.user._id)
       .select(USER_SELECT)
 
-      .then(user => {
+      .then((user) => {
         if (is.empty(user)) {
           throw new BadRequestError();
         }

@@ -57,7 +57,7 @@ function resolve(key, obj = CONSTS) {
   return result;
 }
 
-module.exports = router => {
+module.exports = (router) => {
 
   /**
    * @api {GET} /consts Retrieves constants by name.
@@ -80,7 +80,7 @@ module.exports = router => {
 
     const results = {};
 
-    req.query.consts.forEach(name => {
+    req.query.consts.forEach((name) => {
       const NAME = name.toUpperCase();
       results[NAME] = resolve(NAME);
     });

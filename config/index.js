@@ -1,11 +1,14 @@
+'use strict';
+
 // see http://vuejs-templates.github.io/webpack for documentation.
-var path = require('path')
+const path = require('path');
 
 module.exports = {
+
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../dist/index.html'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    index: path.resolve(__dirname, path.join('..', 'client', 'dist', 'index.html')),
+    assetsRoot: path.resolve(__dirname, path.join('..', 'client', 'dist')),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     productionSourceMap: true,
@@ -21,6 +24,7 @@ module.exports = {
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
   },
+
   dev: {
     env: require('./dev.env'),
     port: 8080,
@@ -35,4 +39,5 @@ module.exports = {
     // just be aware of this issue when enabling this option.
     cssSourceMap: false
   }
-}
+
+};

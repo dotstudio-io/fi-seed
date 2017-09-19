@@ -1,9 +1,15 @@
-var fs = require('fs')
-var UglifyJS = require('uglify-es')
+'use strict';
 
-module.exports = function(filePath) {
-  var code = fs.readFileSync(filePath, 'utf-8')
-  var result = UglifyJS.minify(code)
-  if (result.error) return ''
-  return result.code
-}
+const uglify = require('uglify-es');
+const fs = require('fs');
+
+module.exports = (filePath) => {
+  const code = fs.readFileSync(filePath, 'utf-8');
+  const result = uglify.minify(code);
+
+  if (result.error) {
+    return '';
+  }
+
+  return result.code;
+};

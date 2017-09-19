@@ -1,7 +1,7 @@
 'use strict';
 
-const randomInt = require('random-int');
 const errors = require('fi-errors');
+const rint = require('random-int');
 const bcrypt = require('bcrypt');
 const is = require('fi-is');
 
@@ -36,7 +36,7 @@ module.exports = (router, db) => {
 
     User.findByEmail(req.body.email)
 
-      .then(user => {
+      .then((user) => {
         if (is.empty(user)) {
           return next();
         }
@@ -44,7 +44,7 @@ module.exports = (router, db) => {
         /* Validate password */
         return bcrypt.compare(req.body.password, user.password)
 
-          .then(matches => {
+          .then((matches) => {
             if (matches) {
               req.session.user = user.toObject();
 
@@ -60,7 +60,7 @@ module.exports = (router, db) => {
   }, (_req, _res, next) => {
 
     /* Respond unauthorized with a delay on wrong credentials */
-    setTimeout(next, randomInt(DELAY_MIN, DELAY_MAX));
+    setTimeout(next, rint(DELAY_MIN, DELAY_MAX));
 
   }, () => {
 

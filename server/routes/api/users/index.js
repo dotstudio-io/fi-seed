@@ -27,7 +27,7 @@ module.exports = (router, db) => {
 
     User.create(req.body)
 
-      .then(user => {
+      .then((user) => {
         if (is.empty(user)) {
           throw new BadRequestError();
         }
@@ -64,7 +64,7 @@ module.exports = (router, db) => {
 
     User.update(conditions, doc)
 
-      .then(raw => {
+      .then((raw) => {
         if (raw.nModified < 1) {
           throw new BadRequestError();
         }

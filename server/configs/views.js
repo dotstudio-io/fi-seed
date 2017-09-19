@@ -1,10 +1,11 @@
 'use strict';
 
+const fi = require('fi-utils');
 const path = require('path');
 
 module.exports = {
 
-  basedir: path.join(__serverdir, 'views'),
+  basedir: path.join(fi.serverdir(), 'views'),
 
   engine: 'pug'
 

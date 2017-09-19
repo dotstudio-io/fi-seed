@@ -4,12 +4,7 @@ block vars
 
 doctype html
 
-html(
-  ng-strict-di=!development,
-  ng-app='App',
-  lang='en',
-  ng-csp)
-
+html(lang='en')
   head
     title=title
 
@@ -20,7 +15,7 @@ html(
 
     //- Manifest
     link(
-      href='/assets/manifest.json',
+      href='/assets/static/manifest.json',
       rel='manifest')
 
     include head/icons

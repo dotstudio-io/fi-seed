@@ -13,12 +13,11 @@ const options = {
 };
 
 /**
- * Connects to the database.
+ * Resolves credentials, endpoints and connects to the database.
  *
- * @returns {Promise} The Mongoose connection promise.
+ * @returns {Promise} Mongoose connection promise.
  */
-module.exports = () => {
-
+function connect() {
   let connectUri = 'mongodb://';
 
   /* Check if a username and password has been provided */
@@ -55,5 +54,21 @@ module.exports = () => {
   return mongoose.connect(connectUri, options).then(() => {
     debug('Mongoose successfuly connected to [%s]', dbname);
   });
+}
+
+/**
+ * Disconnects from database.
+ *
+ * @returns {Promise} Mongoose disconnect promise.
+ */
+function disconnect() {
+  return mongoose.disconnect();
+}
+
+module.exports = {
+
+  disconnect,
+
+  connect
 
 };

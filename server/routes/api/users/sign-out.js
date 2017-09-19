@@ -4,7 +4,7 @@ const CONSTS = require('fi-consts');
 
 const HTTP_CODE_NO_CONTENT = CONSTS.CODES.HTTP.NO_CONTENT;
 
-module.exports = router => {
+module.exports = (router) => {
 
   /**
    * @api {POST} /user Signs a User out.

@@ -1,11 +1,28 @@
 'use strict';
 
+const fi = require('fi-utils');
 const path = require('path');
 
 module.exports = {
 
-  basedir: path.normalize(path.join(__serverdir, 'schemas')),
+  partialsdir: path.normalize(path.join(fi.serverdir(), 'schemas', 'partials')),
 
-  debug: require('debug')('app:schemas')
+  basedir: path.normalize(path.join(fi.serverdir(), 'schemas')),
+
+  debug: require('debug')('app:schemas'),
+
+  arguments: [{
+
+    timestamps: true,
+
+    toObject: {
+      virtuals: true
+    },
+
+    toJSON: {
+      virtuals: true
+    }
+
+  }]
 
 };

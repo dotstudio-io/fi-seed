@@ -1,13 +1,7 @@
 'use strict';
 
-const CONSTS = require('fi-consts');
+const schemas = require('fi-schemas');
 const bcrypt = require('bcrypt');
-const is = require('fi-is');
-
-const GENDER_FEMALE = CONSTS.GENDERS.FEMALE;
-const GENDER_MALE = CONSTS.GENDERS.MALE;
-const ROLE_ADMIN = CONSTS.ROLES.ADMIN;
-const ROLE_USER = CONSTS.ROLES.USER;
 
 const HASH_ROUNDS = 8;
 
@@ -15,49 +9,9 @@ const PASSWORD = 'password';
 const EMAIL = 'email';
 const USER = 'user';
 
-module.exports = Schema => {
+module.exports = (Schema, options) => {
 
-  const OPTIONS = partial('options');
-
-  const schema = new Schema({
-
-    name: {
-      type: String,
-      required: true,
-      trim: true
-    },
-
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      lowercase: true,
-      validate: is.email
-    },
-
-    password: {
-      type: String,
-      required: true
-    },
-
-    gender: {
-      type: String,
-      enum: [
-        GENDER_FEMALE, GENDER_MALE
-      ]
-    },
-
-    roles: {
-      type: [String],
-      default: [ROLE_USER],
-      required: true,
-      enum: [
-        ROLE_ADMIN, ROLE_USER
-      ]
-    }
-
-  }, OPTIONS);
+  const schema = new Schema(schemas.partial('user'), options);
 
   /**
    * Hashes user's password before saving.
@@ -73,7 +27,7 @@ module.exports = Schema => {
 
     return bcrypt.hash(this.password, HASH_ROUNDS)
 
-      .then(hash => {
+      .then((hash) => {
         this.password = hash;
         next();
       })
@@ -97,7 +51,7 @@ module.exports = Schema => {
 
     return bcrypt.hash(update.$set.password, HASH_ROUNDS)
 
-      .then(hash => {
+      .then((hash) => {
         this.update({}, {
           password: hash
         });
