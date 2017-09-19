@@ -4,6 +4,8 @@
 
   h2 Essential Links
 
+  a(href='/world') See the world!
+
   ul
     li
       a(href='https://vuejs.org', target='_blank', rel='noopener') Core Docs
