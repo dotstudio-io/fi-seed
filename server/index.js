@@ -18,15 +18,13 @@ const fi = require('fi-utils');
 const http = require('http');
 const path = require('path');
 
-fi.init({
-  basedir: path.resolve(path.join(__dirname, '..')),
-  serverdir: path.resolve(__dirname),
-  debug: require('debug')('app:fi')
-});
+fi.init(require(path.join(__dirname, 'configs', 'utils')));
 
-const PACKAGE = require(fi.basedir() + '/package.json');
+const PACKAGE = require(path.join(fi.basedir(), 'package.json'));
 
 const app = express();
+
+let server;
 
 app.disable('x-powered-by');
 
@@ -47,13 +45,18 @@ credentials.load(fi.config('credentials'))
     app.set('views', fi.config('views').basedir);
     app.set('trust proxy', 1);
 
+    /* Initilize webpack dev and hot reload */
+    if (process.env.NODE_ENV === 'development') {
+      fi.component('webpack')(app);
+    }
+
     /* App middlewares */
     app.use(compression());
     app.use(favicon(fi.config('favicon')));
     app.use(logger(fi.config('logger')));
     app.use(fi.component('health-check'));
     app.use(fi.component('redirecter'));
-    app.use(fi.config('assets').route, express.static(fi.config('assets').basedir));
+    app.use(fi.config('static').route, express.static(fi.config('static').basedir));
     app.use(cookieParser(fi.config('session').secret));
     app.use(session(fi.config('session')));
     app.use(bodyParser.json());
@@ -85,22 +88,29 @@ credentials.load(fi.config('credentials'))
 
     /* Initalize server */
     const serverUtils = fi.component('server-utils');
-    const server = http.createServer(app);
 
-    server.listen(fi.config('server').port);
+    server = http.createServer(app);
 
-    server.once('listening', () => {
-      console.log(`[${ process.env.NODE_ENV }] Server is listening on ${ serverUtils.getBind(server) }`);
+    server.listen(fi.config('server').port, (err) => {
+      if (err) {
+        return serverUtils.onServerError(err);
+      }
+
+      const bind = serverUtils.getBind(server);
+
+      console.log(`[${ process.env.NODE_ENV }] Server is listening on ${ bind }`);
     });
-
-    server.on('error', serverUtils.onServerError);
   });
 
 /**
  * SIGINT listener.
  */
 process.once('SIGINT', () => {
-  console.log('Shutting down server...\n');
+  console.log('Shutting down application...\n');
+
+  if (server) {
+    server.close();
+  }
 
   fi.component('database').disconnect().then(() => {
     console.log('Disconnected from database!\n');

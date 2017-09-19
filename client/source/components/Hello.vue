@@ -4,7 +4,7 @@
 
   h2 Essential Links
 
-  a(href='/world') See the world!
+  a(href='/world') Hello, Fi Seed!
 
   ul
     li

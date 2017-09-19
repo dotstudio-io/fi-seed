@@ -1,5 +1,7 @@
 'use strict';
 
+const is = require('fi-is');
+
 const ENV = process.env.NODE_ENV;
 
 const DEVELOPMENT = ENV === 'development';
@@ -15,7 +17,7 @@ const TESTING = ENV === 'testing';
  * @returns {void}
  */
 module.exports = (req, res, next) => {
-  if (DEVELOPMENT || TESTING || req.subdomains.length) {
+  if (DEVELOPMENT || TESTING || req.subdomains.length || is.ip(req.hostname)) {
     return next();
   }
 

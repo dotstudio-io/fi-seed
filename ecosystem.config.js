@@ -25,12 +25,14 @@ const APP_PATH = path.normalize(path.resolve(
   path.join(path.sep, 'app', 'deploy', 'to', PACKAGE.name)
 ));
 
+let exec_mode = 'cluster';
 let instances = 0;
 let watch;
 
-/* Set development options */
+/* Set development app options */
 if (ENVIRONMENT === DEVELOPMENT) {
-  instances = 2;
+  exec_mode = 'fork';
+  instances = 1;
   watch = [
     'package.json',
     'server'
@@ -46,8 +48,8 @@ module.exports = {
   apps: [{
     name: PACKAGE.name,
     script: PACKAGE.main,
-    exec_mode: 'cluster',
     instances,
+    exec_mode,
     env: {},
     watch,
     env_development: {

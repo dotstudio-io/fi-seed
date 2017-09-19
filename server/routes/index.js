@@ -4,6 +4,11 @@ const PAGES_MAIN = 'pages/main';
 
 module.exports = (router) => {
 
+  /* We don't want to serve these files on development */
+  if (process.env.NODE_ENV === 'development') {
+    return;
+  }
+
   /**
    * @api {GET} / Loads default app view for front-end views.
    * @apiName GetApp
@@ -11,17 +16,7 @@ module.exports = (router) => {
    *
    * @apiSuccess (200) {String} html App base template.
    */
-  router.get([
-    /* Pages */
-    '/', '/theme',
-
-    /* Error routes */
-    '/forbidden', '/lost', '/error',
-
-    /* Users */
-    '/users/sign-up', '/users/sign-in', '/users/sign-out'
-
-  ], (req, res) => {
+  router.get(/(?!\/api|\/static)\/?.*/, (req, res) => {
 
     /* Render the base layout */
     res.render(PAGES_MAIN, {
