@@ -1,3 +1,7 @@
+---
+### No longer maintained.
+---
+
 # Fi Seed
 A boilerplate for applications with Node.js + Express + MongoDB on the backend and AngularJS on the frontend (aka MEAN).
 
